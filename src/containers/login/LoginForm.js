@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
-
+import '../login/LoginForm.css'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -13,24 +12,16 @@ class LoginForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
   }
-  componentDidMount() {
-    fetch('http://localhost:8000/api/users').then(response => {
-      console.log(response)
-    })
-  }
 
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
-    console.log(e.target.value)
   }
 
   onLogin(e) {
     e.preventDefault();
-    console.log('mmmmk')
     this.props.onLogin(this.state.username, this.state.password);
-    console.log('accessing login form one')
   }
 
   render() {
@@ -38,6 +29,13 @@ class LoginForm extends Component {
       <div className="container">
         <div className="row">
           <div className="col-sm-12">
+            {this.props.userData.error_message ?
+              <div className="row">
+                <div className="col-sm-12">
+                  <h3 id="error-message">Wrong Username/Password</h3>
+                </div>
+              </div> : ""
+            }
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label className="control-label">Username</label>

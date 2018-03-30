@@ -30,7 +30,7 @@ class Login extends Component {
       <div className="container">
         <div className="row">
           <div className="col-sm-12">
-            <LoginForm onLogin = {this.props.onLogin}/>
+            <LoginForm onLogin = {this.props.onLogin} userData={this.props.userData}/>
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import axios from 'axios'
 
 class Signup extends Component {
@@ -19,12 +18,10 @@ class Signup extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-    console.log(e.target.value)
   }
 
   onSubmit(e) {
     e.preventDefault()
-    // this.props.userSignupRequest(this.state)
     axios.post('http://localhost:8000/api/users', {user: this.state})
   }
 
@@ -60,9 +57,5 @@ class Signup extends Component {
     )
   }
 }
-//
-// Signup.propTypes = {
-//   userSignupRequest: PropTypes.func.isRequired()
-// }
 
 export default Signup

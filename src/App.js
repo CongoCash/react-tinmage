@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Start from '../src/containers/start/Start.js'
 import Navbar from '../src/containers/navbar/Navbar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
-import { Switch, Route } from 'react-router-dom'
-import Login from './containers/login/Login'
+import { myConfig } from './config'
 
 
 class App extends Component {
@@ -16,41 +13,46 @@ class App extends Component {
       username: '',
       password: '',
       logged_in: false,
-      session_id: ''
+      session_id: '',
+      error_message: ''
     }
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
 
   onLogin(username, password) {
-    console.log('accessed original onLogin')
-    axios.post('http://localhost:8000/api/users/login', {username: username, password: password})
+    axios.post(myConfig.api_url + '/api/users/login', {username: username, password: password})
     .then((response) => {
-      console.log(response.data.logged_in);
       if (response.data.logged_in == true) {
         this.setState({
           logged_in: true,
           username: response.data.username,
-          session_id: response.data.session_id
-        }, () => {
-          console.log(this.state)
+          session_id: response.data.session_id,
+          error_message: ''
+        })
+      }
+      else {
+        this.setState({
+          logged_in: false,
+          username: '',
+          password: '',
+          session_id: '',
+          error_message: response.data.error
         })
       }
     })
   }
 
   onLogout() {
-    console.log('logging out');
-    axios.post('http://localhost:8000/api/users/logout')
+    axios.post(myConfig.api_url + '/api/users/logout')
     .then((response) => {
       if (response.data.logged_in == false) {
         this.setState({
           username: '',
           password: '',
           logged_in: false,
-          session_id: ''
-        }, () => {
-          console.log(this.state)
+          session_id: '',
+          error_message: ''
         })
       }
     })
@@ -60,7 +62,7 @@ class App extends Component {
     return (
       <div>
         <Navbar userData={this.state} onLogout={this.onLogout} />
-        <Routes logged_in={this.state.logged_in} onLogin={this.onLogin} />
+        <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
       </div>
     );
   }

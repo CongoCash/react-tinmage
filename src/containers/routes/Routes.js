@@ -26,7 +26,7 @@ class Routes extends Component {
              this.props.logged_in ? (
                <Redirect to="/" />
                ) :
-             <Login onLogin={this.props.onLogin} />
+             <Login onLogin={this.props.onLogin} userData={this.props.userData} />
            )
            }
         />
