@@ -1,5 +1,6 @@
-# Installing React
-npm install -g create-react-app
+# Install dependences
+In command line, run 
+- npm install
 
-#Running Project
+#Running project
 Navigate to project directory and run 'npm start'
