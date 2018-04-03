@@ -20,10 +20,23 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this);
   }
 
+  componentWillMount() {
+    if (localStorage.getItem("username") && localStorage.getItem("session_id")) {
+      this.setState({
+        username: localStorage.getItem("username"),
+        session_id: localStorage.getItem("session_id"),
+        logged_in: true
+      })
+    }
+  }
+
+
   onLogin(username, password) {
     axios.post(myConfig.api_url + '/api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
+        localStorage.setItem("username", response.data.username)
+        localStorage.setItem("session_id", response.data.session_id)
         this.setState({
           logged_in: true,
           username: response.data.username,
@@ -56,6 +69,8 @@ class App extends Component {
         })
       }
     })
+    localStorage.setItem("username", '')
+    localStorage.setItem("session_id", '')
   }
 
   render() {
