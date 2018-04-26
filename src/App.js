@@ -14,7 +14,9 @@ class App extends Component {
       password: '',
       logged_in: false,
       session_id: '',
-      error_message: ''
+      error_message: '',
+      base_url: myConfig.api_url,
+      user_id: ''
     }
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -25,6 +27,7 @@ class App extends Component {
       this.setState({
         username: localStorage.getItem("username"),
         session_id: localStorage.getItem("session_id"),
+        user_id: localStorage.getItem("user_id"),
         logged_in: true
       })
     }
@@ -32,15 +35,18 @@ class App extends Component {
 
 
   onLogin(username, password) {
-    axios.post(myConfig.api_url + '/api/users/login', {username: username, password: password})
+    //fixed login, it had an extra slash
+    axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
         localStorage.setItem("username", response.data.username)
         localStorage.setItem("session_id", response.data.session_id)
+        localStorage.setItem("user_id", response.data.user_id)
         this.setState({
           logged_in: true,
           username: response.data.username,
           session_id: response.data.session_id,
+          user_id: response.data.user_id,
           error_message: ''
         })
       }
@@ -50,14 +56,16 @@ class App extends Component {
           username: '',
           password: '',
           session_id: '',
-          error_message: response.data.error
+          user_id: '',
+          error_message: response.data.error,
         })
       }
     })
   }
 
   onLogout() {
-    axios.post(myConfig.api_url + '/api/users/logout')
+    console.log('logging out')
+    axios.post(this.state.base_url + 'api/users/logout')
     .then((response) => {
       if (response.data.logged_in == false) {
         this.setState({
@@ -65,15 +73,20 @@ class App extends Component {
           password: '',
           logged_in: false,
           session_id: '',
+          user_id: '',
           error_message: ''
+        }, () => {
+          console.log(this.state)
         })
       }
     })
     localStorage.setItem("username", '')
     localStorage.setItem("session_id", '')
+    localStorage.setItem("user_id", '')
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Navbar userData={this.state} onLogout={this.onLogout} />

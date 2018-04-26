@@ -4,6 +4,7 @@ import Start from '../start/Start.js'
 import Upload from '../upload/Upload.js'
 import Login from '../login/Login.js'
 import Signup from '../signup/Signup.js'
+import Image from '../image/Image.js'
 
 
 // The Main component renders one of the three provided
@@ -19,18 +20,35 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path='/' component={Start}/>
-        <Route path='/upload' component={Upload}/>
-        <Route path="/login"
-           render={() => (
-             this.props.logged_in ? (
-               <Redirect to="/" />
-               ) :
-             <Login onLogin={this.props.onLogin} userData={this.props.userData} />
-           )
-           }
+        <Route exact path='/'
+               render={() => (
+                 <Start userData={this.props.userData} />
+               )}/>
+        <Route path='/upload'
+               render={() => (
+                 <Upload userData={this.props.userData} />
+               )}/>
         />
+        <Route path="/login"
+               render={() => (
+                 this.props.logged_in ? (
+                   <Redirect to="/" />
+                   ) :
+                 <Login onLogin={this.props.onLogin} userData={this.props.userData} />
+               )}
+        />
+
         <Route path="/signup" component={Signup}/>
+        {/*<Route path='/profile/:id'*/}
+               {/*render={() => (*/}
+                 {/*<Profile userData={this.props.userData} />*/}
+               {/*)}/>*/}
+        {/*/>*/}
+        <Route path="/images/:id"
+               render={(props) => (
+                   <Image {...props} userData={this.props.userData} />
+               )}
+        />
       </Switch>
     )
   }

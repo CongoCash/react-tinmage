@@ -1,0 +1,30 @@
+.small-image {
+    width: 250px;
+    height: 250px;
+}
+
+.medium-image {
+    width: 500px;
+    height: 500px;
+}
+
+.large-image {
+    width: 1000px;
+    height: 1000px;
+}
+
+.small-button {
+    background-color: green;
+}
+
+.medium-button {
+    background-color: blue;
+}
+
+.large-button {
+    background-color: darkred;
+}
+
+.button-margin {
+    margin-bottom: 50px;
+}
