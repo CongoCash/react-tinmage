@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from '../src/containers/navbar/Navbar.js'
+import Sidebar from '../src/containers/sidebar/Sidebar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
 import { myConfig } from './config'
@@ -75,9 +76,18 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar userData={this.state} onLogout={this.onLogout} />
-        <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
+      <div className="container-fluid">
+        <div className="row">
+          <Navbar userData={this.state} onLogout={this.onLogout} />
+        </div>
+        <div className="row">
+          <div className="col-sm-2">
+            <Sidebar />
+          </div>
+          <div className="col-sm-10">
+            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
+          </div>
+        </div>
       </div>
     );
   }
