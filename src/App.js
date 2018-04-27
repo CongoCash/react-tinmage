@@ -81,7 +81,7 @@ class App extends Component {
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
         <div className="row">
-          <div className="col-sm-2">
+          <div className="col-sm-2 sidebar-design">
             <Sidebar />
           </div>
           <div className="col-sm-10">

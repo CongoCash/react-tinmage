@@ -26,3 +26,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.sidebar-design {
+  border-radius: 25px;
+  background-color: darkslategrey;
+}
