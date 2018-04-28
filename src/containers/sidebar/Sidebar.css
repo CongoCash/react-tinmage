@@ -1,4 +1,16 @@
 .link-design {
-    background-color: grey;
+    background-color: #3a4454;
     margin-bottom: 10px;
+}
+
+.link-text {
+    color: white;
+}
+
+.link-design:hover {
+    background-color: #b51242;
+}
+
+.link-text:hover {
+    color:white;
 }
