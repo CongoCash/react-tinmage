@@ -9,8 +9,11 @@
 
 .link-design:hover {
     background-color: #b51242;
+    text-align: center;
 }
 
 .link-text:hover {
+    text-decoration: none;
     color:white;
+    font-weight: bold;
 }
