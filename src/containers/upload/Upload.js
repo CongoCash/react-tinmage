@@ -16,8 +16,14 @@ class Upload extends Component {
       },
       upload_error: false,
       upload_success: false,
-      image_id: ''
+      image_id: '',
+      default_tags: ['funny', 'gif', 'sports', 'misc'],
+      tags_clicked: {
+        'funny': 0, 'gif': 0, 'sports': 0, 'misc': 0
+      },
+      tags: []
     };
+    this.onTagSelected = this.onTagSelected.bind(this);
   }
 
   onChange = (e) => {
@@ -32,6 +38,14 @@ class Upload extends Component {
     }
 
     this.setState(state);
+  }
+
+  onTagSelected = (e) => {
+    let update_tag = this.state.tags_clicked;
+    update_tag[e.target.value] = update_tag[e.target.value] + 1;
+    this.setState({
+      update_tag
+    })
   }
 
   onSubmit = (e) => {
@@ -77,7 +91,11 @@ class Upload extends Component {
               <h3>You can only upload images.</h3> :
               ""
           }
-          <form onSubmit={this.onSubmit}>
+            {this.state.default_tags.map((tag) => {
+              return <button onClick={this.onTagSelected} value={tag}>{tag}</button>
+              }
+            )}
+            <form onSubmit={this.onSubmit}>
             <input
               type="text"
               name="title"
