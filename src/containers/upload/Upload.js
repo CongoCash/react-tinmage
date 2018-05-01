@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect} from 'react-router-dom'
 import Image from '../image/Image'
+require('./Upload.css')
 
 
 class Upload extends Component {
@@ -21,7 +22,7 @@ class Upload extends Component {
       tags_clicked: {
         'funny': 0, 'gif': 0, 'sports': 0, 'misc': 0
       },
-      tags: []
+      tags: ['zzzmmm']
     };
     this.onTagSelected = this.onTagSelected.bind(this);
   }
@@ -43,6 +44,13 @@ class Upload extends Component {
   onTagSelected = (e) => {
     let update_tag = this.state.tags_clicked;
     update_tag[e.target.value] = update_tag[e.target.value] + 1;
+    if (update_tag[e.target.value] % 2 == 1) {
+      e.target.style.backgroundColor = "red";
+    }
+    else {
+      e.target.style.backgroundColor = "";
+
+    }
     this.setState({
       update_tag
     })
@@ -50,31 +58,45 @@ class Upload extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { title, selectedFile, file_ext } = this.state;
-    if (selectedFile && file_ext[selectedFile.name.split('.').pop()] == true) {
-      let formData = new FormData();
-
-      formData.append('title', title);
-      formData.append('selectedFile', selectedFile);
-      formData.append('user_id', this.props.userData.user_id);
-
-      axios.post('http://localhost:8000/api/upload', formData).then((response) => {
-        console.log(response)
-        this.setState({
-          image_id: response.data.id,
-          upload_error: false,
-          upload_success: true
-        }, () => {
-          console.log(this.state)
-        })
-      });
-    }
-    else {
-      this.setState({
-        upload_error: true,
-        upload_success: false
+    let tags_array = [];
+    let push_tags = new Promise((resolve, reject) => {
+      this.state.default_tags.forEach((tag) => {
+        if (this.state.tags_clicked[tag] % 2 !== 0 && this.state.tags_clicked[tag] > 0) {
+          tags_array.push(tag)
+        }
       })
-    }
+      resolve('it worked')
+    })
+
+    push_tags.then(() => {
+      const { title, selectedFile, file_ext } = this.state;
+      if (selectedFile && file_ext[selectedFile.name.split('.').pop()] == true) {
+        console.log(tags_array);
+        let formData = new FormData();
+
+        formData.append('title', title);
+        formData.append('selectedFile', selectedFile);
+        formData.append('user_id', this.props.userData.user_id);
+        formData.append('tags', tags_array);
+
+        axios.post('http://localhost:8000/api/upload', formData).then((response) => {
+          console.log(response)
+          this.setState({
+            image_id: response.data.id,
+            upload_error: false,
+            upload_success: true
+          }, () => {
+            console.log(this.state)
+          })
+        });
+      }
+      else {
+        this.setState({
+          upload_error: true,
+          upload_success: false
+        })
+      }
+    })
   }
 
   render() {
