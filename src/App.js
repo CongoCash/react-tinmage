@@ -15,7 +15,8 @@ class App extends Component {
       password: '',
       logged_in: false,
       session_id: '',
-      error_message: ''
+      error_message: '',
+      base_url: myConfig.api_url
     }
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -33,7 +34,7 @@ class App extends Component {
 
 
   onLogin(username, password) {
-    axios.post(myConfig.api_url + '/api/users/login', {username: username, password: password})
+    axios.post(this.state.base_url + '/api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
         localStorage.setItem("username", response.data.username)
