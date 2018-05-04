@@ -26,13 +26,13 @@ class Routes extends Component {
         {this.state.categories.map((category) => {
           return <Route path={"/category/:tag"}
             render={(props) => (
-              <Category userData={this.props.userData} {...props} />
+              <Category userData={this.props.userData} handleLike={this.props.handleLike} {...props} />
             )}
           />
         })}
         <Route exact path='/'
           render={() => (
-            <Start userData={this.props.userData} />
+            <Start userData={this.props.userData} handleLike={this.props.handleLike} />
           )}
         />
         <Route path='/upload' component={Upload}/>

@@ -20,6 +20,7 @@ class App extends Component {
     }
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
+    this.handleLike = this.handleLike.bind(this)
   }
 
   componentWillMount() {
@@ -75,6 +76,17 @@ class App extends Component {
     localStorage.setItem("session_id", '')
   }
 
+  handleLike(e) {
+    this.setState({
+      like: this.state.like + 1,
+      image_index: this.state.image_index + 1
+    }, function() {
+      this.setState({
+        current_image_url: this.state.images[this.state.image_index].url
+      })
+    })
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -86,7 +98,8 @@ class App extends Component {
             <Sidebar />
           </div>
           <div className="col-sm-10">
-            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
+            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}
+              handleLike={this.handleLike} />
           </div>
         </div>
       </div>
