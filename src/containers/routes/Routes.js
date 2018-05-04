@@ -23,18 +23,18 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
+        <Route exact path='/'
+               render={(props) => (
+                 <Start userData={this.props.userData} {...props} />
+               )}
+        />
         {this.state.categories.map((category) => {
           return <Route path={"/category/:tag"}
             render={(props) => (
-              <Category userData={this.props.userData} handleLike={this.props.handleLike} {...props} />
+              <Category userData={this.props.userData} {...props} />
             )}
           />
         })}
-        <Route exact path='/'
-          render={() => (
-            <Start userData={this.props.userData} handleLike={this.props.handleLike} />
-          )}
-        />
         <Route path='/upload' component={Upload}/>
         <Route path="/login"
            render={() => (

@@ -76,6 +76,8 @@ class App extends Component {
     localStorage.setItem("session_id", '')
   }
 
+  //create helper file to hold the handleLike/Dislike functions and whatever else I need for the category file
+
   handleLike(e) {
     this.setState({
       like: this.state.like + 1,
