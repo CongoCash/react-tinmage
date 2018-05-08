@@ -25,7 +25,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path='/'
                render={(props) => (
-                 <Start userData={this.props.userData} {...props} />
+                 <Category userData={this.props.userData} {...props} />
                )}
         />
         {this.state.categories.map((category) => {

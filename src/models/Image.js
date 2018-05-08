@@ -13,6 +13,11 @@ class ImagesModel {
     return request
   }
 
+  static postRating(user_id, image_id, status) {
+    let request = axios.post(myConfig.api_url + "/api/images/rating", {user_id: user_id, image_id: image_id, status: status});
+    return request
+  }
+
 }
 
 export default ImagesModel
