@@ -17,7 +17,7 @@ class App extends Component {
       session_id: '',
       error_message: '',
       base_url: myConfig.api_url,
-      user_id: ''
+      user_id: 1
     };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -56,7 +56,7 @@ class App extends Component {
           username: '',
           password: '',
           session_id: '',
-          user_id: '',
+          user_id: 1,
           error_message: response.data.error
         })
       }
@@ -72,7 +72,7 @@ class App extends Component {
           password: '',
           logged_in: false,
           session_id: '',
-          user_id: '',
+          user_id: 1,
           error_message: ''
         })
     }})
