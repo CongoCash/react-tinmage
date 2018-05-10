@@ -76,7 +76,7 @@ class Start extends Component {
 
   handleLike(e) {
     console.log(this.props.userData);
-    ImagesModel.postRating(this.props.userData.username, this.state.images[this.state.image_index].id, "like");
+    ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
     if (this.state.image_index < this.state.images.length-1) {
       this.setState({
@@ -93,10 +93,21 @@ class Start extends Component {
   }
 
   handleDislike(e) {
-    this.setState({
-      dislike: this.state.dislike + 1,
-      image_index: this.state.image_index + 1,
-    })
+    console.log(this.props.userData);
+    ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
+
+    if (this.state.image_index < this.state.images.length-1) {
+      this.setState({
+        dislike: this.state.dislike + 1,
+        image_index: this.state.image_index + 1,
+      })
+    }
+    else {
+      this.setState({
+        dislike: this.state.dislike + 1,
+        image_index: 0
+      })
+    }
   }
 
   hoverLike(e) {
