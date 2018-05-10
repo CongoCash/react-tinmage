@@ -16,8 +16,9 @@ class App extends Component {
       logged_in: false,
       session_id: '',
       error_message: '',
-      base_url: myConfig.api_url
-    }
+      base_url: myConfig.api_url,
+      user_id: ''
+    };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
@@ -27,6 +28,7 @@ class App extends Component {
       this.setState({
         username: localStorage.getItem("username"),
         session_id: localStorage.getItem("session_id"),
+        user_id: localStorage.getItem("user_id"),
         logged_in: true
       })
     }
@@ -37,12 +39,14 @@ class App extends Component {
     axios.post(this.state.base_url + '/api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
-        localStorage.setItem("username", response.data.username)
-        localStorage.setItem("session_id", response.data.session_id)
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("session_id", response.data.session_id);
+        localStorage.setItem("user_id", response.data.user_id);
         this.setState({
           logged_in: true,
           username: response.data.username,
           session_id: response.data.session_id,
+          user_id: response.data.user_id,
           error_message: ''
         })
       }
@@ -52,6 +56,7 @@ class App extends Component {
           username: '',
           password: '',
           session_id: '',
+          user_id: '',
           error_message: response.data.error
         })
       }
@@ -67,12 +72,13 @@ class App extends Component {
           password: '',
           logged_in: false,
           session_id: '',
+          user_id: '',
           error_message: ''
         })
-      }
-    })
-    localStorage.setItem("username", '')
-    localStorage.setItem("session_id", '')
+    }})
+    localStorage.setItem("username", '');
+    localStorage.setItem("session_id", '');
+    localStorage.setItem("user_id", '');
   }
 
   //create helper file to hold the handleLike/Dislike functions and whatever else I need for the category file

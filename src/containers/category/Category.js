@@ -75,6 +75,7 @@ class Start extends Component {
   }
 
   handleLike(e) {
+    console.log(this.props.userData);
     ImagesModel.postRating(this.props.userData.username, this.state.images[this.state.image_index].id, "like");
 
     if (this.state.image_index < this.state.images.length-1) {
