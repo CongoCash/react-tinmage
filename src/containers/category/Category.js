@@ -23,21 +23,14 @@ class Start extends Component {
 
   componentWillMount(){
     this.getImages(this.props);
-    console.log('component has mounted');
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('entering componentWillReceiveProps');
     this.getImages(nextProps);
-    console.log(nextProps.match.params.tag);
-    console.log('leaving componentWillReceiveProps');
   }
 
   getImages(props) {
-    console.log('enter getImages');
-    console.log(props.match.params.tag);
     if (!props.match.params.tag) {
-      console.log("get all")
       ImagesModel.getAll().then((res) => {
         this.setState({
           images: res.data,
@@ -48,34 +41,29 @@ class Start extends Component {
       })
     }
     else {
-      console.log('enter getTags');
       ImagesModel.getTags('/api/images/tags/', props.match.params.tag)
       .then((res) => {
         if (res.data.length > 0) {
-          console.log('inside a real tag');
-          console.log(this.state);
           this.setState({
             images: res.data,
             image_index: 0,
             error_message: '',
             tag: props.match.params.tag
-          }, () => {console.log(this.state)})
+          })
         }
         else {
-          console.log('not inside a real tag')
           this.setState({
             images: res.data,
             image_index: 0,
             error_message: 'Cannot find any images under this tag',
             tag: ''
-          }, () => {console.log("state sent in not real tag")})
+          })
         }
       })
     }
   }
 
   handleLike(e) {
-    console.log(this.props.userData);
     ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
     if (this.state.image_index < this.state.images.length-1) {
@@ -93,7 +81,6 @@ class Start extends Component {
   }
 
   handleDislike(e) {
-    console.log(this.props.userData);
     ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
 
     if (this.state.image_index < this.state.images.length-1) {
@@ -117,7 +104,6 @@ class Start extends Component {
   }
 
   hoverDislike(e) {
-    console.log('hovering over dislike')
     this.setState({
       hovering_dislike: true
     })
@@ -130,7 +116,6 @@ class Start extends Component {
   }
 
   leaveHoverDislike(e) {
-    console.log('leave hover dislike')
     this.setState({
       hovering_dislike: false
     })
