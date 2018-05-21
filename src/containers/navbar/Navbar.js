@@ -8,7 +8,6 @@ class Navbar extends Component {
   }
 
   onLogout() {
-    console.log('clicking the logout button');
     this.props.onLogout();
   }
 

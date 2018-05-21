@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect} from 'react-router-dom'
-import Start from '../start/Start.js'
 import Upload from '../upload/Upload.js'
 import Login from '../login/Login.js'
 import Signup from '../signup/Signup.js'
