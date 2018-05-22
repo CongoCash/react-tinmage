@@ -6,7 +6,8 @@ class Sidebar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: ['new', 'animals', 'cartoons', 'funny', 'sports', 'other']
+      categories: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
+        'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow']
     }
     this.capitalLink = this.capitalLink.bind(this)
   }
@@ -19,10 +20,10 @@ class Sidebar extends Component {
     return (
       <div>
       {this.state.categories.map(category =>
-        <div className="row link-design text-center">
-          <div clasName="col-sm-12 center-block">
-            <h1 className="text-center"><Link className="link-text text-center" to={"/category/" + category}>{this.capitalLink(category)}</Link></h1>
-          </div>
+        <div className="row link-design">
+          <Link className="link-text col-sm-12 align-vertical" to={"/category/" + category}>
+            {this.capitalLink(category)}
+          </Link>
         </div>
       )}
       </div>
