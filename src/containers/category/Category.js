@@ -7,12 +7,7 @@ class Category extends Component {
     super(props)
   }
 
-  // getImages(e) {
-  //   axios.get(this.props.userData.base_url + )
-  // }
-
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1>Category</h1>
