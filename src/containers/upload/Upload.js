@@ -18,27 +18,58 @@ class Upload extends Component {
       upload_error: false,
       upload_success: false,
       image_id: '',
-      default_tags: ['funny', 'gif', 'sports', 'misc'],
+      default_tags: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
+        'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow'],
       tags_clicked: {
-        'funny': 0, 'gif': 0, 'sports': 0, 'misc': 0
+        'new': 0, 'ads': 0, 'animals': 0, 'cars': 0, 'cartoons': 0, 'cool': 0,
+        'funny': 0, 'games': 0, 'gif': 0, 'jokes': 0, 'movies': 0, 'music': 0,
+        'other': 0, 'political': 0, 'sports': 0, 'travel': 0, 'tv': 0, 'untagged': 0,
+        'wow': 0
       },
-      tags: ['zzzmmm']
+      tags: ['zzzmmm'],
+      new_tag: '',
+      file_name: '',
+      tag_error_message: ''
     };
     this.onTagSelected = this.onTagSelected.bind(this);
+    this.onAddTag = this.onAddTag.bind(this);
   }
 
   onChange = (e) => {
-    const state = this.state;
-
-    switch (e.target.name) {
-      case 'selectedFile':
-        state.selectedFile = e.target.files[0];
-        break;
-      default:
-        state[e.target.name] = e.target.value;
+    console.log(e.target);
+    if (e.target.name === 'selectedFile') {
+      this.setState({
+        selectedFile: e.target.files[0],
+        file_name: e.target.files[0].name
+      })
+    }
+    else if (e.target.name === "title") {
+      this.setState({
+        selectedFile: e.target.value
+      })
     }
 
-    this.setState(state);
+    else if (e.target.name === "add-tag") {
+      this.setState({
+        new_tag: e.target.value
+      })
+    }
+  };
+
+  onAddTag = (e) => {
+    if (this.state.new_tag.length > 0) {
+      let new_tag_array = this.state.default_tags;
+      new_tag_array.push(this.state.new_tag);
+      this.setState({
+        default_tags: new_tag_array,
+        tag_error_message: ''
+      })
+    }
+    else {
+      this.setState({
+        tag_error_message: 'Please enter valid tag'
+      })
+    }
   }
 
   onTagSelected = (e) => {
@@ -97,7 +128,7 @@ class Upload extends Component {
         })
       }
     })
-  }
+  };
 
   render() {
     const title = this.state.title;
@@ -108,29 +139,29 @@ class Upload extends Component {
       <div>
         {!this.state.upload_success ?
           <div>
-          {
-            upload_error ?
-              <h3>You can only upload images.</h3> :
-              ""
-          }
+            {
+              upload_error ?
+                <h3>You can only upload images.</h3> :
+                ""
+            }
             {this.state.default_tags.map((tag) => {
-              return <button onClick={this.onTagSelected} value={tag}>{tag}</button>
+              return <button className="tag-button" onClick={this.onTagSelected} value={tag}>{tag}</button>
               }
             )}
+            <input type="text" name="add-tag" onChange={this.onChange}/>
+            <button onClick={this.onAddTag}>Add Tag</button>
             <form onSubmit={this.onSubmit}>
-            <input
-              type="text"
-              name="title"
-              value={title}
-              onChange={this.onChange}
-            />
-            <input
-              type="file"
-              name="selectedFile"
-              onChange={this.onChange}
-            />
-            <button type="submit">Submit</button>
-          </form>
+              <label className="upload-button" for="default-upload">Upload</label>
+              <input id="default-upload" type="file" name="selectedFile" onChange={this.onChange}/>
+              <input
+                type="text"
+                name="title"
+                value={title}
+                onChange={this.onChange}
+              />
+              <button type="submit">Submit</button>
+            </form>
+            <h2>File name: </h2><span>{this.state.file_name}</span>
           </div>
           : <Redirect to={redirect_url} />
         }
