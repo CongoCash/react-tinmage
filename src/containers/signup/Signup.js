@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import {Route, Redirect} from 'react-router-dom'
+import {myConfig} from '../../config'
 
 class Signup extends Component {
   constructor(props) {
@@ -23,12 +24,11 @@ class Signup extends Component {
   }
 
   onSubmit(e) {
-    console.log(this.state);
     e.preventDefault();
     if (this.state.username.length !== 0 && this.state.password.length !== 0 && this.state.password_confirmation.length !== 0
       && this.state.password === this.state.password_confirmation) {
 
-      axios.post('http://localhost:8000/api/users', {user: this.state})
+      axios.post(myConfig.api_url + 'api/users', {user: this.state})
       .then((response) => {
         this.setState({
           error_message: ''
@@ -36,9 +36,8 @@ class Signup extends Component {
         this.props.history.push('/login');
       })
       .catch((error) => {
-        console.log(error);
         this.setState({
-          error_message: 'Username already exists.'
+          error_message: error.response.data
         })
       })
     }
@@ -51,12 +50,6 @@ class Signup extends Component {
     else if (this.state.password.length === 0) {
       this.setState({
         error_message: 'Please enter a password.'
-      })
-    }
-
-    else if (this.state.password_confirmation.length === 0) {
-      this.setState({
-        error_message: 'Please confirm your password in the password reconfirmation box.'
       })
     }
 
