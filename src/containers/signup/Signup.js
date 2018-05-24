@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import {myConfig} from '../../config'
 
 class Signup extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Signup extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-    axios.post('http://localhost:8000/api/users', {user: this.state})
+    axios.post(myConfig + 'api/users', {user: this.state})
   }
 
   render() {

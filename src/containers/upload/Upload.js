@@ -97,7 +97,7 @@ class Upload extends Component {
         }
       })
       resolve('it worked')
-    })
+    });
 
     push_tags.then(() => {
       const { title, selectedFile, file_ext } = this.state;
