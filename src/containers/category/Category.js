@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
-import './Category.css';
-import axios from 'axios'
+import './Category.css'
+import ReactSwipeEvents from 'react-swipe-events'
+
 
 class Start extends Component {
 
@@ -64,36 +65,40 @@ class Start extends Component {
   }
 
   handleLike(e) {
-    ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
+    if (this.state.images.length > 0) {
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
-    if (this.state.image_index < this.state.images.length-1) {
-      this.setState({
-        like: this.state.like + 1,
-        image_index: this.state.image_index + 1,
-      })
-    }
-    else {
-      this.setState({
-        like: this.state.like + 1,
-        image_index: 0
-      })
+      if (this.state.image_index < this.state.images.length-1) {
+        this.setState({
+          like: this.state.like + 1,
+          image_index: this.state.image_index + 1,
+        })
+      }
+      else {
+        this.setState({
+          like: this.state.like + 1,
+          image_index: 0
+        })
+      }
     }
   }
 
   handleDislike(e) {
-    ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
+    if (this.state.images.length > 0) {
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
 
-    if (this.state.image_index < this.state.images.length-1) {
-      this.setState({
-        dislike: this.state.dislike + 1,
-        image_index: this.state.image_index + 1,
-      })
-    }
-    else {
-      this.setState({
-        dislike: this.state.dislike + 1,
-        image_index: 0
-      })
+      if (this.state.image_index < this.state.images.length-1) {
+        this.setState({
+          dislike: this.state.dislike + 1,
+          image_index: this.state.image_index + 1,
+        })
+      }
+      else {
+        this.setState({
+          dislike: this.state.dislike + 1,
+          image_index: 0
+        })
+      }
     }
   }
 
