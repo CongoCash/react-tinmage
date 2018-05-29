@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import './Category.css'
-import Swipeable from 'react-swipeable'
 
 class Category extends Component {
 
