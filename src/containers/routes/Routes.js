@@ -4,7 +4,7 @@ import Upload from '../upload/Upload.js'
 import Login from '../login/Login.js'
 import Signup from '../signup/Signup.js'
 import Category from '../category/Category.js'
-
+import Swipe from '../swipe/Swipe.js'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster

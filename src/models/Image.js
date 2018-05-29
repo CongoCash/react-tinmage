@@ -4,7 +4,7 @@ import {myConfig} from '../config'
 class ImagesModel {
 
   static getAll(){
-    let request = axios.get(myConfig.api_url + "/api/images")
+    let request = axios.get(myConfig.api_url + "api/images")
     return request
   }
 
@@ -14,7 +14,7 @@ class ImagesModel {
   }
 
   static postRating(user_id, image_id, status) {
-    let request = axios.post(myConfig.api_url + "/api/images/rating", {user_id: user_id, image_id: image_id, status: status});
+    let request = axios.post(myConfig.api_url + "api/images/rating", {user_id: user_id, image_id: image_id, status: status});
     return request
   }
 

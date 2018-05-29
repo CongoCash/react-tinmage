@@ -1,19 +1,13 @@
+.top-image {
+    z-index: 0;
+    position: absolute;
+}
+
+.bottom-image {
+    z-index: -1;
+    position: absolute;
+}
+
 .image-container {
-    text-align: center;
-}
-
-.upvote {
-    left: 37.5%;
-    top: 50%;
-    position: absolute;
-    margin-top: -25px;
-    margin-left: -25px;
-}
-
-.downvote {
-    left: 62.5%;
-    top: 50%;
-    position: absolute;
-    margin-top: -25px;
-    margin-left: -25px;
+    position: relative
 }

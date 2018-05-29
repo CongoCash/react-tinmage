@@ -20,7 +20,7 @@ class Sidebar extends Component {
       <div>
       {this.state.categories.map(category =>
         <div key={category} className="row link-design text-center">
-          <div clasName="col-sm-12 center-block">
+          <div className="col-sm-12 center-block">
             <h1 className="text-center">
               <Link className="link-text text-center" to={"/category/" + category}>{this.capitalLink(category)}</Link>
             </h1>

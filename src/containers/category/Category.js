@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import './Category.css'
-import ReactSwipeEvents from 'react-swipe-events'
+import Swipeable from 'react-swipeable'
 
-
-class Start extends Component {
+class Category extends Component {
 
   constructor(){
     super()
@@ -13,13 +12,17 @@ class Start extends Component {
       like: 0,
       dislike: 0,
       image_index: 0,
-      upvote: "http://www.clker.com/cliparts/0/7/4/2/1206569735140917528pitr_green_arrows_set_1.svg.hi.png",
-      downvote: "http://www.clker.com/cliparts/e/a/c/a/12065697821256125215pitr_red_arrows_set_5.svg.hi.png",
-      hovering_like: false,
-      hovering_dislike: false,
       error_message: '',
-      tag: ""
+      tag: "",
+      initial_x: '',
+      initial_y: '',
+      top_image_class: '',
+      bottom_image_class: '',
+      dragging: false
     }
+    this.swiped = this.swiped.bind(this);
+    this.initialLocation = this.initialLocation.bind(this);
+    this.dragEnd = this.dragEnd.bind(this);
   }
 
   componentWillMount(){
@@ -38,11 +41,13 @@ class Start extends Component {
           image_index: 0,
           error_message: '',
           tag: ''
+        }, () => {
+          console.log(this.state);
         })
       })
     }
     else {
-      ImagesModel.getTags('/api/images/tags/', props.match.params.tag)
+      ImagesModel.getTags('api/images/tags/', props.match.params.tag)
       .then((res) => {
         if (res.data.length > 0) {
           this.setState({
@@ -64,7 +69,76 @@ class Start extends Component {
     }
   }
 
+  swiped(e) {
+    let ghost_image = new Image();
+    ghost_image.src = "https://i.imgur.com/qvjhwNR.png";
+    //figure out how to remove the ghost image with something transparent
+    e.dataTransfer.setDragImage(ghost_image, 0, 0);
+    this.setState({
+      dragging: true,
+    });
+
+    e.persist();
+
+    if (e.clientX !== 0) {
+      e.target.style.left = (e.clientX - this.state.initial_x) + "px";
+      e.target.style.top = (e.clientY - this.state.initial_y) + "px";
+    }
+  }
+
+  initialLocation(e) {
+    //sets initial location after clicking on image
+    this.setState({
+      initial_x: e.clientX,
+      initial_y: e.clientY
+    })
+  }
+
+  dragEnd(e) {
+    e.persist();
+    let dragged_distance = e.clientX - this.state.initial_x
+    //image returned to original location because it has not passed drag threshold
+    if (this.state.dragging === true && (Math.abs(dragged_distance) < e.target.width/2)) {
+      e.target.style = ""
+      this.setState({
+        dragging: false
+      })
+    }
+    else if (this.state.dragging === true && (Math.abs(dragged_distance) >= e.target.width/2)) {
+
+      if (dragged_distance === Math.abs(dragged_distance)) {
+        this.handleLike();
+      }
+      else {
+        this.handleDislike();
+      }
+      //if image dragged passed threshold and no more images, currently resets back to image 0, currently not in use
+      if (this.state.images.length <= this.state.image_index-1) {
+        this.setState({
+          dragging: false,
+          image_index: 0
+        }, () => {
+          e.target.style.left = 0 + "px";
+          e.target.style.top = 0 + "px";
+        });
+      }
+      //increment to next image
+      else {
+        let next_image_index = this.state.image_index + 1;
+        this.setState({
+          dragging: false,
+          image_index: next_image_index
+        }, () => {
+          e.target.style.left = 0 + "px";
+          e.target.style.top = 0 + "px";
+        })
+      }
+    }
+  }
+
   handleLike(e) {
+    console.log(this.props);
+    console.log('entering handleLike');
     if (this.state.images.length > 0) {
       ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
@@ -102,92 +176,34 @@ class Start extends Component {
     }
   }
 
-  hoverLike(e) {
-    this.setState({
-      hovering_like: true
-    })
-  }
-
-  hoverDislike(e) {
-    this.setState({
-      hovering_dislike: true
-    })
-  }
-
-  leaveHoverLike(e) {
-    this.setState({
-      hovering_like: false
-    })
-  }
-
-  leaveHoverDislike(e) {
-    this.setState({
-      hovering_dislike: false
-    })
-  }
-
 
   render() {
-    let upvote = null;
-    let downvote = null;
-    let content = null;
-    if (this.state.hovering_like) {
-      upvote = <img src={this.state.upvote} width="100" height="100" className="upvote" onClick={this.handleLike.bind(this)}
-                    onMouseEnter={this.hoverLike.bind(this)} onMouseLeave={this.leaveHoverLike.bind(this)}/>
-    }
-    if (this.state.hovering_dislike) {
-      downvote = <img src={this.state.downvote} width="100" height="100" className="downvote" onClick={this.handleLike.bind(this)}
-                      onMouseEnter={this.hoverDislike.bind(this)} onMouseLeave={this.leaveHoverDislike.bind(this)}/>
-    }
-
-    if (this.state.error_message.length == 0) {
-      content = true
-    }
-    else {
-      content = false
-    }
-    let image = <img src="" width="500" height="600" useMap="#voting"/>;
-
-    if (this.state.images.length > 0) {
-      image = <img src={this.props.userData.base_url + "/" + this.state.images[this.state.image_index].url} width="500" height="600" useMap="#voting"/>
-    }
-
+    // console.log(this.props.userData.base_url);
+    let images_available = (this.state.images.length > 0);
+    let top_image = (this.state.image_index < this.state.images.length);
+    let bottom_image = (this.state.image_index+1 >= this.state.images.length);
     return (
-      <div key={this.props.match.params.tag} className="container">
-        {content ?
           <div>
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="image-container">
-                  {image}
-                </div>
-                <map name="voting">
-                  <area shape="rect" coords="0,0,250,600" onClick={this.handleLike.bind(this)}
-                        onMouseEnter={this.hoverLike.bind(this)} onMouseLeave={this.leaveHoverLike.bind(this)}/>
-                  <area shape="rect" coords="250,0,500,600" onClick={this.handleDislike.bind(this)}
-                        onMouseEnter={this.hoverDislike.bind(this)} onMouseLeave={this.leaveHoverDislike.bind(this)}/>
-                </map>
+            {images_available ?
+              <div className="image-container">
+                {top_image ?
+                  <img className="top-image" height="500" width="500"
+                       src={this.props.userData.base_url + this.state.images[this.state.image_index].url}
+                       onDrag={this.swiped}
+                       onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                  />
+                  : ""
+                }
+                {bottom_image ? <h1>Nothing here</h1> :
+                  <img className="bottom-image" height="500" width="500"
+                       src={this.props.userData.base_url + this.state.images[this.state.image_index + 1].url}/>
+                }
               </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                {upvote}
-                {downvote}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-6">
-                <h3>{this.state.like}</h3>
-              </div>
-              <div className="col-sm-6">
-                <h3>{this.state.dislike}</h3>
-              </div>
-            </div>
+              : <h1>Nothing here</h1> }
           </div>
-          : <div>{this.state.error_message}</div>}
-      </div>
+
     )
-  }
+  };
 }
 
-export default Start
+export default Category

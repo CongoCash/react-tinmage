@@ -93,7 +93,8 @@ class App extends Component {
           <div className="col-sm-2 sidebar-design">
             <Sidebar />
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-3"> </div>
+          <div className="col-sm-7">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
           </div>
         </div>
