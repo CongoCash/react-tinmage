@@ -7,7 +7,7 @@ class Category extends Component {
   constructor(){
     super()
     this.state = {
-      images: [],
+      images: ["https://i.imgur.com/7e2HHbe.png", "https://i.imgur.com/4yVI9ou.png"],
       like: 0,
       dislike: 0,
       image_index: 0,
@@ -17,19 +17,28 @@ class Category extends Component {
       initial_y: '',
       top_image_class: '',
       bottom_image_class: '',
-      dragging: false
+      dragging: false,
+      drag_image: '',
     }
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
+    this.dragImage = this.dragImage.bind(this);
   }
 
   componentWillMount(){
-    this.getImages(this.props);
+    // this.getImages(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getImages(nextProps);
+    // this.getImages(nextProps);
+  }
+
+  componentDidMount() {
+    //setup blank image to hide default drag image
+    const img = new Image();
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+    img.onload = () => this.setState({ drag_image: img });
   }
 
   getImages(props) {
@@ -68,11 +77,14 @@ class Category extends Component {
     }
   }
 
+  dragImage(e) {
+    console.log('setting ghost');
+    e.dataTransfer.setDragImage(this.state.drag_image, 0, 0);
+  }
+
   swiped(e) {
-    let ghost_image = new Image();
-    ghost_image.src = "https://i.imgur.com/qvjhwNR.png";
-    //figure out how to remove the ghost image with something transparent
-    e.dataTransfer.setDragImage(ghost_image, 0, 0);
+    console.log('swiping');
+
     this.setState({
       dragging: true,
     });
@@ -188,7 +200,7 @@ class Category extends Component {
                 {top_image ?
                   <img className="top-image" height="500" width="500"
                        src={this.props.userData.base_url + this.state.images[this.state.image_index].url}
-                       onDrag={this.swiped}
+                       onDrag={this.swiped} onDragStart={this.dragImage}
                        onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
                   />
                   : ""
