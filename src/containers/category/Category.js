@@ -193,13 +193,14 @@ class Category extends Component {
     let images_available = (this.state.images.length > 0);
     let top_image = (this.state.image_index < this.state.images.length);
     let bottom_image = (this.state.image_index+1 >= this.state.images.length);
+    console.log(this.state.images);
     return (
           <div>
             {images_available ?
               <div className="image-container">
                 {top_image ?
                   <img className="top-image" height="500" width="500"
-                       src={this.props.userData.base_url + this.state.images[this.state.image_index].url}
+                       src={this.state.images[this.state.image_index]}
                        onDrag={this.swiped} onDragStart={this.dragImage}
                        onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
                   />
@@ -207,7 +208,7 @@ class Category extends Component {
                 }
                 {bottom_image ? <h1>Nothing here</h1> :
                   <img className="bottom-image" height="500" width="500"
-                       src={this.props.userData.base_url + this.state.images[this.state.image_index + 1].url}/>
+                       src={this.state.images[this.state.image_index + 1]}/>
                 }
               </div>
               : <h1>Nothing here</h1> }
