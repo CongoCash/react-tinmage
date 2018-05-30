@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import './Category.css'
+import {Link} from 'react-router-dom'
+
 
 class Category extends Component {
 
@@ -191,33 +193,39 @@ class Category extends Component {
     if (images_available) {
       image_data = this.state.images[this.state.image_index];
     };
-    console.log(this.state.button_colors);
+    console.log(image_data);
     return (
           <div>
-            {images_available ?
+            {image_data !== '' ?
               <div>
-              <div className="image-container">
-                {top_image ?
-                  <img className="top-image" height="500" width="500"
-                       src={this.props.userData.base_url + image_data.url}
-                       onDrag={this.swiped} onDragStart={this.dragImage}
-                       onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
-                  />
-                  : ""
-                }
-                {bottom_image ? <h1>Nothing here</h1> :
-                  <img className="bottom-image" height="500" width="500"
-                       src={this.props.userData.base_url + image_data.url}
-                  />
-                }
-              </div>
-                  {image_data.title.length > 0 ?
-                    <h1>{image_data.title}</h1> :
-                    <h1 className="title">Untitled</h1>
+                <div className="image-container">
+                  {top_image ?
+                    <img className="top-image" height="500" width="500"
+                         src={this.props.userData.base_url + image_data.url}
+                         onDrag={this.swiped} onDragStart={this.dragImage}
+                         onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                    />
+                    : ""
                   }
-              {image_data.tags.map((tag, index) => {
-                return <button className="btn tag">{tag}</button>
-              })}
+                  {bottom_image ? <h1>Nothing here</h1> :
+                    <img className="bottom-image" height="500" width="500"
+                         src={this.props.userData.base_url + image_data.url}
+                    />
+                  }
+                </div>
+                <h1>by {image_data.User.username}</h1>
+                {image_data.title.length > 0 ?
+                  <h1>{image_data.title}</h1> :
+                  <h1 className="title">Untitled</h1>
+                }
+
+
+
+                {image_data.tags.map((tag, index) => {
+                  return <button className="btn tag">
+                    <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
+                  </button>
+                })}
               </div>
               : <h1>Nothing here</h1>
             }

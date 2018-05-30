@@ -13,11 +13,12 @@
 }
 
 .title {
-    font-size: 15px;
+    font-size: 20px;
+    font-family: Verdana, Geneva, sans-serif
 }
 
 .tag {
-    background-color: #b7cff4;
+    background-color: #325287;
     color: black;
     margin-right: 5px;
 }
