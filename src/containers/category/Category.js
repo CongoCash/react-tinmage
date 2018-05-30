@@ -21,7 +21,6 @@ class Category extends Component {
       bottom_image_class: '',
       dragging: false,
       drag_image: '',
-      button_colors: ['tag-1', 'tag-2', 'tag-3', 'tag-4', 'tag-5', 'tag-6', 'tag-7']
     };
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
