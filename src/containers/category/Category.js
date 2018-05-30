@@ -7,34 +7,33 @@ class Category extends Component {
   constructor(){
     super()
     this.state = {
-      images: ["https://i.imgur.com/7e2HHbe.png", "https://i.imgur.com/4yVI9ou.png"],
+      images: [],
       like: 0,
       dislike: 0,
       image_index: 0,
       error_message: '',
-      tag: "",
+      tag: '',
       initial_x: '',
       initial_y: '',
       top_image_class: '',
       bottom_image_class: '',
       dragging: false,
       drag_image: '',
-    }
+      button_colors: ['tag-1', 'tag-2', 'tag-3', 'tag-4', 'tag-5', 'tag-6', 'tag-7']
+    };
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
     this.dragImage = this.dragImage.bind(this);
   }
 
-  componentWillMount(){
-    // this.getImages(this.props);
-  }
-
   componentWillReceiveProps(nextProps) {
-    // this.getImages(nextProps);
+    this.getImages(nextProps);
   }
 
   componentDidMount() {
+    this.getImages(this.props);
+
     //setup blank image to hide default drag image
     const img = new Image();
     img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
@@ -44,6 +43,7 @@ class Category extends Component {
   getImages(props) {
     if (!props.match.params.tag) {
       ImagesModel.getAll().then((res) => {
+        console.log(res);
         this.setState({
           images: res.data,
           image_index: 0,
@@ -148,20 +148,17 @@ class Category extends Component {
   }
 
   handleLike(e) {
-    console.log(this.props);
-    console.log('entering handleLike');
+
     if (this.state.images.length > 0) {
       ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
-          like: this.state.like + 1,
           image_index: this.state.image_index + 1,
         })
       }
       else {
         this.setState({
-          like: this.state.like + 1,
           image_index: 0
         })
       }
@@ -174,13 +171,11 @@ class Category extends Component {
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
-          dislike: this.state.dislike + 1,
           image_index: this.state.image_index + 1,
         })
       }
       else {
         this.setState({
-          dislike: this.state.dislike + 1,
           image_index: 0
         })
       }
@@ -189,18 +184,22 @@ class Category extends Component {
 
 
   render() {
-    // console.log(this.props.userData.base_url);
     let images_available = (this.state.images.length > 0);
     let top_image = (this.state.image_index < this.state.images.length);
     let bottom_image = (this.state.image_index+1 >= this.state.images.length);
-    console.log(this.state.images);
+    let image_data = '';
+    if (images_available) {
+      image_data = this.state.images[this.state.image_index];
+    };
+    console.log(this.state.button_colors);
     return (
           <div>
             {images_available ?
+              <div>
               <div className="image-container">
                 {top_image ?
                   <img className="top-image" height="500" width="500"
-                       src={this.state.images[this.state.image_index]}
+                       src={this.props.userData.base_url + image_data.url}
                        onDrag={this.swiped} onDragStart={this.dragImage}
                        onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
                   />
@@ -208,10 +207,20 @@ class Category extends Component {
                 }
                 {bottom_image ? <h1>Nothing here</h1> :
                   <img className="bottom-image" height="500" width="500"
-                       src={this.state.images[this.state.image_index + 1]}/>
+                       src={this.props.userData.base_url + image_data.url}
+                  />
                 }
               </div>
-              : <h1>Nothing here</h1> }
+                  {image_data.title.length > 0 ?
+                    <h1>{image_data.title}</h1> :
+                    <h1 className="title">Untitled</h1>
+                  }
+              {image_data.tags.map((tag, index) => {
+                return <button className="btn tag">{tag}</button>
+              })}
+              </div>
+              : <h1>Nothing here</h1>
+            }
           </div>
 
     )

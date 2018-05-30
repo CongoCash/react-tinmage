@@ -9,5 +9,15 @@
 }
 
 .image-container {
-    position: relative
+    height:500px;
+}
+
+.title {
+    font-size: 15px;
+}
+
+.tag {
+    background-color: #b7cff4;
+    color: black;
+    margin-right: 5px;
 }
