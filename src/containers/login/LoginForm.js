@@ -8,9 +8,13 @@ class LoginForm extends Component {
       username: '',
       password: '',
       logged_in: false,
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.userData.error_message = '';
   }
 
   onChange(e) {
@@ -25,6 +29,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    console.log(this.props.userData);
     return (
       <div className="container">
         <div className="row">
