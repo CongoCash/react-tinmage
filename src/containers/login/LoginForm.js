@@ -13,6 +13,7 @@ class LoginForm extends Component {
     this.onLogin = this.onLogin.bind(this);
   }
 
+  //remove error message when going to a different page
   componentWillUnmount() {
     this.props.userData.error_message = '';
   }
