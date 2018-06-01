@@ -3,19 +3,3 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
-.upvote {
-  left: 37.5%;
-  top: 50%;
-  position: absolute;
-  margin-top: -25px;
-  margin-left: -25px;
-}
-
-.downvote {
-  left: 62.5%;
-  top: 50%;
-  position: absolute;
-  margin-top: -25px;
-  margin-left: -25px;
-}

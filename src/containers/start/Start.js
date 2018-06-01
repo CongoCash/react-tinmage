@@ -110,8 +110,6 @@ class Start extends Component {
           <div className="col-sm-12">
             <div className="image-container">
               <img src={this.state.current_image_url} width="500" height="600" useMap="#voting"/>
-              {upvote}
-              {downvote}
             </div>
             <map name="voting">
               <area shape="rect" coords="0,0,250,600" onClick={this.handleLike.bind(this)}
@@ -119,6 +117,12 @@ class Start extends Component {
               <area shape="rect" coords="250,0,500,600" onClick={this.handleDislike.bind(this)}
                     onMouseEnter={this.hoverDislike.bind(this)} onMouseLeave={this.leaveHoverDislike.bind(this)}/>
             </map>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            {upvote}
+            {downvote}
           </div>
         </div>
         <div className="row">

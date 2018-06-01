@@ -9,7 +9,6 @@ class Upload extends Component {
     this.state = {
       imageURL: '',
     };
-
     this.handleUploadImage = this.handleUploadImage.bind(this);
   }
 
@@ -19,8 +18,7 @@ class Upload extends Component {
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
-
-    UploadsModel.upload(data)
+    UploadsModel.upload(data);
   }
 
   render() {
