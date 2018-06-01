@@ -30,7 +30,6 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log(this.props.userData);
     return (
       <div className="container">
         <div className="row">
