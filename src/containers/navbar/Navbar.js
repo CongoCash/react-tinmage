@@ -8,7 +8,6 @@ class Navbar extends Component {
   }
 
   onLogout() {
-    console.log('clicking the logout button');
     this.props.onLogout();
   }
 
@@ -42,7 +41,7 @@ class Navbar extends Component {
                       <Link to ='/profile'>{this.props.userData.username}</Link>
                     </div>
                     <div className="col-sm-6">
-                      <button onClick={this.onLogout}>Logout</button>
+                      <Link to ='/logout' onClick={this.onLogout}>Logout</Link>
                     </div>
                   </div>
                 </div>

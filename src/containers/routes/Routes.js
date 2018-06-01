@@ -30,6 +30,11 @@ class Routes extends Component {
            )
            }
         />
+        <Route path='/logout'
+           render={() => (
+               <Redirect to="/" />
+           )}
+        />
         <Route path="/signup" component={Signup}/>
       </Switch>
     )
