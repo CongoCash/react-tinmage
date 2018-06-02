@@ -7,11 +7,6 @@ import Signup from '../signup/Signup.js'
 import Image from '../image/Image.js'
 
 
-// The Main component renders one of the three provided
-// Routes (provided that one matches). Both the /roster
-// and /schedule routes will match any pathname that starts
-// with /roster or /schedule. The / route will only match
-// when the pathname is exactly the string "/"
 class Routes extends Component {
   constructor(props) {
     super(props);
@@ -38,12 +33,14 @@ class Routes extends Component {
                )}
         />
 
+        <Route path='/logout'
+           render={() => (
+               <Redirect to="/" />
+           )}
+        />
+
         <Route path="/signup" component={Signup}/>
-        {/*<Route path='/profile/:id'*/}
-               {/*render={() => (*/}
-                 {/*<Profile userData={this.props.userData} />*/}
-               {/*)}/>*/}
-        {/*/>*/}
+
         <Route path="/images/:id"
                render={(props) => (
                    <Image {...props} userData={this.props.userData} />

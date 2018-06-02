@@ -20,17 +20,21 @@ class Image extends Component {
     this.clickLarge = this.clickLarge.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get(this.props.userData.base_url + "api/images/" + this.props.match.params.id).then((response) => {
-      if (response.data[0].User.username) {
+      if (response.data[0].User) {
         this.setState({
           image_url: response.data[0].url,
           username: response.data[0].User.username,
-          upload_date: response.data.time
+          upload_date: response.data[0].createdAt.substring(0,10)
         })
       }
       else {
-
+        this.setState({
+          image_url: response.data[0].url,
+          username: '',
+          upload_date: response.data[0].createdAt.substring(0,10)
+        })
       }
     })
   }
@@ -63,8 +67,9 @@ class Image extends Component {
   }
 
   render() {
-    const image_url = this.props.userData.base_url + this.state.image_url
-    const image_class = this.state.image_class+ " rounded mx-auto d-block"
+    const image_url = this.props.userData.base_url + this.state.image_url;
+    const image_class = this.state.image_class+ " rounded mx-auto d-block";
+    let username = this.state.username.length > 0
 
     return (
       <div className="container">
@@ -90,7 +95,11 @@ class Image extends Component {
             <img src={image_url} className={image_class}/>
           </div>
         </div>
-        <h4>Uploaded by: {this.state.username}</h4>
+        {username ?
+          <h4>Uploaded by: {this.state.username}</h4>
+          :
+          <h4>Uploaded by: Anonymous</h4>
+        }
         <h4>Date: {this.state.upload_date}</h4>
       </div>
     );

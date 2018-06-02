@@ -17,7 +17,7 @@ class App extends Component {
       error_message: '',
       base_url: myConfig.api_url,
       user_id: ''
-    }
+    };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
@@ -35,7 +35,6 @@ class App extends Component {
 
 
   onLogin(username, password) {
-    //fixed login, it had an extra slash
     axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
@@ -64,7 +63,6 @@ class App extends Component {
   }
 
   onLogout() {
-    console.log('logging out')
     axios.post(this.state.base_url + 'api/users/logout')
     .then((response) => {
       if (response.data.logged_in == false) {
@@ -75,18 +73,15 @@ class App extends Component {
           session_id: '',
           user_id: '',
           error_message: ''
-        }, () => {
-          console.log(this.state)
         })
       }
     })
-    localStorage.setItem("username", '')
-    localStorage.setItem("session_id", '')
-    localStorage.setItem("user_id", '')
+    localStorage.setItem("username", '');
+    localStorage.setItem("session_id", '');
+    localStorage.setItem("user_id", '');
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Navbar userData={this.state} onLogout={this.onLogout} />

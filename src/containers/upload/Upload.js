@@ -26,7 +26,6 @@ class Upload extends Component {
         'other': 0, 'political': 0, 'sports': 0, 'travel': 0, 'tv': 0, 'untagged': 0,
         'wow': 0
       },
-      tags: ['zzzmmm'],
       new_tag: '',
       file_name: '',
       tag_error_message: ''
@@ -36,7 +35,6 @@ class Upload extends Component {
   }
 
   onChange = (e) => {
-    console.log(e.target);
     if (e.target.name === 'selectedFile') {
       this.setState({
         selectedFile: e.target.files[0],
@@ -45,7 +43,7 @@ class Upload extends Component {
     }
     else if (e.target.name === "title") {
       this.setState({
-        selectedFile: e.target.value
+        title: e.target.value
       })
     }
 
@@ -60,9 +58,12 @@ class Upload extends Component {
     if (this.state.new_tag.length > 0) {
       let new_tag_array = this.state.default_tags;
       new_tag_array.push(this.state.new_tag);
+      let new_tags_clicked = this.state.tags_clicked;
+      new_tags_clicked[this.state.new_tag] = 0;
       this.setState({
         default_tags: new_tag_array,
-        tag_error_message: ''
+        tag_error_message: '',
+        tags_clicked: new_tags_clicked
       })
     }
     else {
@@ -70,7 +71,7 @@ class Upload extends Component {
         tag_error_message: 'Please enter valid tag'
       })
     }
-  }
+  };
 
   onTagSelected = (e) => {
     let update_tag = this.state.tags_clicked;
@@ -80,12 +81,11 @@ class Upload extends Component {
     }
     else {
       e.target.style.backgroundColor = "";
-
     }
     this.setState({
       update_tag
-    })
-  }
+    });
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -95,14 +95,13 @@ class Upload extends Component {
         if (this.state.tags_clicked[tag] % 2 !== 0 && this.state.tags_clicked[tag] > 0) {
           tags_array.push(tag)
         }
-      })
+      });
       resolve('it worked')
     });
 
     push_tags.then(() => {
       const { title, selectedFile, file_ext } = this.state;
       if (selectedFile && file_ext[selectedFile.name.split('.').pop()] == true) {
-        console.log(tags_array);
         let formData = new FormData();
 
         formData.append('title', title);
@@ -111,13 +110,10 @@ class Upload extends Component {
         formData.append('tags', tags_array);
 
         axios.post('http://localhost:8000/api/upload', formData).then((response) => {
-          console.log(response)
           this.setState({
             image_id: response.data.id,
             upload_error: false,
             upload_success: true
-          }, () => {
-            console.log(this.state)
           })
         });
       }
@@ -131,10 +127,8 @@ class Upload extends Component {
   };
 
   render() {
-    const title = this.state.title;
     const upload_error = this.state.upload_error
     const redirect_url = "images/" + this.state.image_id
-    console.log(redirect_url)
     return (
       <div>
         {!this.state.upload_success ?
@@ -156,7 +150,6 @@ class Upload extends Component {
               <input
                 type="text"
                 name="title"
-                value={title}
                 onChange={this.onChange}
               />
               <button type="submit">Submit</button>

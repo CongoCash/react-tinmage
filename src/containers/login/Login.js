@@ -9,7 +9,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -21,9 +21,10 @@ class Login extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
-    axios.get(myConfig + 'api/users/login', {user: this.state})
+    e.preventDefault();
+    axios.get(myConfig + 'api/users/login', {user: this.state});
   }
+
 
   render() {
     return (
