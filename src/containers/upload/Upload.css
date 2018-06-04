@@ -1,5 +1,5 @@
 .tag-button {
-    background-color: skyblue;
+    background-color: red;
     border-radius: 12px;
     outline: none;
     box-shadow: none
@@ -10,10 +10,10 @@
     box-shadow: none;
 }
 
-.upload-button {
-    background-color: green;
-}
-
 #default-upload {
     display: none;
+}
+
+.input {
+    width: 50%;
 }

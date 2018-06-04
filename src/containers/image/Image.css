@@ -1,16 +1,19 @@
 .small-image {
     width: 250px;
     height: 250px;
+    margin-bottom: 50px;
 }
 
 .medium-image {
     width: 500px;
     height: 500px;
+    margin-bottom: 50px;
 }
 
 .large-image {
     width: 1000px;
     height: 1000px;
+    margin-bottom: 50px;
 }
 
 .small-button {

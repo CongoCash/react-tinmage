@@ -18,28 +18,24 @@ class Upload extends Component {
       upload_error: false,
       upload_success: false,
       image_id: '',
-      default_tags: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
-        'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow'],
-      tags_clicked: {
-        'new': 0, 'ads': 0, 'animals': 0, 'cars': 0, 'cartoons': 0, 'cool': 0,
-        'funny': 0, 'games': 0, 'gif': 0, 'jokes': 0, 'movies': 0, 'music': 0,
-        'other': 0, 'political': 0, 'sports': 0, 'travel': 0, 'tv': 0, 'untagged': 0,
-        'wow': 0
-      },
+      tags: [],
+      tags_clicked: {},
       new_tag: '',
       file_name: '',
       tag_error_message: ''
     };
     this.onTagSelected = this.onTagSelected.bind(this);
-    this.onAddTag = this.onAddTag.bind(this);
+    this.onCreateTag = this.onCreateTag.bind(this);
   }
 
   onChange = (e) => {
     if (e.target.name === 'selectedFile') {
-      this.setState({
-        selectedFile: e.target.files[0],
-        file_name: e.target.files[0].name
-      })
+      if (e.target.files[0]) {
+        this.setState({
+          selectedFile: e.target.files[0],
+          file_name: e.target.files[0].name
+        })
+      }
     }
     else if (e.target.name === "title") {
       this.setState({
@@ -54,14 +50,15 @@ class Upload extends Component {
     }
   };
 
-  onAddTag = (e) => {
+  onCreateTag = (e) => {
     if (this.state.new_tag.length > 0) {
-      let new_tag_array = this.state.default_tags;
+      let new_tag_array = this.state.tags;
       new_tag_array.push(this.state.new_tag);
       let new_tags_clicked = this.state.tags_clicked;
-      new_tags_clicked[this.state.new_tag] = 0;
+      new_tags_clicked[this.state.new_tag] = 1;
+      console.log(new_tags_clicked);
       this.setState({
-        default_tags: new_tag_array,
+        tags: new_tag_array,
         tag_error_message: '',
         tags_clicked: new_tags_clicked
       })
@@ -77,10 +74,10 @@ class Upload extends Component {
     let update_tag = this.state.tags_clicked;
     update_tag[e.target.value] = update_tag[e.target.value] + 1;
     if (update_tag[e.target.value] % 2 == 1) {
-      e.target.style.backgroundColor = "red";
+      e.target.style.backgroundColor = "";
     }
     else {
-      e.target.style.backgroundColor = "";
+      e.target.style.backgroundColor = "grey";
     }
     this.setState({
       update_tag
@@ -91,7 +88,7 @@ class Upload extends Component {
     e.preventDefault();
     let tags_array = [];
     let push_tags = new Promise((resolve, reject) => {
-      this.state.default_tags.forEach((tag) => {
+      this.state.tags.forEach((tag) => {
         if (this.state.tags_clicked[tag] % 2 !== 0 && this.state.tags_clicked[tag] > 0) {
           tags_array.push(tag)
         }
@@ -131,30 +128,85 @@ class Upload extends Component {
     const redirect_url = "images/" + this.state.image_id
     return (
       <div>
+        <div className="row">
+          <div className="col-sm-12">
+            <h1 className="text-center">Upload file</h1>
+            <hr/>
+          </div>
+        </div>
         {!this.state.upload_success ?
           <div>
             {
               upload_error ?
-                <h3>You can only upload images.</h3> :
+                <div className="row">
+                  <div className="col-sm-12">
+                    <h3 className="text-center">You can only upload images.</h3>
+                  </div>
+                </div>:
                 ""
             }
-            {this.state.default_tags.map((tag) => {
-              return <button className="tag-button" onClick={this.onTagSelected} value={tag}>{tag}</button>
-              }
-            )}
-            <input type="text" name="add-tag" onChange={this.onChange}/>
-            <button onClick={this.onAddTag}>Add Tag</button>
-            <form onSubmit={this.onSubmit}>
-              <label className="upload-button" for="default-upload">Upload</label>
-              <input id="default-upload" type="file" name="selectedFile" onChange={this.onChange}/>
-              <input
-                type="text"
-                name="title"
-                onChange={this.onChange}
-              />
-              <button type="submit">Submit</button>
-            </form>
-            <h2>File name: </h2><span>{this.state.file_name}</span>
+
+            <div className="row">
+              <div className="col-sm-2"></div>
+              <div className="col-sm-2">
+                <h2>Select File: </h2>
+              </div>
+              <div className="col-sm-2">
+                <form>
+                  <label for="default-upload">
+                    <div className="btn btn-primary btn-lg">Select File</div>
+                  </label>
+                  <input id="default-upload" type="file" name="selectedFile" onChange={this.onChange}/>
+                </form>
+              </div>
+              <div className="col-sm-6">
+                <h3>{this.state.file_name}</h3>
+              </div>
+            </div>
+            <hr/>
+
+            <div className="row">
+              <div className="col-sm-2"></div>
+              <div className="col-sm-2">
+                <h2>Title:</h2>
+              </div>
+              <div className="col-sm-8">
+                <input
+                  className="input"
+                  type="text"
+                  name="title"
+                  onChange={this.onChange}
+                />
+              </div>
+            </div>
+            <hr/>
+
+            <div className="row">
+              <div className="col-sm-2"></div>
+              <div className="col-sm-2">
+                <h2>Tags:</h2>
+              </div>
+              <div className="col-sm-3">
+                <input className="input" type="text" name="add-tag" onChange={this.onChange}/>
+                <button onClick={this.onCreateTag}>Create Tag</button>
+              </div>
+              <div className="col-sm-5">
+                {this.state.tags.map((tag) => {
+                    return <button className="btn btn-primary tag-button" onClick={this.onTagSelected} value={tag}>{tag}</button>
+                  }
+                )}
+              </div>
+            </div>
+
+            <hr/>
+
+            <div className="row">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 btn btn-success btn-lg text-center" onClick={this.onSubmit}>
+                Upload
+              </div>
+              <div className="col-sm-4"></div>
+            </div>
           </div>
           : <Redirect to={redirect_url} />
         }
