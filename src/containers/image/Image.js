@@ -29,7 +29,6 @@ class Image extends Component {
   componentDidMount() {
     axios.get(this.props.userData.base_url + "api/images/" + this.props.match.params.id).then((response) => {
       if (response.data[0].User) {
-        console.log(response.data[0]);
         this.setState({
           image_url: response.data[0].url,
           username: response.data[0].User.username,
@@ -43,8 +42,8 @@ class Image extends Component {
           image_url: response.data[0].url,
           username: '',
           upload_date: response.data[0].createdAt.substring(0,10),
-          title: '',
-          tags: []
+          title: response.data[0].title,
+          tags: response.data[0].tags
         })
       }
     })

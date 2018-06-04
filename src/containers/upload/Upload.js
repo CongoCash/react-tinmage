@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect} from 'react-router-dom'
-import Image from '../image/Image'
+import UploadFile from '../upload-file/UploadFile'
+import UploadTitle from '../upload-title/UploadTitle'
+import UploadTag from '../upload-tag/UploadTag'
 require('./Upload.css')
 
 
@@ -24,7 +26,7 @@ class Upload extends Component {
       file_name: '',
       tag_error_message: ''
     };
-    this.onTagSelected = this.onTagSelected.bind(this);
+    this.onTagDelete = this.onTagDelete.bind(this);
     this.onCreateTag = this.onCreateTag.bind(this);
   }
 
@@ -54,13 +56,11 @@ class Upload extends Component {
     if (this.state.new_tag.length > 0) {
       let new_tag_array = this.state.tags;
       new_tag_array.push(this.state.new_tag);
-      let new_tags_clicked = this.state.tags_clicked;
-      new_tags_clicked[this.state.new_tag] = 1;
-      console.log(new_tags_clicked);
       this.setState({
         tags: new_tag_array,
         tag_error_message: '',
-        tags_clicked: new_tags_clicked
+      }, () => {
+        document.getElementById('input-tag').value = "";
       })
     }
     else {
@@ -70,29 +70,27 @@ class Upload extends Component {
     }
   };
 
-  onTagSelected = (e) => {
-    let update_tag = this.state.tags_clicked;
-    update_tag[e.target.value] = update_tag[e.target.value] + 1;
-    if (update_tag[e.target.value] % 2 == 1) {
-      e.target.style.backgroundColor = "";
-    }
-    else {
-      e.target.style.backgroundColor = "grey";
-    }
-    this.setState({
-      update_tag
-    });
+  onTagDelete = (e) => {
+    let tags = this.state.tags;
+    let new_tags;
+    tags.forEach((tag, index) => {
+      if (tag === e.target.value) {
+        new_tags = tags.slice(0,index);
+        new_tags.push.apply(new_tags, tags.slice(index+1));
+        this.setState({
+          tags: new_tags
+        }, () => {
+          return
+        })
+      }
+    })
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     let tags_array = [];
     let push_tags = new Promise((resolve, reject) => {
-      this.state.tags.forEach((tag) => {
-        if (this.state.tags_clicked[tag] % 2 !== 0 && this.state.tags_clicked[tag] > 0) {
-          tags_array.push(tag)
-        }
-      });
+      tags_array = this.state.tags
       resolve('it worked')
     });
 
@@ -106,7 +104,7 @@ class Upload extends Component {
         formData.append('user_id', this.props.userData.user_id);
         formData.append('tags', tags_array);
 
-        axios.post('http://localhost:8000/api/upload', formData).then((response) => {
+        axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
           this.setState({
             image_id: response.data.id,
             upload_error: false,
@@ -146,57 +144,15 @@ class Upload extends Component {
                 ""
             }
 
-            <div className="row">
-              <div className="col-sm-2"></div>
-              <div className="col-sm-2">
-                <h2>Select File: </h2>
-              </div>
-              <div className="col-sm-2">
-                <form>
-                  <label for="default-upload">
-                    <div className="btn btn-primary btn-lg">Select File</div>
-                  </label>
-                  <input id="default-upload" type="file" name="selectedFile" onChange={this.onChange}/>
-                </form>
-              </div>
-              <div className="col-sm-6">
-                <h3>{this.state.file_name}</h3>
-              </div>
-            </div>
+            <UploadFile onChange={this.onChange} fileName={this.state.file_name}/>
             <hr/>
 
-            <div className="row">
-              <div className="col-sm-2"></div>
-              <div className="col-sm-2">
-                <h2>Title:</h2>
-              </div>
-              <div className="col-sm-8">
-                <input
-                  className="input"
-                  type="text"
-                  name="title"
-                  onChange={this.onChange}
-                />
-              </div>
-            </div>
+            <UploadTitle onChange={this.onChange}/>
             <hr/>
 
-            <div className="row">
-              <div className="col-sm-2"></div>
-              <div className="col-sm-2">
-                <h2>Tags:</h2>
-              </div>
-              <div className="col-sm-3">
-                <input className="input" type="text" name="add-tag" onChange={this.onChange}/>
-                <button onClick={this.onCreateTag}>Create Tag</button>
-              </div>
-              <div className="col-sm-5">
-                {this.state.tags.map((tag) => {
-                    return <button className="btn btn-primary tag-button" onClick={this.onTagSelected} value={tag}>{tag}</button>
-                  }
-                )}
-              </div>
-            </div>
+            <UploadTag inputTag={this.onChange} onCreateTag={this.onCreateTag} onTagDelete={this.onTagDelete}
+                tags={this.state.tags}
+            />
 
             <hr/>
 
