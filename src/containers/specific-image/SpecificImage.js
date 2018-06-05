@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class SizeButton extends Component {
+class SpecificImage extends Component {
 
   render() {
     return (
@@ -14,4 +14,4 @@ class SizeButton extends Component {
 }
 
 
-export default SizeButton
+export default SpecificImage

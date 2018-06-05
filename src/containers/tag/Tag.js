@@ -29,5 +29,4 @@ class Tag extends Component {
   }
 }
 
-
 export default Tag
