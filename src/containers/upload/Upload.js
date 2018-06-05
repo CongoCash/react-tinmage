@@ -33,15 +33,14 @@ class Upload extends Component {
   onChange = (e) => {
     if (e.target.name === 'selectedFile') {
       if (e.target.files[0]) {
-
-        //adds a preview image upon selecting an image
-        window.URL = window.URL || window.webkitURL;
-        let preview = document.getElementById('preview');
-        preview.src = window.URL.createObjectURL(e.target.files[0]);
-        
         this.setState({
           selectedFile: e.target.files[0],
           file_name: e.target.files[0].name
+        }, () => {
+          //adds a preview image upon selecting an image
+          window.URL = window.URL || window.webkitURL;
+          let preview = document.getElementById('preview');
+          preview.src = window.URL.createObjectURL(this.state.selectedFile);
         })
       }
     }
@@ -155,7 +154,8 @@ class Upload extends Component {
         {!this.state.upload_success ?
           <div>
 
-            <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}/>
+            <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
+              selectedFile={this.state.selectedFile}/>
 
             <UploadTitle onChange={this.onChange}/>
 

@@ -5,7 +5,7 @@ class UploadTitle extends Component {
 
   render() {
     return (
-      <div className="row align-middle-text">
+      <div className="row">
         <div className="col-md-4"></div>
         <div className="col-md-4">
           <input
