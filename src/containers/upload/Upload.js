@@ -33,6 +33,12 @@ class Upload extends Component {
   onChange = (e) => {
     if (e.target.name === 'selectedFile') {
       if (e.target.files[0]) {
+
+        //adds a preview image upon selecting an image
+        window.URL = window.URL || window.webkitURL;
+        let preview = document.getElementById('preview');
+        preview.src = window.URL.createObjectURL(e.target.files[0]);
+        
         this.setState({
           selectedFile: e.target.files[0],
           file_name: e.target.files[0].name
