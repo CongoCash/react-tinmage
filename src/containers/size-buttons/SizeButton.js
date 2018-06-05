@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 
 class SizeButton extends Component {
 
-
-
   render() {
     return (
       <div className="row button-margin">
