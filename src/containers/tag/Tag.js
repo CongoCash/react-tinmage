@@ -4,10 +4,10 @@ import './Tag.css'
 
 
 class Tag extends Component {
-  
+
   render() {
     let tags = this.props.tags.map((tag) => {
-      return <div className="btn btn-success tag"><Link className="tag-text" to={"/category/" + tag}>{tag}</Link></div>
+      return <Link className="btn btn-success tag tag-text" to={"/category/" + tag}>{tag}</Link>
     });
 
     let tags_available = (this.props.tags.length > 0 && this.props.tags[0] !== "");
