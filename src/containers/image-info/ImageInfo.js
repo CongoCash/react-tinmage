@@ -6,7 +6,6 @@ class ImageInfo extends Component {
 
 
   render() {
-    console.log(this.props.imageData);
     return (
       <div>
         <div className="row">

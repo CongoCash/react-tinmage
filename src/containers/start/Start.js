@@ -25,12 +25,9 @@ class Start extends Component {
 
   fetchData(){
     ImagesModel.getAll().then((res) => {
-      console.log(res.data)
       this.setState({
         images: res.data,
         current_image_url: res.data[this.state.image_index].url
-      }, function() {
-        console.log(this.state.current_image_url)
       })
     })
   }
@@ -72,7 +69,6 @@ class Start extends Component {
   }
 
   hoverDislike(e) {
-    console.log('hovering over dislike')
     this.setState({
       hovering_dislike: true
     })
@@ -102,8 +98,7 @@ class Start extends Component {
       downvote = <img src={this.state.downvote} width="100" height="100" className="downvote" onClick={this.handleDislike.bind(this)}
                       onMouseEnter={this.hoverDislike.bind(this)} onMouseLeave={this.leaveHoverDislike.bind(this)}/>
     }
-    let image_url = this.props.userData.base_url + this.state.current_image_url
-    console.log(image_url)
+    let image_url = this.props.userData.base_url + this.state.current_image_url;
 
 
       return (

@@ -13,7 +13,6 @@ class Tag extends Component {
     });
 
     let tags_available = (this.props.tags.length > 0 && this.props.tags[0] !== "");
-    console.log(this.props.tags);
 
     return (
       <div>
