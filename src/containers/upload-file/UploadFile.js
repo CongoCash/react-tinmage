@@ -20,7 +20,7 @@ class UploadFile extends Component {
           <div className="col-md-4">
             <form>
               <label className="select-file" for="default-upload">
-                <div className="btn btn-primary btn-lg button-width">Select File</div>
+                <div className="btn btn-primary btn-lg button-width">Select File or Drag and Drop</div>
               </label>
               <input id="default-upload" type="file" name="selectedFile" onChange={this.props.onChange.bind(this)}/>
             </form>

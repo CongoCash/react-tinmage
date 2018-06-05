@@ -83,7 +83,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="height-100">
         <Navbar userData={this.state} onLogout={this.onLogout} />
         <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
       </div>

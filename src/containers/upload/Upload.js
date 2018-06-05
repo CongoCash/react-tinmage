@@ -28,7 +28,30 @@ class Upload extends Component {
     };
     this.onTagDelete = this.onTagDelete.bind(this);
     this.onCreateTag = this.onCreateTag.bind(this);
+    this.onDropFile = this.onDropFile.bind(this);
+    this.dragOverHandler = this.dragOverHandler.bind(this);
   }
+
+  onDropFile = (e) => {
+    e.preventDefault();
+    console.log('something is being dropped');
+    console.log(e.dataTransfer.items[0].getAsFile());
+    console.log(e.dataTransfer.items[0].getAsFile().name);
+    this.setState({
+      selectedFile: e.dataTransfer.items[0].getAsFile(),
+      file_name: e.dataTransfer.items[0].getAsFile().name
+    }, () => {
+      //adds a preview image upon selecting an image
+      window.URL = window.URL || window.webkitURL;
+      let preview = document.getElementById('preview');
+      preview.src = window.URL.createObjectURL(this.state.selectedFile);
+    })
+  };
+
+  dragOverHandler = (e) => {
+    e.preventDefault();
+    console.log('dragged over');
+  };
 
   onChange = (e) => {
     if (e.target.name === 'selectedFile') {
@@ -144,7 +167,7 @@ class Upload extends Component {
     const upload_error = this.state.upload_error
     const redirect_url = "images/" + this.state.image_id
     return (
-      <div className="text-center">
+      <div className="text-center height-100" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
           <div className="col-md-12">
             <h1>Upload file</h1>
