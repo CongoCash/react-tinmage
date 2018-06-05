@@ -40,6 +40,7 @@ class Upload extends Component {
           //adds a preview image upon selecting an image
           window.URL = window.URL || window.webkitURL;
           let preview = document.getElementById('preview');
+          console.log(preview);
           preview.src = window.URL.createObjectURL(this.state.selectedFile);
         })
       }
