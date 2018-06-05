@@ -53,19 +53,33 @@ class Upload extends Component {
   };
 
   onCreateTag = (e) => {
-    if (this.state.new_tag.length > 0) {
+    if (this.state.new_tag.length > 0 && this.state.tags.length < 5 && this.state.new_tag.length <= 20
+    && !this.state.tags.includes(this.state.new_tag)) {
       let new_tag_array = this.state.tags;
       new_tag_array.push(this.state.new_tag);
       this.setState({
         tags: new_tag_array,
         tag_error_message: '',
+        new_tag: ''
       }, () => {
         document.getElementById('input-tag').value = "";
       })
     }
+    else if (this.state.tags.length >= 5) {
+      this.setState({
+        tag_error_message: 'You can only create 5 tags, click on an existing tag to delete it'
+      })
+    }
+
+    else if (this.state.tags.includes(this.state.new_tag)) {
+      this.setState({
+        tag_error_message: 'Tag already exists'
+      })
+    }
+
     else {
       this.setState({
-        tag_error_message: 'Please enter valid tag'
+        tag_error_message: 'Tags must be between 1 and 20 characters'
       })
     }
   };
@@ -125,43 +139,31 @@ class Upload extends Component {
     const upload_error = this.state.upload_error
     const redirect_url = "images/" + this.state.image_id
     return (
-      <div>
+      <div className="text-center">
         <div className="row">
-          <div className="col-sm-12">
-            <h1 className="text-center">Upload file</h1>
+          <div className="col-md-12">
+            <h1>Upload file</h1>
             <hr/>
           </div>
         </div>
         {!this.state.upload_success ?
           <div>
-            {
-              upload_error ?
-                <div className="row">
-                  <div className="col-sm-12">
-                    <h3 className="text-center">You can only upload images.</h3>
-                  </div>
-                </div>:
-                ""
-            }
 
-            <UploadFile onChange={this.onChange} fileName={this.state.file_name}/>
-            <hr/>
+            <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}/>
 
             <UploadTitle onChange={this.onChange}/>
-            <hr/>
 
             <UploadTag inputTag={this.onChange} onCreateTag={this.onCreateTag} onTagDelete={this.onTagDelete}
-                tags={this.state.tags}
-            />
-
-            <hr/>
+                tags={this.state.tags} tagError={this.state.tag_error_message}/>
 
             <div className="row">
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4 btn btn-success btn-lg text-center" onClick={this.onSubmit}>
+              <div className="col-md-4"></div>
+              <div className="col-md-4">
+                <button className="btn btn-success btn-lg text-center upload-button" onClick={this.onSubmit}>
                 Upload
+                </button>
               </div>
-              <div className="col-sm-4"></div>
+              <div className="col-md-4"></div>
             </div>
           </div>
           : <Redirect to={redirect_url} />

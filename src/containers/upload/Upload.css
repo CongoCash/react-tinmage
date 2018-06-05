@@ -1,19 +1,8 @@
-.tag-button {
-    background-color: red;
-    border-radius: 12px;
-    outline: none;
-    box-shadow: none
+.upload-button {
+    width: 75%;
 }
 
-.tag-button:active, .tag-button:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-#default-upload {
-    display: none;
-}
-
-.input {
-    width: 50%;
+.align-middle-text {
+    display:flex;
+    align-items:center;
 }

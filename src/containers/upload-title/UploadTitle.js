@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
+require('./UploadTitle.css');
 
 class UploadTitle extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-2"></div>
-        <div className="col-sm-2">
-          <h2>Title:</h2>
-        </div>
-        <div className="col-sm-8">
+      <div className="row align-middle-text">
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
           <input
             id="input-title"
             className="input"
             type="text"
             name="title"
             onChange={this.props.onChange.bind(this)}
+            placeholder="Title"
           />
         </div>
       </div>

@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
+require('./UploadTag.css')
 
 class UploadTag extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-2"></div>
-        <div className="col-sm-2">
-          <h2>Tags:</h2>
+      <div>
+        <div className="row align-middle-text">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            <h4>{this.props.tagError}</h4>
+            <input id="input-tag" className="input-tag" type="text" name="add-tag"
+                   onChange={this.props.inputTag.bind(this)} placeholder="Tag"/>
+            <button className="create-tag btn" onClick={this.props.onCreateTag.bind(this)}>Add</button>
+          </div>
+          <div className="col-md-4"></div>
         </div>
-        <div className="col-sm-3">
-          <input id="input-tag" className="input" type="text" name="add-tag" onChange={this.props.inputTag.bind(this)}/>
-          <button onClick={this.props.onCreateTag.bind(this)}>Create Tag</button>
-        </div>
-        <div className="col-sm-5">
-          {this.props.tags.map((tag) => {
-              return <button className="btn btn-primary tag-button"
-                             onClick={this.props.onTagDelete.bind(this)} value={tag}>{tag}</button>
-            }
-          )}
+
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            {this.props.tags.map((tag) => {
+                return <button className="btn btn-primary tag-button"
+                               onClick={this.props.onTagDelete.bind(this)} value={tag}>{tag}</button>
+              }
+            )}
+          </div>
         </div>
       </div>
+
     );
   }
 }
