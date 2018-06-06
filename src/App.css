@@ -31,3 +31,8 @@
   border-radius: 25px;
   height: 100vh;
 }
+
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -16,8 +16,9 @@ class App extends Component {
       logged_in: false,
       session_id: '',
       error_message: '',
-      base_url: myConfig.api_url
-    }
+      base_url: myConfig.api_url,
+      user_id: ''
+    };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
@@ -27,6 +28,7 @@ class App extends Component {
       this.setState({
         username: localStorage.getItem("username"),
         session_id: localStorage.getItem("session_id"),
+        user_id: localStorage.getItem("user_id"),
         logged_in: true
       })
     }
@@ -34,15 +36,17 @@ class App extends Component {
 
 
   onLogin(username, password) {
-    axios.post(this.state.base_url + '/api/users/login', {username: username, password: password})
+    axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
         localStorage.setItem("username", response.data.username)
         localStorage.setItem("session_id", response.data.session_id)
+        localStorage.setItem("user_id", response.data.user_id)
         this.setState({
           logged_in: true,
           username: response.data.username,
           session_id: response.data.session_id,
+          user_id: response.data.user_id,
           error_message: ''
         })
       }
@@ -52,14 +56,15 @@ class App extends Component {
           username: '',
           password: '',
           session_id: '',
-          error_message: response.data.error
+          user_id: '',
+          error_message: response.data.error,
         })
       }
     })
   }
 
   onLogout() {
-    axios.post(myConfig.api_url + '/api/users/logout')
+    axios.post(this.state.base_url + 'api/users/logout')
     .then((response) => {
       if (response.data.logged_in == false) {
         this.setState({
@@ -67,17 +72,19 @@ class App extends Component {
           password: '',
           logged_in: false,
           session_id: '',
+          user_id: '',
           error_message: ''
         })
       }
     })
-    localStorage.setItem("username", '')
-    localStorage.setItem("session_id", '')
+    localStorage.setItem("username", '');
+    localStorage.setItem("session_id", '');
+    localStorage.setItem("user_id", '');
   }
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="height-100 container-fluid no-padding">
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>

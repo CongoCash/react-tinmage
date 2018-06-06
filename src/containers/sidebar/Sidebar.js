@@ -21,7 +21,7 @@ class Sidebar extends Component {
       <div>
       {this.state.categories.map(category =>
         <div className="row link-design">
-          <Link className="link-text col-sm-12 align-vertical" to={"/category/" + category}>
+          <Link className="link-text col-lg-12 align-vertical" to={"/category/" + category}>
             {this.capitalLink(category)}
           </Link>
         </div>
