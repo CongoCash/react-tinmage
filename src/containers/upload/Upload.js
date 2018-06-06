@@ -34,9 +34,6 @@ class Upload extends Component {
 
   onDropFile = (e) => {
     e.preventDefault();
-    console.log('something is being dropped');
-    console.log(e.dataTransfer.items[0].getAsFile());
-    console.log(e.dataTransfer.items[0].getAsFile().name);
     this.setState({
       selectedFile: e.dataTransfer.items[0].getAsFile(),
       file_name: e.dataTransfer.items[0].getAsFile().name
@@ -50,7 +47,6 @@ class Upload extends Component {
 
   dragOverHandler = (e) => {
     e.preventDefault();
-    console.log('dragged over');
   };
 
   onChange = (e) => {
