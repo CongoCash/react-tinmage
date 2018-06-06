@@ -5,7 +5,7 @@ import UploadFile from '../upload-file/UploadFile'
 import UploadTitle from '../upload-title/UploadTitle'
 import UploadTag from '../upload-tag/UploadTag'
 require('./Upload.css')
-
+//need to move drag and drop upload to app.js, so that you can upload anywhere
 
 class Upload extends Component {
   constructor() {
@@ -167,7 +167,7 @@ class Upload extends Component {
     const upload_error = this.state.upload_error
     const redirect_url = "images/" + this.state.image_id
     return (
-      <div className="text-center height-100" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
+      <div className="text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
           <div className="col-md-12">
             <h1>Upload file</h1>

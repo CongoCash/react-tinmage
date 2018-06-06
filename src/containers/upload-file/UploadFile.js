@@ -30,12 +30,6 @@ class UploadFile extends Component {
         <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
-            <h3>{this.props.fileName}</h3>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-4"></div>
-          <div className="col-md-4">
             <img id="preview"/>
           </div>
         </div>
