@@ -28,8 +28,6 @@ class Start extends Component {
       this.setState({
         images: res.data,
         current_image_url: res.data[this.state.image_index].url
-      }, function() {
-        console.log(this.state.current_image_url)
       })
     })
   }
@@ -39,6 +37,8 @@ class Start extends Component {
       current_image_url: this.state.images[this.state.image_index].url
     })
   }
+
+  //reset image_index to 0 if it reaches the end of the image array
 
   handleLike(e) {
     this.setState({
@@ -69,7 +69,6 @@ class Start extends Component {
   }
 
   hoverDislike(e) {
-    console.log('hovering over dislike')
     this.setState({
       hovering_dislike: true
     })
@@ -82,7 +81,6 @@ class Start extends Component {
   }
 
   leaveHoverDislike(e) {
-    console.log('leave hover dislike')
     this.setState({
       hovering_dislike: false
     })
@@ -92,7 +90,6 @@ class Start extends Component {
   render() {
     let upvote = null
     let downvote = null
-    console.log(this.state.hovering_like)
     if (this.state.hovering_like) {
       upvote = <img src={this.state.upvote} width="100" height="100" className="upvote" onClick={this.handleLike.bind(this)}
                     onMouseEnter={this.hoverLike.bind(this)} onMouseLeave={this.leaveHoverLike.bind(this)}/>
@@ -101,7 +98,7 @@ class Start extends Component {
       downvote = <img src={this.state.downvote} width="100" height="100" className="downvote" onClick={this.handleDislike.bind(this)}
                       onMouseEnter={this.hoverDislike.bind(this)} onMouseLeave={this.leaveHoverDislike.bind(this)}/>
     }
-    console.log(downvote)
+    let image_url = this.props.userData.base_url + this.state.current_image_url;
 
 
       return (
@@ -109,7 +106,7 @@ class Start extends Component {
         <div className="row">
           <div className="col-sm-12">
             <div className="image-container">
-              <img src={this.state.current_image_url} width="500" height="600" useMap="#voting"/>
+              <img src={image_url} width="500" height="600" useMap="#voting"/>
             </div>
             <map name="voting">
               <area shape="rect" coords="0,0,250,600" onClick={this.handleLike.bind(this)}

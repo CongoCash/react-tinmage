@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Route, Redirect} from 'react-router-dom'
 import {myConfig} from '../../config'
 
 class Signup extends Component {
@@ -12,7 +11,7 @@ class Signup extends Component {
       password: '',
       password_confirmation: '',
       error_message: ''
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this)
   }

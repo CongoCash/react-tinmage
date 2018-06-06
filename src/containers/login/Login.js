@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import LoginForm from './LoginForm.js'
+import {myConfig} from '../../config'
 
 class Login extends Component {
   constructor(props) {
@@ -20,9 +21,10 @@ class Login extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
-    axios.get(this.props.userData.base_url + 'api/users/login', {user: this.state})
+    e.preventDefault();
+    axios.get(myConfig + 'api/users/login', {user: this.state});
   }
+
 
   render() {
     return (
