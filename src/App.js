@@ -5,6 +5,7 @@ import Sidebar from '../src/containers/sidebar/Sidebar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
 import { myConfig } from './config'
+import MobileSidebar from "./containers/mobile-sidebar/MobileSidebar";
 
 
 class App extends Component {
@@ -17,10 +18,13 @@ class App extends Component {
       session_id: '',
       error_message: '',
       base_url: myConfig.api_url,
-      user_id: ''
+      user_id: '',
+      width: '',
+      height: ''
     };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentWillMount() {
@@ -32,6 +36,25 @@ class App extends Component {
         logged_in: true
       })
     }
+    console.log(window.innerHeight);
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    }, () => {
+      console.log(this.state.width);
+    })
   }
 
 
@@ -88,14 +111,27 @@ class App extends Component {
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        <div className="row">
-          <div className="col-sm-2 sidebar-design">
-            <Sidebar />
+        {this.state.width >= 992 ?
+          <div className="row">
+            <div className="col-lg-2 sidebar-design">
+              <Sidebar userData={this.state}/>
+            </div>
+            <div className="col-lg-10">
+              <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
+            </div>
           </div>
-          <div className="col-sm-10">
-            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin} />
+          :
+          <div>
+            <div className="row">
+              <MobileSidebar/>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+              <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
+              </div>
+            </div>
           </div>
-        </div>
+        }
       </div>
     );
   }

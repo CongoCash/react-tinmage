@@ -20,7 +20,40 @@
     font-weight: bold;
 }
 
-.align-vertical {
-    display: flex;
-    align-items: center;
+li {
+    display: block;
+    color: black;
+    text-align: left;
+    padding-left: 0px;
+    text-decoration: none;
+    float: left;
+}
+
+.hor-sidebar {
+    width: 10%;
+}
+
+a ul {
+    font-size: 60%;
+}
+
+a {
+    padding-left: 1px !important;
+    padding-right: 0 !important;
+}
+
+ul {
+    padding-left: 25px;
+    color: white;
+}
+
+.sidebar-list {
+    background-color: #808080;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 990px) {
+    .sidebar-design {
+        height: 100%;
+    }
 }

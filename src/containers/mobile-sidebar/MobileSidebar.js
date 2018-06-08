@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-require('./Sidebar.css')
+require('./MobileSidebar.css')
 
-class Sidebar extends Component {
+class MobileSidebar extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,18 +33,26 @@ class Sidebar extends Component {
   }
 
   render() {
+    //add button that will bring a dropdown for sidebar when it's too small
     return (
-      <li>
-        {this.state.categories.map(category =>
-          <ul className="row link-design">
-            <Link to={"/category/" + category}>
-              <ul className="link-text col-md-12 align-vertical">{this.capitalLink(category)}</ul>
-            </Link>
-          </ul>
-        )}
-      </li>
+      <div className="width-100 col-md-12">
+        <div className="category-button row" onClick={this.category_button}>
+          <div className="col-md-12">Categories</div>
+        </div>
+        {this.state.category_button_clicked ?
+          <li className="row sidebar-list">
+            {this.state.categories.map(category =>
+              <Link className="col-3 col-sm-2 col-md-1 col-lg-1" to={"/category/" + category}>
+                <ul onClick={this.category_button} className="align-vertical category-padding">{this.capitalLink(category)}</ul>
+              </Link>
+            )}
+          </li>
+          :
+          ""
+        }
+      </div>
     )
   }
 }
 
-export default Sidebar
+export default MobileSidebar

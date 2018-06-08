@@ -1,0 +1,12 @@
+.category-button {
+    width: 100%;
+    background-color: #202f47;
+    text-align: center;
+    color: white;
+    margin-top: 1px;
+    margin-left: 0;
+}
+
+.category-padding {
+    padding-left: 20px;
+}
