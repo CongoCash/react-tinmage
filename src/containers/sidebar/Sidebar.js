@@ -34,7 +34,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <li>
+      <li className="width-100">
         {this.state.categories.map(category =>
           <ul className="row link-design">
             <Link to={"/category/" + category}>

@@ -10,3 +10,13 @@
 .category-padding {
     padding-left: 20px;
 }
+
+.sidebar-list {
+    background-color: #808080;
+    margin: 0;
+}
+
+.mobile-link:hover {
+    background-color: #b51242;
+    text-decoration: none;
+}
