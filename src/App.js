@@ -36,7 +36,6 @@ class App extends Component {
         logged_in: true
       })
     }
-    console.log(window.innerHeight);
   }
 
   componentDidMount() {
@@ -52,8 +51,6 @@ class App extends Component {
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight
-    }, () => {
-      console.log(this.state.width);
     })
   }
 
