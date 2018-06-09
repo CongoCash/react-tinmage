@@ -1,7 +1,8 @@
-.nav-height-color {
+.navbar {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #202f47;
+    width: 100%;
 }
 
 .logo {

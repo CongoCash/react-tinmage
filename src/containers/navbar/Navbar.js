@@ -16,7 +16,7 @@ class Navbar extends Component {
   render() {
     let logged_in = this.props.userData.logged_in
     return (
-      <div className="row nav-height-color">
+      <div className="row navbar">
         <div className="col-sm-6">
           <div className="row">
             <div className="col-sm-6">

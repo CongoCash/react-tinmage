@@ -106,7 +106,7 @@ class Start extends Component {
         <div className="row">
           <div className="col-sm-12">
             <div className="image-container">
-              <img src={image_url} width="500" height="600" useMap="#voting"/>
+              <img src={this.props.userData.base_url + "/" + this.state.current_image_url} width="500" height="600" useMap="#voting"/>
             </div>
             <map name="voting">
               <area shape="rect" coords="0,0,250,600" onClick={this.handleLike.bind(this)}

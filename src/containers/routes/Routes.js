@@ -4,17 +4,28 @@ import Start from '../start/Start.js'
 import Upload from '../upload/Upload.js'
 import Login from '../login/Login.js'
 import Signup from '../signup/Signup.js'
+import Category from '../category/Category.js'
 import Image from '../image/Image.js'
 
 
 class Routes extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      categories: ['new', 'animals', 'cartoons', 'funny', 'sports', 'other']
+    }
   }
 
   render() {
     return (
       <Switch>
+        {this.state.categories.map((category) => {
+          return <Route path={"/category/:tag"}
+            render={(props) => (
+              <Category userData={this.props.userData} {...props} />
+            )}
+          />
+        })}
         <Route exact path='/'
                render={() => (
                  <Start userData={this.props.userData} />

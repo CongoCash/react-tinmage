@@ -165,7 +165,7 @@ class Upload extends Component {
     return (
       <div className="text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-lg-12">
             <h1>Upload file</h1>
             <hr/>
           </div>
@@ -182,13 +182,13 @@ class Upload extends Component {
                 tags={this.state.tags} tagError={this.state.tag_error_message}/>
 
             <div className="row">
-              <div className="col-md-4"></div>
-              <div className="col-md-4">
-                <button className="btn btn-success btn-lg text-center upload-button" onClick={this.onSubmit}>
+              <div className="col-lg-4"></div>
+              <div className="col-lg-4">
+                <button className="btn btn-success btn-lg text-center upload-buttons" onClick={this.onSubmit}>
                 Upload
                 </button>
               </div>
-              <div className="col-md-4"></div>
+              <div className="col-lg-4"></div>
             </div>
           </div>
           : <Redirect to={redirect_url} />

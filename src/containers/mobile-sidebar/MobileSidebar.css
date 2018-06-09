@@ -1,0 +1,33 @@
+.category-button {
+    width: 100%;
+    background-color: #202f47;
+    text-align: center;
+    color: white;
+    margin-top: 1px;
+    margin-left: 0;
+}
+
+.category-design {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+}
+
+.sidebar-list {
+    background-color: #808080;
+    margin: 0;
+    width: 100%;
+    padding-left: 0;
+}
+
+.mobile-link {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.mobile-link:hover {
+    background-color: #b51242;
+    text-decoration: none;
+}

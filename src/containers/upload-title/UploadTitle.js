@@ -6,8 +6,8 @@ class UploadTitle extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-4"></div>
-        <div className="col-md-4">
+        <div className="col-lg-4"></div>
+        <div className="col-lg-4">
           <input
             id="input-title"
             className="input"
