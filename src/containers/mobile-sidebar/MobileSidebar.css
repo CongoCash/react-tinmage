@@ -7,13 +7,24 @@
     margin-left: 0;
 }
 
-.category-padding {
-    padding-left: 20px;
+.category-design {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: white;
 }
 
 .sidebar-list {
     background-color: #808080;
     margin: 0;
+    width: 100%;
+    padding-left: 0;
+}
+
+.mobile-link {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .mobile-link:hover {

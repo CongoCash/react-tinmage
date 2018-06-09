@@ -40,15 +40,15 @@ class MobileSidebar extends Component {
           <div className="col-md-12">Categories</div>
         </div>
         {this.state.category_button_clicked ?
-          <li className="row sidebar-list">
+          <ul className="row sidebar-list">
             {this.state.categories.map(category =>
               <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category}>
-                <ul onClick={this.category_button} className="align-vertical category-padding">
+                <li onClick={this.category_button} className="category-design">
                   {this.capitalLink(category)}
-                  </ul>
+                </li>
               </Link>
             )}
-          </li>
+          </ul>
           :
           ""
         }

@@ -34,15 +34,13 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <li className="width-100">
+      <div className="sidebar-border">
         {this.state.categories.map(category =>
-          <ul className="row link-design">
-            <Link to={"/category/" + category}>
-              <ul className="link-text col-md-12 align-vertical">{this.capitalLink(category)}</ul>
-            </Link>
-          </ul>
+          <Link className="row link-design" to={"/category/" + category}>
+            {this.capitalLink(category)}
+          </Link>
         )}
-      </li>
+      </div>
     )
   }
 }

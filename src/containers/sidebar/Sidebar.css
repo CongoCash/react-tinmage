@@ -1,24 +1,19 @@
 .link-design {
-    background-color: #202f47;
     display: block;
     height: 100%;
-    padding-left: 25%;
-    margin-bottom: 0;
+    padding: 0;
+    margin: 0;
     margin-top: 1px;
+    text-align: center;
+    width: 100%;
+    color: black;
+
 }
 
 .link-design:hover {
     background-color: #b51242;
-}
-
-.link-text {
-    color: white;
-    font-size: 100%;
-}
-
-.link-text:hover {
     text-decoration: none;
-    color:white;
+    color: white;
     font-weight: bold;
 }
 
@@ -47,6 +42,12 @@ a {
 ul {
     padding-left: 25px;
     color: white;
+}
+
+.sidebar-design {
+    border-right: 1px solid grey;
+    height: inherit;
+    padding: 0;
 }
 
 @media only screen and (max-width: 990px) {
