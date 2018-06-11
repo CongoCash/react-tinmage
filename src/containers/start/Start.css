@@ -1,0 +1,16 @@
+.image-container {
+    text-align: center;
+}
+
+.upvote {
+    left: 37.5%;
+    position: absolute;
+    margin-top: -350px;
+}
+
+.downvote {
+    left: 56.5%;
+    position: absolute;
+    margin-top: -350px;
+
+}

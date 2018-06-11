@@ -33,6 +33,7 @@ class Category extends Component {
   }
 
   componentDidMount() {
+    console.log('component did mount');
     this.getImages(this.props);
 
     //setup blank image to hide default drag image
@@ -44,14 +45,11 @@ class Category extends Component {
   getImages(props) {
     if (!props.match.params.tag) {
       ImagesModel.getAll().then((res) => {
-        console.log(res);
         this.setState({
           images: res.data,
           image_index: 0,
           error_message: '',
           tag: ''
-        }, () => {
-          console.log(this.state);
         })
       })
     }
@@ -183,7 +181,6 @@ class Category extends Component {
     }
   }
 
-
   render() {
     let images_available = (this.state.images.length > 0);
     let top_image = (this.state.image_index < this.state.images.length);
@@ -191,40 +188,60 @@ class Category extends Component {
     let image_data = '';
     if (images_available) {
       image_data = this.state.images[this.state.image_index];
-    };
+    }
     console.log(image_data);
+    console.log(this.props);
+
     return (
           <div>
             {image_data !== '' ?
               <div>
-                <div className="image-container">
-                  {top_image ?
-                    <img className="top-image" height="500" width="500"
-                         src={this.props.userData.base_url + image_data.url}
-                         onDrag={this.swiped} onDragStart={this.dragImage}
-                         onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
-                    />
-                    : ""
-                  }
-                  {bottom_image ? <h1>Nothing here</h1> :
-                    <img className="bottom-image" height="500" width="500"
-                         src={this.props.userData.base_url + image_data.url}
-                    />
-                  }
+                <div className="image-container row">
+                  <div className="col-lg-12">
+                    {top_image ?
+                      <img className="top-image" height={this.props.userData.height * 0.5} width={this.props.userData.width * 0.5}
+                           src={this.props.userData.base_url + image_data.url}
+                           onDrag={this.swiped} onDragStart={this.dragImage}
+                           onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                      />
+                      : ""
+                    }
+                    {bottom_image ? <h1>Nothing here</h1> :
+                      <img className="bottom-image" height={this.props.userData.height * 0.5} width={this.props.userData.width * 0.5}
+                           src={this.props.userData.base_url + image_data.url}
+                      />
+                    }
+                  </div>
                 </div>
-                <h1>by {image_data.User.username}</h1>
-                {image_data.title.length > 0 ?
-                  <h1>{image_data.title}</h1> :
-                  <h1 className="title">Untitled</h1>
-                }
+                <div className="row">
+                  <div className="col-lg-12">
+                    {image_data.User !== null ?
+                      <h1>by {image_data.User.username}</h1>
+                      :
+                      ""
+                    }
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-12">
+                    {image_data.title.length > 0 ?
+                      <h1>{image_data.title}</h1> :
+                      <h1 className="title">Untitled</h1>
+                    }
+                  </div>
+                </div>
 
-
-
-                {image_data.tags.map((tag, index) => {
-                  return <button className="btn tag">
-                    <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
-                  </button>
-                })}
+                <div className="row">
+                  <div className="col-lg-12">
+                    {image_data.tags.map((tag, index) => {
+                      if (tag !== "") {
+                        return  <button className="btn tag">
+                                  <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
+                                </button>
+                      }
+                    })}
+                  </div>
+                </div>
               </div>
               : <h1>Nothing here</h1>
             }

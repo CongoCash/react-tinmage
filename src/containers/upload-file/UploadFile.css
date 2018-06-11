@@ -1,0 +1,11 @@
+#default-upload {
+    display: none;
+}
+
+.select-file {
+    width: 75%;
+}
+
+#preview {
+    margin-bottom: 10px;
+}

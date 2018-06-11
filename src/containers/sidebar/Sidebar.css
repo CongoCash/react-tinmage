@@ -1,19 +1,57 @@
 .link-design {
-    background-color: #3a4454;
-    margin-bottom: 10px;
-}
+    display: block;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    margin-top: 1px;
+    text-align: center;
+    width: 100%;
+    color: black;
 
-.link-text {
-    color: white;
 }
 
 .link-design:hover {
     background-color: #b51242;
-    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
 }
 
-.link-text:hover {
+li {
+    display: block;
+    color: black;
+    text-align: left;
+    padding-left: 0px;
     text-decoration: none;
-    color:white;
-    font-weight: bold;
+    float: left;
+}
+
+.hor-sidebar {
+    width: 10%;
+}
+
+a ul {
+    font-size: 60%;
+}
+
+a {
+    padding-left: 1px !important;
+    padding-right: 0 !important;
+}
+
+ul {
+    padding-left: 25px;
+    color: white;
+}
+
+.sidebar-design {
+    border-right: 1px solid grey;
+    height: inherit;
+    padding: 0;
+}
+
+@media only screen and (max-width: 990px) {
+    .sidebar-design {
+        height: 100%;
+    }
 }

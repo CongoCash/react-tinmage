@@ -27,7 +27,16 @@
   to { transform: rotate(360deg); }
 }
 
-.sidebar-design {
-  border-radius: 25px;
-  background-color: black;
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.align-vertical {
+  display: inline;
+  vertical-align: center;
 }
