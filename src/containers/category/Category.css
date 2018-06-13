@@ -1,19 +1,23 @@
 .top-image {
     z-index: 0;
+    display: block;
+    top: 5px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     position: absolute;
 }
 
 .bottom-image {
     z-index: -1;
-    position: absolute;
-}
-
-.image-container {
-    height:500px;
     display: block;
+    top: 5px;
+    left: 0;
+    right: 0;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    position: absolute;
 }
 
 .title {

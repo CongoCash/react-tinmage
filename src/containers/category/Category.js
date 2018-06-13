@@ -194,20 +194,18 @@ class Category extends Component {
     console.log(this.state.images.length);
     console.log(bottom_image);
     return (
-          <div>
+          <React.Fragment>
             {images_available ?
-              <div>
-                <div className="image-container row">
-                  <div className="col-lg-12">
-                    {top_image ?
-                      <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
-                                swiped={this.swiped} dragImage={this.dragImage}
-                                initialLocation={this.initialLocation} dragEnd={this.dragEnd}
-                                bottom_image={bottom_image} bottom_image_data={bottom_image_data}
-                      />
-                      : ""
-                    }
-                  </div>
+              <React.Fragment>
+                <div className="col-lg-10">
+                  {top_image ?
+                    <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
+                              swiped={this.swiped} dragImage={this.dragImage}
+                              initialLocation={this.initialLocation} dragEnd={this.dragEnd}
+                              bottom_image={bottom_image} bottom_image_data={bottom_image_data}
+                    />
+                    : ""
+                  }
                 </div>
                 <div className="row">
                   <div className="col-lg-12">
@@ -238,10 +236,10 @@ class Category extends Component {
                     })}
                   </div>
                 </div>
-              </div>
+              </React.Fragment>
               : <h1>Nothing left here, check out some other categories!</h1>
             }
-          </div>
+          </React.Fragment>
 
     )
   };
