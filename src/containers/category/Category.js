@@ -197,7 +197,25 @@ class Category extends Component {
           <React.Fragment>
             {images_available ?
               <React.Fragment>
-                <div className="col-lg-10">
+                  <div className="row">
+                    <div className="col-lg-12">
+                      {top_image_data.title.length > 0 ?
+                        <h1 className="title">{top_image_data.title}</h1> :
+                        <h1 className="title">Untitled</h1>
+                      }
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-lg-12">
+                      {top_image_data.User !== null ?
+                        <h1>by {top_image_data.User.username}</h1>
+                        :
+                        ""
+                      }
+                    </div>
+                  </div>
+
                   {top_image ?
                     <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
                               swiped={this.swiped} dragImage={this.dragImage}
@@ -206,36 +224,18 @@ class Category extends Component {
                     />
                     : ""
                   }
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    {top_image_data.User !== null ?
-                      <h1>by {top_image_data.User.username}</h1>
-                      :
-                      ""
-                    }
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    {top_image_data.title.length > 0 ?
-                      <h1>{top_image_data.title}</h1> :
-                      <h1 className="title">Untitled</h1>
-                    }
-                  </div>
-                </div>
 
-                <div className="row">
-                  <div className="col-lg-12">
-                    {top_image_data.tags.map((tag, index) => {
-                      if (tag !== "") {
-                        return  <button className="btn tag">
-                                  <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
-                                </button>
-                      }
-                    })}
+                  <div className="row">
+                    <div className="col-lg-12">
+                      {top_image_data.tags.map((tag, index) => {
+                        if (tag !== "") {
+                          return  <button className="btn tag">
+                            <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
+                          </button>
+                        }
+                      })}
+                    </div>
                   </div>
-                </div>
               </React.Fragment>
               : <h1>Nothing left here, check out some other categories!</h1>
             }

@@ -42,18 +42,22 @@ class TopImage extends Component {
     console.log(this.props);
     return (
       <React.Fragment>
-        <img className="top-image" height={image_dim.image_height} width={image_dim.image_width} align="middle"
-             src={this.props.base_url + this.props.image_data.url}
-             onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
-             onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
-        />
-        {this.props.bottom_image ?
-          <BottomImage bottom_image_data={this.props.bottom_image_data} height={image_dim.image_height}
-                       width={image_dim.image_width} base_url={this.props.base_url}
-          />
-          :
-          ""
-        }
+        <div className="row" style={{height: image_dim.image_height}}>
+          <div className="col-lg-12">
+            <img className="top-image" height={image_dim.image_height} width={image_dim.image_width} align="middle"
+                 src={this.props.base_url + this.props.image_data.url}
+                 onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
+                 onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
+            />
+            {this.props.bottom_image ?
+              <BottomImage bottom_image_data={this.props.bottom_image_data} height={image_dim.image_height}
+                           width={image_dim.image_width} base_url={this.props.base_url}
+              />
+              :
+              ""
+            }
+          </div>
+        </div>
       </React.Fragment>
     )
   }
