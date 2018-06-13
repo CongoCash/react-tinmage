@@ -1,6 +1,5 @@
 .link-design {
     display: block;
-    height: 100%;
     padding: 0;
     margin: 0;
     margin-top: 1px;
@@ -15,6 +14,11 @@
     text-decoration: none;
     color: white;
     font-weight: bold;
+}
+
+.sidebar-border {
+    border-right: 1px solid grey;
+    padding-right: 0;
 }
 
 li {

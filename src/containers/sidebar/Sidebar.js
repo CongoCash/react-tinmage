@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-require('./Sidebar.css')
+import DesktopSidebar from "../desktop-sidebar/DesktopSidebar";
+import MobileSidebar from "../mobile-sidebar/MobileSidebar";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -8,14 +9,28 @@ class Sidebar extends Component {
     this.state = {
       categories: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
         'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow'],
-      category_button_clicked: false
+      category_button_clicked: false,
+      width: window.innerWidth
     };
-    this.capitalLink = this.capitalLink.bind(this);
     this.category_button = this.category_button.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
-  capitalLink(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    if ((this.state.width >= 992 && window.innerWidth < 992) || (this.state.width < 992 && window.innerWidth >= 992)) {
+      this.setState({
+        width: window.innerWidth
+      })
+    }
   }
 
   category_button(e) {
@@ -34,13 +49,13 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="sidebar-border">
-        {this.state.categories.map(category =>
-          <Link className="row link-design" to={"/category/" + category}>
-            {this.capitalLink(category)}
-          </Link>
-        )}
-      </div>
+      <React.Fragment>
+      {this.state.width >= 992 ?
+        <DesktopSidebar categories={this.state.categories}/>
+        :
+        <MobileSidebar categories={this.state.categories}/>
+      }
+      </React.Fragment>
     )
   }
 }

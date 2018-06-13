@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
+import TopImage from '../top-image/TopImage'
+import BottomImage from '../bottom-image/BottomImage'
 import './Category.css'
 import {Link} from 'react-router-dom'
 
@@ -134,13 +136,14 @@ class Category extends Component {
       }
       //increment to next image
       else {
+        console.log('incrementing index');
         let next_image_index = this.state.image_index + 1;
         this.setState({
           dragging: false,
           image_index: next_image_index
         }, () => {
-          e.target.style.left = 0 + "px";
-          e.target.style.top = 0 + "px";
+          e.target.style.left = ""
+          e.target.style.top = "";
         })
       }
     }
@@ -182,41 +185,34 @@ class Category extends Component {
   }
 
   render() {
-    let images_available = (this.state.images.length > 0);
+    let images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
     let top_image = (this.state.image_index < this.state.images.length);
-    let bottom_image = (this.state.image_index+1 >= this.state.images.length);
-    let image_data = '';
-    if (images_available) {
-      image_data = this.state.images[this.state.image_index];
-    }
-    console.log(image_data);
-    console.log(this.props);
-
+    let bottom_image = (this.state.image_index+1 < this.state.images.length);
+    let top_image_data = this.state.images[this.state.image_index];
+    let bottom_image_data = this.state.images[this.state.image_index+1];
+    console.log(this.state.image_index+1);
+    console.log(this.state.images.length);
+    console.log(bottom_image);
     return (
           <div>
-            {image_data !== '' ?
+            {images_available ?
               <div>
                 <div className="image-container row">
                   <div className="col-lg-12">
                     {top_image ?
-                      <img className="top-image" height={this.props.userData.height * 0.5} width={this.props.userData.width * 0.5}
-                           src={this.props.userData.base_url + image_data.url}
-                           onDrag={this.swiped} onDragStart={this.dragImage}
-                           onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                      <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
+                                swiped={this.swiped} dragImage={this.dragImage}
+                                initialLocation={this.initialLocation} dragEnd={this.dragEnd}
+                                bottom_image={bottom_image} bottom_image_data={bottom_image_data}
                       />
                       : ""
-                    }
-                    {bottom_image ? <h1>Nothing here</h1> :
-                      <img className="bottom-image" height={this.props.userData.height * 0.5} width={this.props.userData.width * 0.5}
-                           src={this.props.userData.base_url + image_data.url}
-                      />
                     }
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-lg-12">
-                    {image_data.User !== null ?
-                      <h1>by {image_data.User.username}</h1>
+                    {top_image_data.User !== null ?
+                      <h1>by {top_image_data.User.username}</h1>
                       :
                       ""
                     }
@@ -224,8 +220,8 @@ class Category extends Component {
                 </div>
                 <div className="row">
                   <div className="col-lg-12">
-                    {image_data.title.length > 0 ?
-                      <h1>{image_data.title}</h1> :
+                    {top_image_data.title.length > 0 ?
+                      <h1>{top_image_data.title}</h1> :
                       <h1 className="title">Untitled</h1>
                     }
                   </div>
@@ -233,7 +229,7 @@ class Category extends Component {
 
                 <div className="row">
                   <div className="col-lg-12">
-                    {image_data.tags.map((tag, index) => {
+                    {top_image_data.tags.map((tag, index) => {
                       if (tag !== "") {
                         return  <button className="btn tag">
                                   <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
@@ -243,7 +239,7 @@ class Category extends Component {
                   </div>
                 </div>
               </div>
-              : <h1>Nothing here</h1>
+              : <h1>Nothing left here, check out some other categories!</h1>
             }
           </div>
 

@@ -19,23 +19,12 @@ class App extends Component {
       error_message: '',
       base_url: myConfig.api_url,
       user_id: '',
-      width: '',
-      height: ''
+      width: window.innerWidth,
+      height: window.innerHeight
     };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
-  }
-
-  componentWillMount() {
-    if (localStorage.getItem("username") && localStorage.getItem("session_id")) {
-      this.setState({
-        username: localStorage.getItem("username"),
-        session_id: localStorage.getItem("session_id"),
-        user_id: localStorage.getItem("user_id"),
-        logged_in: true
-      })
-    }
   }
 
   componentDidMount() {
@@ -48,12 +37,19 @@ class App extends Component {
   }
 
   updateDimensions() {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight
-    })
+    console.log(window.innerWidth);
   }
 
+  componentWillMount() {
+    if (localStorage.getItem("username") && localStorage.getItem("session_id")) {
+      this.setState({
+        username: localStorage.getItem("username"),
+        session_id: localStorage.getItem("session_id"),
+        user_id: localStorage.getItem("user_id"),
+        logged_in: true
+      })
+    }
+  }
 
   onLogin(username, password) {
     axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
@@ -97,7 +93,7 @@ class App extends Component {
           error_message: ''
         })
       }
-    })
+    });
     localStorage.setItem("username", '');
     localStorage.setItem("session_id", '');
     localStorage.setItem("user_id", '');
@@ -111,27 +107,10 @@ class App extends Component {
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        {this.state.width >= 992 ?
-          <div className="row">
-            <div className="col-lg-2 sidebar-design">
-              <Sidebar userData={this.state}/>
-            </div>
-            <div className="col-lg-10">
-              <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-            </div>
-          </div>
-          :
-          <div>
-            <div className="row">
-              <MobileSidebar/>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-              </div>
-            </div>
-          </div>
-        }
+        <div className="row">
+          <Sidebar userData={this.state}/>
+          <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
+        </div>
       </div>
     );
   }
