@@ -3,10 +3,7 @@ import './ImageInfo.css'
 
 class ImageInfo extends Component {
 
-
-
   render() {
-    console.log(this.props.imageData);
     return (
       <React.Fragment>
         {this.props.imageData !== '' ?

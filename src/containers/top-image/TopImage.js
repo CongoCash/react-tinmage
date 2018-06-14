@@ -39,7 +39,6 @@ class TopImage extends Component {
       image_height: image_height,
       image_width: image_width,
     };
-    console.log(this.props);
     return (
       <React.Fragment>
         <div className="row" style={{height: image_dim.image_height}}>

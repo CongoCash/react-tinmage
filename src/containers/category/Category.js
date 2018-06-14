@@ -35,7 +35,6 @@ class Category extends Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
     this.getImages(this.props);
 
     //setup blank image to hide default drag image
@@ -79,13 +78,11 @@ class Category extends Component {
   }
 
   dragImage(e) {
-    console.log('setting ghost');
+    //sets the default drag image to a 1 pixel blank image
     e.dataTransfer.setDragImage(this.state.drag_image, 0, 0);
   }
 
   swiped(e) {
-    console.log('swiping');
-
     this.setState({
       dragging: true,
     });
@@ -107,12 +104,11 @@ class Category extends Component {
   }
 
   dragEnd(e) {
-    console.log('finished dragging');
     e.persist();
-    let dragged_distance = e.clientX - this.state.initial_x
+    let dragged_distance = e.clientX - this.state.initial_x;
     //image returned to original location because it has not passed drag threshold
     if (this.state.dragging === true && (Math.abs(dragged_distance) < e.target.width/2)) {
-      e.target.style = ""
+      e.target.style = "";
       this.setState({
         dragging: false
       })
@@ -137,7 +133,6 @@ class Category extends Component {
       }
       //increment to next image
       else {
-        console.log('incrementing index');
         let next_image_index = this.state.image_index + 1;
         this.setState({
           dragging: false,
@@ -192,10 +187,6 @@ class Category extends Component {
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
 
-    if (top_image_data && top_image_data.User) {
-      console.log(top_image_data);
-    }
-    console.log('rendering');
     return (
           <React.Fragment>
             {images_available ?

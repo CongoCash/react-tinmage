@@ -65,7 +65,6 @@ class Image extends Component {
   render() {
     const image_url = this.props.userData.base_url + this.state.image_data.url;
     const image_class = this.state.image_class+ " rounded mx-auto d-block";
-    console.log('rendering');
 
     return (
       <div className="container">

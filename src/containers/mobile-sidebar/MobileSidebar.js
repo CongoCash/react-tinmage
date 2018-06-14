@@ -29,7 +29,6 @@ class MobileSidebar extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="width-100 col-md-12">
         <div className="category-button row" onClick={this.category_button}>
