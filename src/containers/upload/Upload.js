@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect} from 'react-router-dom'
-import UploadFile from '../upload-file/UploadFile'
-import UploadTitle from '../upload-title/UploadTitle'
-import UploadTag from '../upload-tag/UploadTag'
+import UploadFile from './upload-file/UploadFile'
+import UploadTitle from './upload-title/UploadTitle'
+import UploadTag from './upload-tag/UploadTag'
 require('./Upload.css')
 //need to move drag and drop upload to app.js, so that you can upload anywhere
 

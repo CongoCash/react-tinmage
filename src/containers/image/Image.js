@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './Image.css'
-import Tag from '../tag/Tag'
-import ImageInfo from '../image-info/ImageInfo'
-import SizeButton from '../size-buttons/SizeButton'
-import SpecificImage from '../specific-image/SpecificImage'
+import Tag from './tag/Tag'
+import ImageInfo from './image-info/ImageInfo'
+import SizeButton from './size-buttons/SizeButton'
+import SpecificImage from './specific-image/SpecificImage'
 
 
 class Image extends Component {
@@ -19,7 +19,8 @@ class Image extends Component {
       medium_clicked: true,
       large_clicked: false,
       title: '',
-      tags: []
+      tags: [],
+      image_data: ''
     };
     this.clickSmall = this.clickSmall.bind(this);
     this.clickMedium = this.clickMedium.bind(this);
@@ -28,24 +29,9 @@ class Image extends Component {
 
   componentDidMount() {
     axios.get(this.props.userData.base_url + "api/images/" + this.props.match.params.id).then((response) => {
-      if (response.data[0].User) {
-        this.setState({
-          image_url: response.data[0].url,
-          username: response.data[0].User.username,
-          upload_date: response.data[0].createdAt.substring(0,10),
-          title: response.data[0].title,
-          tags: response.data[0].tags
-        })
-      }
-      else {
-        this.setState({
-          image_url: response.data[0].url,
-          username: '',
-          upload_date: response.data[0].createdAt.substring(0,10),
-          title: response.data[0].title,
-          tags: response.data[0].tags
-        })
-      }
+      this.setState({
+        image_data: response.data[0]
+      })
     })
   }
 
@@ -77,12 +63,13 @@ class Image extends Component {
   }
 
   render() {
-    const image_url = this.props.userData.base_url + this.state.image_url;
+    const image_url = this.props.userData.base_url + this.state.image_data.url;
     const image_class = this.state.image_class+ " rounded mx-auto d-block";
+    console.log('rendering');
 
     return (
       <div className="container">
-        <ImageInfo imageData={this.state}/>
+        <ImageInfo imageData={this.state.image_data}/>
         <SizeButton small={this.clickSmall} medium={this.clickMedium} large={this.clickLarge}/>
         <SpecificImage image_url={image_url} image_class={image_class} />
         <Tag tags={this.state.tags}/>

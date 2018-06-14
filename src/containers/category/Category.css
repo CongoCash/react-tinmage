@@ -26,8 +26,18 @@
     text-align: center;
 }
 
-.tag {
-    background-color: #325287;
-    color: black;
+.category-tag {
+    margin-bottom: 5px;
     margin-right: 5px;
+    background-color: silver;
+    border: none;
+    border-radius: 12px;
+    color: black;
+    font-weight: bold;
+}
+
+.align-tag {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

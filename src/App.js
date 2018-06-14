@@ -93,7 +93,7 @@ class App extends Component {
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        <div className="row">
+        <div className="row height-100">
           <Sidebar userData={this.state}/>
           <div className="col">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>

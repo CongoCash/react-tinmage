@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import TopImage from '../top-image/TopImage'
-import BottomImage from '../bottom-image/BottomImage'
+import ImageInfo from '../image/image-info/ImageInfo.js'
 import './Category.css'
 import {Link} from 'react-router-dom'
 
@@ -107,6 +107,7 @@ class Category extends Component {
   }
 
   dragEnd(e) {
+    console.log('finished dragging');
     e.persist();
     let dragged_distance = e.clientX - this.state.initial_x
     //image returned to original location because it has not passed drag threshold
@@ -142,7 +143,7 @@ class Category extends Component {
           dragging: false,
           image_index: next_image_index
         }, () => {
-          e.target.style.left = ""
+          e.target.style.left = "";
           e.target.style.top = "";
         })
       }
@@ -190,31 +191,16 @@ class Category extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.state.image_index+1);
-    console.log(this.state.images.length);
-    console.log(bottom_image);
+
+    if (top_image_data && top_image_data.User) {
+      console.log(top_image_data);
+    }
+    console.log('rendering');
     return (
           <React.Fragment>
             {images_available ?
               <React.Fragment>
-                  <div className="row">
-                    <div className="col-lg-12">
-                      {top_image_data.title.length > 0 ?
-                        <h1 className="title">{top_image_data.title}</h1> :
-                        <h1 className="title">Untitled</h1>
-                      }
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-lg-12">
-                      {top_image_data.User !== null ?
-                        <h1>by {top_image_data.User.username}</h1>
-                        :
-                        ""
-                      }
-                    </div>
-                  </div>
+                  <ImageInfo imageData={top_image_data}/>
 
                   {top_image ?
                     <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
@@ -226,12 +212,15 @@ class Category extends Component {
                   }
 
                   <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-12 align-tag">
                       {top_image_data.tags.map((tag, index) => {
                         if (tag !== "") {
-                          return  <button className="btn tag">
-                            <Link className="link-text text-center" to={"/category/" + tag}>{tag}</Link>
-                          </button>
+                          return (
+                            <Link to={"/category/" + tag}>
+                              <button className="btn btn-secondary category-tag">
+                                {tag}
+                              </button>
+                            </Link>)
                         }
                       })}
                     </div>
