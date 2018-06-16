@@ -29,6 +29,7 @@ class TopImage extends Component {
 
 
   render() {
+    console.log('rendering');
     let image_ratio = this.props.image_data.height/this.props.image_data.width;
     let image_width = window.innerWidth * 0.25;
     if (image_width < 250) {
@@ -39,6 +40,9 @@ class TopImage extends Component {
       image_height: image_height,
       image_width: image_width,
     };
+    console.log(image_ratio);
+    console.log(image_dim);
+    console.log(this.props.image_data.url);
     return (
       <React.Fragment>
         <div className="row" style={{height: image_dim.image_height}}>

@@ -9,5 +9,9 @@ body {
 }
 
 html {
+  height: max-content;
+}
+
+.height-100 {
   height: 100%;
 }
