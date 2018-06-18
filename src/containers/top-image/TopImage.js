@@ -7,7 +7,7 @@ class TopImage extends Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
-    }
+    };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
