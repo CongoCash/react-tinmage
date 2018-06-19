@@ -38,7 +38,10 @@ class SpecificImage extends Component {
 
   render() {
     let image_render = this.state.width !== '';
-    console.log(this.props);
+    console.log('specific image rendering');
+    console.log(this.props.image_data.height/this.props.image_data.width + ' ratio');
+    console.log(this.state.height);
+    console.log(this.state.width);
     return (
       <div className="row image-margin">
         <div ref={this.image_container} className="col-sm-12 center">

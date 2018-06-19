@@ -6,7 +6,8 @@ class MobileSidebar extends Component {
   constructor() {
     super()
     this.state = {
-      category_button_clicked: false
+      categories: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
+        'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow']
     };
     this.category_button = this.category_button.bind(this);
   }
@@ -31,22 +32,15 @@ class MobileSidebar extends Component {
   render() {
     return (
       <div className="width-100 col-md-12">
-        <div className="category-button row" onClick={this.category_button}>
-          <div className="col-md-12">Categories</div>
-        </div>
-        {this.state.category_button_clicked ?
-          <ul className="row sidebar-list">
-            {this.props.categories.map(category =>
-              <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category}>
-                <li onClick={this.category_button} className="category-design">
-                  {this.capitalLink(category)}
-                </li>
-              </Link>
-            )}
-          </ul>
-          :
-          ""
-        }
+        <ul className="row sidebar-list width-100">
+          {this.state.categories.map(category =>
+            <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category}>
+              <li onClick={this.category_button} className="category-design">
+                {this.capitalLink(category)}
+              </li>
+            </Link>
+          )}
+        </ul>
       </div>
     )
   }

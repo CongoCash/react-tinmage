@@ -24,7 +24,9 @@ class Upload extends Component {
       tags_clicked: {},
       new_tag: '',
       file_name: '',
-      tag_error_message: ''
+      tag_error_message: '',
+      preview_height: '',
+      preview_width: ''
     };
     this.onTagDelete = this.onTagDelete.bind(this);
     this.onCreateTag = this.onCreateTag.bind(this);
@@ -42,6 +44,12 @@ class Upload extends Component {
       window.URL = window.URL || window.webkitURL;
       let preview = document.getElementById('preview');
       preview.src = window.URL.createObjectURL(this.state.selectedFile);
+      preview.onload = () => {
+        this.setState({
+          preview_height: preview.height,
+          preview_width: preview.width
+        })
+      }
     })
   };
 
@@ -60,6 +68,12 @@ class Upload extends Component {
           window.URL = window.URL || window.webkitURL;
           let preview = document.getElementById('preview');
           preview.src = window.URL.createObjectURL(this.state.selectedFile);
+          preview.onload = () => {
+            this.setState({
+              preview_height: preview.height,
+              preview_width: preview.width
+            })
+          }
         })
       }
     }
@@ -160,8 +174,9 @@ class Upload extends Component {
   };
 
   render() {
-    const upload_error = this.state.upload_error
-    const redirect_url = "images/" + this.state.image_id
+    const upload_error = this.state.upload_error;
+    const redirect_url = "images/" + this.state.image_id;
+    console.log('rendering ' + this.state.preview_height);
     return (
       <div className="text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
@@ -174,7 +189,9 @@ class Upload extends Component {
           <div>
 
             <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
-              selectedFile={this.state.selectedFile}/>
+              selectedFile={this.state.selectedFile} previewHeight={this.state.preview_height}
+              previewWidth={this.state.preview_width}
+            />
 
             <UploadTitle onChange={this.onChange}/>
 

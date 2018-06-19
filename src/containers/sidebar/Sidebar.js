@@ -16,23 +16,6 @@ class Sidebar extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
-  }
-
-  updateDimensions() {
-    if ((this.state.width >= 992 && window.innerWidth < 992) || (this.state.width < 992 && window.innerWidth >= 992)) {
-      this.setState({
-        width: window.innerWidth
-      })
-    }
-  }
-
   category_button(e) {
     if (this.state.category_button_clicked === false) {
       this.setState({
@@ -50,11 +33,7 @@ class Sidebar extends Component {
   render() {
     return (
       <React.Fragment>
-      {this.state.width >= 992 ?
-        <DesktopSidebar categories={this.state.categories}/>
-        :
         <MobileSidebar categories={this.state.categories}/>
-      }
       </React.Fragment>
     )
   }

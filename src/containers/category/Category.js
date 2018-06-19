@@ -45,6 +45,7 @@ class Category extends Component {
 
   getImages(props) {
     if (!props.match.params.tag) {
+      console.log(this.props);
       ImagesModel.getAll().then((res) => {
         this.setState({
           images: res.data,
@@ -148,7 +149,10 @@ class Category extends Component {
   handleLike(e) {
 
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like")
+      .then(function(response) {
+        console.log(response);
+      });
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -165,7 +169,10 @@ class Category extends Component {
 
   handleDislike(e) {
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike")
+      .then(function(response) {
+        console.log(response);
+      });
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({

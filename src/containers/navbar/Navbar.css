@@ -12,3 +12,7 @@
 .nav-link-color {
     color: white;
 }
+
+.category-dropdown {
+    z-index: 1;
+}

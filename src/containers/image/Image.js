@@ -8,8 +8,8 @@ import SpecificImage from './specific-image/SpecificImage'
 
 
 class Image extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       image_class: 'medium-image',
       small_clicked: false,
@@ -17,7 +17,8 @@ class Image extends Component {
       large_clicked: false,
       image_data: '',
       width: '',
-      height: ''
+      height: '',
+      image_id: this.props.match.params.id
     };
     this.nextImage = this.nextImage.bind(this);
     this.clickSmall = this.clickSmall.bind(this);
@@ -26,7 +27,7 @@ class Image extends Component {
   }
 
   componentDidMount() {
-    axios.get(this.props.userData.base_url + "api/images/" + this.props.match.params.id).then((response) => {
+    axios.get(this.props.userData.base_url + "api/images/" + this.state.image_id).then((response) => {
       this.setState({
         image_data: response.data[0]
       }, () => {
@@ -35,10 +36,34 @@ class Image extends Component {
     })
   }
 
+  //fix error that shows up when grabbing image_id that doesn't exist, either prevent or send them to image_id 1 or last id
+  //also images are not resizing themselves, are taking the image ratio of the original image
   nextImage(e) {
     console.log(e.keyCode);
     if (e.keyCode === 37) {
-      console.log('37');
+      let image_id = parseInt(this.state.image_id) - 1;
+      axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
+        this.setState({
+          image_data: response.data[0],
+          image_id: image_id
+        }, () => {
+          console.log(this.props.history);
+          this.props.history.replace(this.state.image_id.toString());
+        })
+      })
+    }
+    else if (e.keyCode === 39) {
+      let image_id = parseInt(this.state.image_id) + 1;
+      console.log(image_id);
+      axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
+        this.setState({
+          image_data: response.data[0],
+          image_id: image_id
+        }, () => {
+          console.log(this.props.history);
+          this.props.history.replace(this.state.image_id.toString());
+        })
+      })
     }
   }
 
@@ -79,7 +104,6 @@ class Image extends Component {
     const image_url = this.props.userData.base_url + this.state.image_data.url;
     const image_class = this.state.image_class+ " rounded mx-auto d-block";
     let render_image = (this.state.image_data !== '');
-
     return (
       <React.Fragment>
       {render_image ?
