@@ -13,6 +13,8 @@ class UploadFile extends Component {
         multiplier -= 0.1;
         height = height*multiplier;
         width = width*multiplier;
+        console.log(height);
+        console.log(width);
       }
     }
     return {

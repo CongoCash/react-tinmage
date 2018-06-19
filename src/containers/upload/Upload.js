@@ -67,13 +67,17 @@ class Upload extends Component {
           //adds a preview image upon selecting an image
           window.URL = window.URL || window.webkitURL;
           let preview = document.getElementById('preview');
+          //need to remove attributes otherwise the first dimensions will dictate any others
+          preview.removeAttribute("height");
+          preview.removeAttribute("width");
           preview.src = window.URL.createObjectURL(this.state.selectedFile);
           preview.onload = () => {
             this.setState({
               preview_height: preview.height,
               preview_width: preview.width
             })
-          }
+          };
+          console.log(preview);
         })
       }
     }
@@ -177,6 +181,7 @@ class Upload extends Component {
     const upload_error = this.state.upload_error;
     const redirect_url = "images/" + this.state.image_id;
     console.log('rendering ' + this.state.preview_height);
+    console.log('rendering ' + this.state.preview_width);
     return (
       <div className="text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
