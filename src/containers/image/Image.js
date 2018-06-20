@@ -21,6 +21,7 @@ class Image extends Component {
       image_id: this.props.match.params.id
     };
     this.nextImage = this.nextImage.bind(this);
+    this.copyUrl = this.copyUrl.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +65,17 @@ class Image extends Component {
     }
   }
 
+  copyUrl() {
+    var url = document.createElement('input'),
+      text = window.location.href;
+
+    document.body.appendChild(url);
+    url.value = text;
+    url.select();
+    document.execCommand('copy');
+    document.body.removeChild(url);
+  }
+
   render() {
     const image_url = this.props.userData.base_url + this.state.image_data.url;
     const image_class = this.state.image_class+ " rounded mx-auto d-block";
@@ -77,7 +89,7 @@ class Image extends Component {
           <SpecificImage image_url={image_url} image_data={this.state.image_data} />
           <div className="row">
             <div className="col-sm-12">
-              <button className="btn">Copy URL</button>
+              <button onClick={this.copyUrl} className="btn">Copy URL</button>
             </div>
           </div>
           <Tag tags={this.state.image_data.tags} image_class={this.state.image_class}/>

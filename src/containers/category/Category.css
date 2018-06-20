@@ -41,3 +41,13 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.details {
+    font-family: Helvetica, sans-serif;
+    color: #3b557f;
+    margin-top: 10px;
+}
+
+.center {
+    text-align: center;
+}

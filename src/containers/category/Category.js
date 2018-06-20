@@ -210,6 +210,14 @@ class Category extends Component {
                   }
 
                   <div className="row">
+                    <div className="col-lg-12 center">
+                      <Link to={"/images/" + this.state.images[this.state.image_index].id}>
+                        <button className="btn details">Detail Page</button>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="row">
                     <div className="col-lg-12 align-tag">
                       {top_image_data.tags.map((tag, index) => {
                         if (tag !== "") {
