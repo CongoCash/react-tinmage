@@ -44,22 +44,24 @@ class Navbar extends Component {
                 <Link to='/' className="nav-link-color logo">Tinmage</Link>
               </div>
               <div className="col-6">
-                <h6 onClick={this.category_button} className="nav-link-color align-vertical">Sidebar</h6>
+                <h6 onClick={this.category_button} className="nav-link-color align-vertical">Categories</h6>
               </div>
             </div>
           </div>
           <div className="col-6">
             <div className="row">
-              <div className="col-4">
-                <Link to='/upload' className="nav-link-color">Upload</Link>
-              </div>
+              <div className="col-2"></div>
+              <div className="col-2"></div>
               {!logged_in ?
                 <div className="col-8">
                   <div className="row">
-                    <div className="col-6">
+                    <div className="col-4">
+                      <Link to='/upload' className="nav-link-color">Upload</Link>
+                    </div>
+                    <div className="col-4">
                       <Link to ='/signup' className="nav-link-color">Signup</Link>
                     </div>
-                    <div className="col-6">
+                    <div className="col-4">
                       <Link to ='/login' className="nav-link-color">Login</Link>
                     </div>
                   </div>
@@ -67,10 +69,13 @@ class Navbar extends Component {
                 :
                 <div className="col-8">
                   <div className="row">
-                    <div className="col-6">
+                    <div className="col-sm-4">
+                      <Link to='/upload' className="nav-link-color">Upload</Link>
+                    </div>
+                    <div className="col-sm-4">
                       <Link to ='/profile' className="nav-link-color">{this.props.userData.username}</Link>
                     </div>
-                    <div className="col-6">
+                    <div className="col-sm-4">
                       <Link to ='/logout' onClick={this.onLogout}>Logout</Link>
                     </div>
                   </div>

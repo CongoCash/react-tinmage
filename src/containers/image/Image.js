@@ -21,9 +21,6 @@ class Image extends Component {
       image_id: this.props.match.params.id
     };
     this.nextImage = this.nextImage.bind(this);
-    this.clickSmall = this.clickSmall.bind(this);
-    this.clickMedium = this.clickMedium.bind(this);
-    this.clickLarge = this.clickLarge.bind(this);
   }
 
   componentDidMount() {
@@ -67,39 +64,6 @@ class Image extends Component {
     }
   }
 
-  clickSmall() {
-    let height = window.innerWidth*0.20 * this.state.image_data.height/this.state.image_data.width;
-
-    this.setState({
-      small_clicked: true,
-      medium_clicked: false,
-      large_clicked: false,
-      image_class: 'small-image',
-    })
-  }
-
-  clickMedium() {
-    let height = window.innerWidth*0.35 * this.state.image_data.height/this.state.image_data.width;
-
-    this.setState({
-      small_clicked: false,
-      medium_clicked: true,
-      large_clicked: false,
-      image_class: 'medium-image',
-    })
-  }
-
-  clickLarge() {
-    let height = window.innerWidth*0.7 * this.state.image_data.height/this.state.image_data.width;
-
-    this.setState({
-      small_clicked: false,
-      medium_clicked: false,
-      large_clicked: true,
-      image_class: 'large-image',
-    })
-  }
-
   render() {
     const image_url = this.props.userData.base_url + this.state.image_data.url;
     const image_class = this.state.image_class+ " rounded mx-auto d-block";
@@ -111,6 +75,11 @@ class Image extends Component {
           <ImageInfo imageData={this.state.image_data}/>
           {/*<SizeButton small={this.clickSmall} medium={this.clickMedium} large={this.clickLarge}/>*/}
           <SpecificImage image_url={image_url} image_data={this.state.image_data} />
+          <div className="row">
+            <div className="col-sm-12">
+              <button className="btn">Copy URL</button>
+            </div>
+          </div>
           <Tag tags={this.state.image_data.tags} image_class={this.state.image_class}/>
         </div>
         : ''
