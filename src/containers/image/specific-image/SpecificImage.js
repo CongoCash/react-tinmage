@@ -21,6 +21,13 @@ class SpecificImage extends Component {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      console.log('entered did update');
+      this.updateDimensions();
+    }
+  }
+
   updateDimensions() {
     if (this.props.image_data.width >= this.image_container.current.offsetWidth * 0.9) {
       this.setState({
@@ -38,23 +45,18 @@ class SpecificImage extends Component {
 
   render() {
     let image_render = this.state.width !== '';
-    console.log('specific image rendering');
-    console.log(this.props.image_data.height/this.props.image_data.width + ' ratio');
-    console.log(this.state.height);
-    console.log(this.state.width);
+
     return (
-      <div className="row image-margin">
-        <div ref={this.image_container} className="col-sm-12 center">
+        <div ref={this.image_container} className="col-lg-8 center">
           <React.Fragment>
             {
               image_render ?
-               <img src={this.props.image_url} height={this.state.height} width={this.state.width} />
+               <img src={this.props.image_url} height={this.state.height} width={this.state.width} className="detail-margin" />
                 :
                 ""
             }
           </React.Fragment>
         </div>
-      </div>
     );
   }
 }

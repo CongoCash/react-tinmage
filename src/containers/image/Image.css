@@ -43,3 +43,11 @@
 div[tabindex="-1"]:focus {
     outline: 0;
 }
+
+.detail-margin {
+    margin-top: 45px;
+}
+
+.left-align {
+    text-align: left;
+}

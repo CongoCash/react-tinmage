@@ -21,7 +21,6 @@ class Image extends Component {
       image_id: this.props.match.params.id
     };
     this.nextImage = this.nextImage.bind(this);
-    this.copyUrl = this.copyUrl.bind(this);
   }
 
   componentDidMount() {
@@ -39,16 +38,21 @@ class Image extends Component {
   nextImage(e) {
     console.log(e.keyCode);
     if (e.keyCode === 37) {
-      let image_id = parseInt(this.state.image_id) - 1;
-      axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
-        this.setState({
-          image_data: response.data[0],
-          image_id: image_id
-        }, () => {
-          console.log(this.props.history);
-          this.props.history.replace(this.state.image_id.toString());
+      if (this.state.image_id > 1) {
+        let image_id = parseInt(this.state.image_id) - 1;
+        axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
+          this.setState({
+            image_data: response.data[0],
+            image_id: image_id
+          }, () => {
+            console.log(this.props.history);
+            this.props.history.replace(this.state.image_id.toString());
+          })
         })
-      })
+        .catch((error) => {
+          console.log("error");
+        })
+      }
     }
     else if (e.keyCode === 39) {
       let image_id = parseInt(this.state.image_id) + 1;
@@ -62,37 +66,28 @@ class Image extends Component {
           this.props.history.replace(this.state.image_id.toString());
         })
       })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   }
 
-  copyUrl() {
-    var url = document.createElement('input'),
-      text = window.location.href;
-
-    document.body.appendChild(url);
-    url.value = text;
-    url.select();
-    document.execCommand('copy');
-    document.body.removeChild(url);
-  }
-
   render() {
-    const image_url = this.props.userData.base_url + this.state.image_data.url;
-    const image_class = this.state.image_class+ " rounded mx-auto d-block";
-    let render_image = (this.state.image_data !== '');
+    let render_image = (this.state.image_data !== '' && this.state.image_data);
+    let image_url = '';
+    let image_class = '';
+    if (render_image) {
+      image_url = this.props.userData.base_url + this.state.image_data.url;
+      image_class = this.state.image_class+ " rounded mx-auto d-block";
+    }
     return (
       <React.Fragment>
       {render_image ?
         <div onKeyDown={this.nextImage} className="image-container" tabIndex="-1">
-          <ImageInfo imageData={this.state.image_data}/>
-          {/*<SizeButton small={this.clickSmall} medium={this.clickMedium} large={this.clickLarge}/>*/}
-          <SpecificImage image_url={image_url} image_data={this.state.image_data} />
           <div className="row">
-            <div className="col-sm-12">
-              <button onClick={this.copyUrl} className="btn">Copy URL</button>
-            </div>
+            <SpecificImage image_url={image_url} image_data={this.state.image_data} />
+            <ImageInfo imageData={this.state.image_data}/>
           </div>
-          <Tag tags={this.state.image_data.tags} image_class={this.state.image_class}/>
         </div>
         : ''
       }
