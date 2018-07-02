@@ -17,7 +17,7 @@ class Tag extends Component {
       <React.Fragment>
       {tags_available ?
           <div className="row">
-            <div className="col-lg-12 left-align">
+            <div className="col-lg-12">
               Tags: {tags}
             </div>
           </div> : ''

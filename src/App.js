@@ -85,7 +85,7 @@ class App extends Component {
     localStorage.setItem("user_id", '');
   }
 
-  //create helper file to hold the handleLike/Dislike functions and whatever else I need for the category file
+  //create helper file to hold the handleLike/Dislike functions and whatever else I need for the main file
 
   render() {
     return (

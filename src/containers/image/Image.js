@@ -75,10 +75,8 @@ class Image extends Component {
   render() {
     let render_image = (this.state.image_data !== '' && this.state.image_data);
     let image_url = '';
-    let image_class = '';
     if (render_image) {
       image_url = this.props.userData.base_url + this.state.image_data.url;
-      image_class = this.state.image_class+ " rounded mx-auto d-block";
     }
     return (
       <React.Fragment>
@@ -86,7 +84,7 @@ class Image extends Component {
         <div onKeyDown={this.nextImage} className="image-container" tabIndex="-1">
           <div className="row">
             <SpecificImage image_url={image_url} image_data={this.state.image_data} />
-            <ImageInfo imageData={this.state.image_data}/>
+            <ImageInfo base_url={this.props.userData.base_url} imageData={this.state.image_data}/>
           </div>
         </div>
         : ''

@@ -15,7 +15,18 @@ class ImageInfo extends Component {
     document.body.removeChild(url);
   }
 
-  //add download button/functionality, copy exact image functionality, and copy embed code functionality, fix category
+  copyImage() {
+    var url = document.createElement('input'),
+      text = this.props.base_url + this.props.imageData.url;
+
+    document.body.appendChild(url);
+    url.value = text;
+    url.select();
+    document.execCommand('copy');
+    document.body.removeChild(url);
+  }
+
+  //add download button/functionality, copy exact image functionality, and copy embed code functionality, fix main
 
   render() {
     return (
@@ -38,8 +49,24 @@ class ImageInfo extends Component {
             </div>
             <Tag tags={this.props.imageData.tags}/>
             <div className="row">
-              <div className="col-sm-12 left-align">
+              <div className="col-sm-12">
+                <h4>Tools</h4>
+                <hr/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-6 center">
                 <button onClick={this.copyUrl.bind(this)} className="btn copy-margin">Copy URL</button>
+              </div>
+              <div className="col-sm-6 left-align">
+                <button onClick={this.copyImage.bind(this)} className="btn copy-margin">Copy Image URL</button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-6 center">
+                <a href={this.props.base_url + this.props.imageData.url} download>
+                  <button className="btn copy-margin">Download</button>
+                </a>
               </div>
             </div>
           </div>
