@@ -94,9 +94,7 @@ class App extends Component {
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
         <div className="row height-100">
-          <div className="col">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-          </div>
         </div>
       </div>
     );

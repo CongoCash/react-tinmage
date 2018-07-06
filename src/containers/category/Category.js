@@ -12,7 +12,8 @@ class Category extends Component {
       images: '',
       image_index: 0,
       error_message: '',
-      tag: ''
+      tag: '',
+      start_row: true
     };
     this.image_container = React.createRef()
   }
@@ -34,8 +35,20 @@ class Category extends Component {
     ImagesModel.getTags('api/images/tags/', props.match.params.tag)
     .then((res) => {
       if (res.data.length > 0) {
+        let image_array = [];
+        let image_holder = [];
+        res.data.forEach((value, index) => {
+          if (index%6 === 0 && index !== 0) {
+            image_array.push(image_holder);
+            image_holder = [];
+          }
+          image_holder.push(value);
+          if (index === res.data.length-1) {
+            image_array.push(image_holder);
+          }
+        });
         this.setState({
-          images: res.data,
+          images: image_array,
           image_index: 0,
           error_message: '',
           tag: props.match.params.tag
@@ -55,25 +68,38 @@ class Category extends Component {
   render() {
     let images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
     let all_images = '';
+
     if (images_available) {
       all_images = this.state.images.map((image) => {
         return (
-          <CategoryImage base_url={this.props.userData.base_url} image={image}/>
+          <div className="row">
+            <div className="col-lg-1"></div>
+            <div className="category-container col-lg-10">
+              <div className="row">
+                {
+                  image.map((inner_image) => {
+                    return (
+                      <CategoryImage base_url={this.props.userData.base_url} image={inner_image}/>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            <div className="col-lg-1"></div>
+          </div>
         )
       });
     }
-    console.log(all_images);
+
     return (
-          <React.Fragment>
+          <div className="col category-margin">
             {images_available ?
               <React.Fragment>
-                <div className="row">
-                  {all_images}
-                </div>
+                {all_images}
               </React.Fragment>
               : <h1>Nothing left here, check out some other categories!</h1>
             }
-          </React.Fragment>
+          </div>
 
     )
   };

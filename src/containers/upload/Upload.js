@@ -183,7 +183,7 @@ class Upload extends Component {
     console.log('rendering ' + this.state.preview_height);
     console.log('rendering ' + this.state.preview_width);
     return (
-      <div className="text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
+      <div className="col text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
         <div className="row">
           <div className="col-lg-12">
             <h1>Upload file</h1>

@@ -51,3 +51,13 @@
 .center {
     text-align: center;
 }
+
+.category-container {
+    background-color: #202f47;
+}
+
+.category-margin {
+    margin-top: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

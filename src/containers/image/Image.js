@@ -79,7 +79,7 @@ class Image extends Component {
       image_url = this.props.userData.base_url + this.state.image_data.url;
     }
     return (
-      <React.Fragment>
+      <div className="col">
       {render_image ?
         <div onKeyDown={this.nextImage} className="image-container" tabIndex="-1">
           <div className="row">
@@ -89,7 +89,7 @@ class Image extends Component {
         </div>
         : ''
       }
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -199,6 +199,7 @@ class Main extends Component {
           <React.Fragment>
             {images_available ?
               <React.Fragment>
+                <div className="col">
                   <div className="row">
                     <div className="col-lg-12 center">
                       <h2>{top_image_data.title}</h2>
@@ -227,7 +228,7 @@ class Main extends Component {
                       {top_image_data.tags.map((tag, index) => {
                         if (tag !== "") {
                           return (
-                            <Link to={"/main/" + tag}>
+                            <Link to={"/category/" + tag}>
                               <button className="btn btn-secondary category-tag">
                                 {tag}
                               </button>
@@ -236,6 +237,7 @@ class Main extends Component {
                       })}
                     </div>
                   </div>
+                </div>
               </React.Fragment>
               : <h1>Nothing left here, check out some other categories!</h1>
             }
