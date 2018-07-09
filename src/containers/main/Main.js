@@ -23,11 +23,19 @@ class Main extends Component {
       bottom_image_class: '',
       dragging: false,
       drag_image: '',
+      like_css: {
+        opacity: ''
+      },
+      dislike_css: {
+        opacity: ''
+      },
     };
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
     this.dragImage = this.dragImage.bind(this);
+    this.like = React.createRef();
+    this.dislike = React.createRef();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,6 +98,25 @@ class Main extends Component {
 
     e.persist();
 
+    let dragged_distance = e.clientX - this.state.initial_x;
+
+    //fade in like and dislike text during swipe
+    if (dragged_distance < 0) {
+      this.setState({
+        like_css: {
+          opacity: Math.abs(dragged_distance)/(e.target.width/2)
+        }
+      })
+    }
+
+    else if (dragged_distance > 0) {
+      this.setState({
+        dislike_css: {
+          opacity: Math.abs(dragged_distance)/(e.target.width/2)
+        }
+      })
+    }
+
     if (e.clientX !== 0) {
       e.target.style.left = (e.clientX - this.state.initial_x) + "px";
       e.target.style.top = (e.clientY - this.state.initial_y) + "px";
@@ -144,6 +171,16 @@ class Main extends Component {
         })
       }
     }
+
+    //reset like and dislike opacity to 0
+    this.setState({
+      like_css: {
+        opacity: 0
+      },
+      dislike_css: {
+        opacity: 0
+      }
+    })
   }
 
   handleLike(e) {
@@ -192,7 +229,6 @@ class Main extends Component {
     let top_image = (this.state.image_index < this.state.images.length);
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
-    console.log(top_image_data);
     let bottom_image_data = this.state.images[this.state.image_index+1];
 
     return (
@@ -201,17 +237,32 @@ class Main extends Component {
               <React.Fragment>
                 <div className="col">
                   <div className="row">
+                    <div className="col center">
+                      <h2 className="text-design">Swipe left to like and swipe right to dislike</h2>
+                    </div>
+                  </div>
+                  <div className="row">
                     <div className="col-lg-12 center">
                       <h2>{top_image_data.title}</h2>
                     </div>
                   </div>
 
                   {top_image ?
-                    <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
-                              swiped={this.swiped} dragImage={this.dragImage}
-                              initialLocation={this.initialLocation} dragEnd={this.dragEnd}
-                              bottom_image={bottom_image} bottom_image_data={bottom_image_data}
-                    />
+                    <div className="row">
+                      <div className="col-lg-2">
+                        <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
+                      </div>
+                      <div className="col-lg-8">
+                        <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
+                                  swiped={this.swiped} dragImage={this.dragImage}
+                                  initialLocation={this.initialLocation} dragEnd={this.dragEnd}
+                                  bottom_image={bottom_image} bottom_image_data={bottom_image_data}
+                        />
+                      </div>
+                      <div className="col-lg-2">
+                        <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
+                      </div>
+                    </div>
                     : ""
                   }
 

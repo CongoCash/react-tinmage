@@ -33,8 +33,8 @@ class CategoryImage extends Component {
 
   updateDimensions() {
     this.setState({
-      width: this.image_container.current.offsetWidth * 0.85,
-      height: this.image_container.current.offsetWidth * 0.85
+      width: this.image_container.current.offsetWidth * 0.9,
+      height: this.image_container.current.offsetWidth * 0.9
     })
   }
 

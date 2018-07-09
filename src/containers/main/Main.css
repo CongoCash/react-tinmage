@@ -51,3 +51,13 @@
 .center {
     text-align: center;
 }
+
+.like-text {
+    color: green;
+    opacity: 0;
+}
+
+.dislike-text {
+    color: red;
+    opacity: 0;
+}
