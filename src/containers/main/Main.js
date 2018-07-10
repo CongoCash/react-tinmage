@@ -248,6 +248,7 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
+    console.log(this.state.tutorial);
 
     return (
           <React.Fragment>
@@ -270,7 +271,7 @@ class Main extends Component {
                       </div>
                     </div>
                     :
-                    "hellooo"
+                    <h1>hellooo</h1>
                   }
                   <div className="row">
                     <div className="col-lg-12 center">
