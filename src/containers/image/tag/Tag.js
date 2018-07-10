@@ -18,7 +18,7 @@ class Tag extends Component {
       {tags_available ?
           <div className="row">
             <div className="col-lg-12">
-              Tags: {tags}
+              <h4>Tags: </h4>{tags}
             </div>
           </div> : ''
       }

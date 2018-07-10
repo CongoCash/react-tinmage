@@ -29,11 +29,13 @@ class Main extends Component {
       dislike_css: {
         opacity: ''
       },
+      tutorial: false
     };
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
     this.dragImage = this.dragImage.bind(this);
+    this.closeTutorial = this.closeTutorial.bind(this);
     this.like = React.createRef();
     this.dislike = React.createRef();
   }
@@ -44,6 +46,13 @@ class Main extends Component {
 
   componentDidMount() {
     this.getImages(this.props);
+
+    if (!localStorage.tutorial) {
+      localStorage.tutorial = true
+      this.setState({
+        tutorial: true
+      })
+    }
 
     //setup blank image to hide default drag image
     const img = new Image();
@@ -86,6 +95,13 @@ class Main extends Component {
     }
   }
 
+  closeTutorial() {
+    localStorage.tutorial = false;
+    this.setState({
+      tutorial: false
+    })
+  }
+
   dragImage(e) {
     //sets the default drag image to a 1 pixel blank image
     e.dataTransfer.setDragImage(this.state.drag_image, 0, 0);
@@ -94,6 +110,7 @@ class Main extends Component {
   swiped(e) {
     this.setState({
       dragging: true,
+      first_swipe: true
     });
 
     e.persist();
@@ -104,7 +121,8 @@ class Main extends Component {
     if (dragged_distance < 0) {
       this.setState({
         like_css: {
-          opacity: Math.abs(dragged_distance)/(e.target.width/2)
+          opacity: Math.abs(dragged_distance)/(e.target.width/2),
+          zIndex: 15
         }
       })
     }
@@ -236,11 +254,24 @@ class Main extends Component {
             {images_available ?
               <React.Fragment>
                 <div className="col">
-                  <div className="row">
-                    <div className="col center">
-                      <h2 className="text-design">Swipe left to like and swipe right to dislike</h2>
+                  {this.state.tutorial ?
+                    <div className="row">
+                      <div className="col tutorial-modal">
+                        <div className="row">
+                          <div className="col-lg-3"></div>
+                          <div className=" col-lg-6 tutorial-content">
+                            <span onClick={this.closeTutorial} className="close">&times;</span>
+                            <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
+                            <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
+                            <h4 className="tutorial-text">The more images you swipe, the better your recommended section
+                              will be.</h4>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    :
+                    "hellooo"
+                  }
                   <div className="row">
                     <div className="col-lg-12 center">
                       <h2>{top_image_data.title}</h2>
@@ -263,7 +294,16 @@ class Main extends Component {
                         <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
                       </div>
                     </div>
-                    : ""
+                    :
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
+                             src="https://i.imgur.com/MYIyMEs.jpg"
+                             onDrag={this.swiped} onDragStart={this.dragImage}
+                             onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                        />
+                      </div>
+                    </div>
                   }
 
                   <div className="row">
@@ -290,7 +330,10 @@ class Main extends Component {
                   </div>
                 </div>
               </React.Fragment>
-              : <h1>Nothing left here, check out some other categories!</h1>
+              :
+              <div className="col">
+                <h1>Nothing left here, check out some other categories!</h1>
+              </div>
             }
           </React.Fragment>
 
