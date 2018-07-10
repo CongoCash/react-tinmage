@@ -294,16 +294,7 @@ class Main extends Component {
                         <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
                       </div>
                     </div>
-                    :
-                    <div className="row">
-                      <div className="col-lg-12">
-                        <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
-                             src="https://i.imgur.com/MYIyMEs.jpg"
-                             onDrag={this.swiped} onDragStart={this.dragImage}
-                             onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
-                        />
-                      </div>
-                    </div>
+                    : ""
                   }
 
                   <div className="row">
@@ -331,8 +322,14 @@ class Main extends Component {
                 </div>
               </React.Fragment>
               :
-              <div className="col">
-                <h1>Nothing left here, check out some other categories!</h1>
+              <div className="row">
+                <div className="col-lg-12">
+                  <img className="top-image" align="middle"
+                       src="https://i.imgur.com/MYIyMEs.jpg"
+                       onDrag={this.swiped} onDragStart={this.dragImage}
+                       onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
+                  />
+                </div>
               </div>
             }
           </React.Fragment>
