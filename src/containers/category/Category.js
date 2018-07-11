@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import CategoryImage from '../category-image/CategoryImage'
+import Pagination from "react-js-pagination";
 import './Category.css'
 
 
@@ -10,11 +11,15 @@ class Category extends Component {
     super();
     this.state = {
       images: '',
+      image_length: 0,
       image_index: 0,
       error_message: '',
       tag: '',
-      start_row: true
+      start_row: true,
+      active_page: 1,
+      page_range: 2
     };
+    this.handlePageChange = this.handlePageChange.bind(this);
     this.image_container = React.createRef()
   }
 
@@ -35,6 +40,9 @@ class Category extends Component {
     ImagesModel.getTags('api/images/tags/', props.match.params.tag)
     .then((res) => {
       if (res.data.length > 0) {
+        this.setState({
+          image_length: res.data.length
+        });
         let image_array = [];
         let image_holder = [];
         res.data.forEach((value, index) => {
@@ -65,9 +73,18 @@ class Category extends Component {
     })
   }
 
+  handlePageChange(pageNumber) {
+    console.log('here');
+    console.log(`active page is ${pageNumber}`);
+    this.setState({active_page: pageNumber}, () => {
+
+    });
+  }
+
   render() {
     let images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
     let all_images = '';
+    let page_images = '';
 
     if (images_available) {
       all_images = this.state.images.map((image) => {
@@ -87,15 +104,32 @@ class Category extends Component {
             </div>
             <div className="col-lg-1"></div>
           </div>
+
         )
       });
+      console.log(this.state.active_page);
+      page_images = all_images.slice((this.state.active_page-1)*this.state.page_range,
+        (this.state.active_page-1)*this.state.page_range +  this.state.page_range)
     }
+    console.log((this.state.active_page-1)*this.state.page_range);
+    console.log((this.state.active_page-1)*this.state.page_range +  this.state.page_range);
 
     return (
           <div className="col category-margin">
             {images_available ?
               <React.Fragment>
-                {all_images}
+                {page_images}
+                <div className="row">
+                  <div className="col center">
+                    <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={12}
+                      totalItemsCount={this.state.image_length}
+                      pageRangeDisplayed={5}
+                      onChange={this.handlePageChange}
+                    />
+                  </div>
+                </div>
               </React.Fragment>
               : <h1>Nothing left here, check out some other categories!</h1>
             }

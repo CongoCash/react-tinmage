@@ -248,7 +248,6 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.state.tutorial);
 
     return (
           <React.Fragment>
@@ -271,7 +270,7 @@ class Main extends Component {
                       </div>
                     </div>
                     :
-                    <h1>hellooo</h1>
+                    "hellooo"
                   }
                   <div className="row">
                     <div className="col-lg-12 center">
@@ -323,14 +322,8 @@ class Main extends Component {
                 </div>
               </React.Fragment>
               :
-              <div className="row">
-                <div className="col-lg-12">
-                  <img className="top-image" align="middle"
-                       src="https://i.imgur.com/MYIyMEs.jpg"
-                       onDrag={this.swiped} onDragStart={this.dragImage}
-                       onMouseDown={this.initialLocation} onDragEnd={this.dragEnd}
-                  />
-                </div>
+              <div className="col">
+                <h1>Nothing left here, check out some other categories!</h1>
               </div>
             }
           </React.Fragment>
