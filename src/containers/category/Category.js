@@ -4,7 +4,6 @@ import CategoryImage from '../category-image/CategoryImage'
 import Pagination from "react-js-pagination";
 import './Category.css'
 
-
 class Category extends Component {
 
   constructor(){
@@ -107,12 +106,9 @@ class Category extends Component {
 
         )
       });
-      console.log(this.state.active_page);
       page_images = all_images.slice((this.state.active_page-1)*this.state.page_range,
         (this.state.active_page-1)*this.state.page_range +  this.state.page_range)
     }
-    console.log((this.state.active_page-1)*this.state.page_range);
-    console.log((this.state.active_page-1)*this.state.page_range +  this.state.page_range);
 
     return (
           <div className="col category-margin">

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import './CategoryImage.css'
 
-
 class CategoryImage extends Component {
 
   constructor(){
@@ -58,7 +57,8 @@ class CategoryImage extends Component {
       image_css: {
         height: image_height,
         width: image_width,
-        margin: 'auto'
+        margin: 'auto',
+        border: 'solid white 1px'
       }
     })
   }
@@ -89,14 +89,30 @@ class CategoryImage extends Component {
           <div id="myModal" className="modal" ref="modal1" style={this.state.modal_css}>
 
             <div className="modal-content">
-              <span onClick={this.closeModal} className="close">&times;</span>
-              <h4>{this.props.image.title}</h4>
-              <Link to={"/images/" + this.props.image.id}>
-                <button className="btn details">Detail Page</button>
-              </Link>
-              <img src={this.state.modal_image} style={this.state.image_css} />
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-2"></div>
+                  <div className="col-lg-8">
+                    <h2 className="modal-title">{this.props.image.title}</h2>
+                  </div>
+                  <div className="col-lg-2">
+                    <span onClick={this.closeModal} className="close">&times;</span>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col center">
+                    <img src={this.state.modal_image} style={this.state.image_css} />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col center">
+                    <Link to={"/images/" + this.props.image.id}>
+                      <button className="btn details">Detail Page</button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-
           </div>
           :
         ""

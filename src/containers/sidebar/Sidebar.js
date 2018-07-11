@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import DesktopSidebar from "../desktop-sidebar/DesktopSidebar";
 import MobileSidebar from "../mobile-sidebar/MobileSidebar";
 
 class Sidebar extends Component {

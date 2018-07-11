@@ -61,3 +61,27 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.pagination {
+    display: inline-block;
+    box-sizing:border-box;
+    margin-top: 5px;
+}
+
+.pagination > li {
+    display: inline;
+    box-sizing:border-box;
+}
+
+.pagination > li > a {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #337ab7;
+    background-color: white;
+    border: 1px solid black;
+    margin-left: -1px;
+    font-weight: bold;
+}

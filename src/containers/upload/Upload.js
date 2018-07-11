@@ -14,7 +14,7 @@ class Upload extends Component {
       title: '',
       selectedFile: '',
       file_ext: {
-        bmp: true, dds: true, gif: true, jpg: true, png: true, psd: true, pspimage: true,
+        bmp: true, dds: true, gif: true, jpeg: true, jpg: true, png: true, psd: true, pspimage: true,
         tga: true, thm: true, tif: true, tiff: true, yuv: true
       },
       upload_error: false,
