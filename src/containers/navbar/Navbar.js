@@ -9,9 +9,11 @@ class Navbar extends Component {
     super(props);
     this.state = {
       category_button_clicked: false,
+      upload_clicked: false
     };
     this.onLogout = this.onLogout.bind(this);
     this.category_button = this.category_button.bind(this);
+    this.uploadClick = this.uploadClick.bind(this);
   }
 
   onLogout() {
@@ -32,6 +34,25 @@ class Navbar extends Component {
     }
   }
 
+  uploadClick(e) {
+    console.log('upload clicked');
+    if (this.state.upload_clicked) {
+      console.log(this.state.upload_clicked);
+      this.setState({
+        upload_clicked: false
+      }, ()=> {
+        console.log('upload is now1 ' + this.state.upload_clicked)
+      })
+    }
+    else {
+      console.log(this.state.upload_clicked);
+      this.setState({
+        upload_clicked: true
+      }, ()=> {
+        console.log('upload is now2 ' + this.state.upload_clicked)
+      })
+    }
+  }
 
   render() {
     let logged_in = this.props.userData.logged_in
@@ -56,7 +77,7 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-4">
-                      <Link to='/upload' className="nav-link-color">Upload</Link>
+                      <h1 className="nav-link-color" onClick={this.uploadClick}>Upload</h1>
                     </div>
                     <div className="col-4">
                       <Link to ='/signup' className="nav-link-color">Signup</Link>
@@ -70,7 +91,7 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-sm-4">
-                      <Link to='/upload' className="nav-link-color">Upload</Link>
+                      <h1 className="nav-link-color" onClick={this.uploadClick}>Upload</h1>
                     </div>
                     <div className="col-sm-4">
                       <Link to ='/profile' className="nav-link-color">{this.props.userData.username}</Link>

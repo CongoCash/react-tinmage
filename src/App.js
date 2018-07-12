@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from '../src/containers/navbar/Navbar.js'
-import Sidebar from '../src/containers/sidebar/Sidebar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
 import { myConfig } from './config'
-import MobileSidebar from "./containers/mobile-sidebar/MobileSidebar";
+import Upload from './containers/upload/Upload'
 
 
 class App extends Component {
@@ -20,7 +19,7 @@ class App extends Component {
       base_url: myConfig.api_url,
       user_id: '',
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -85,14 +84,19 @@ class App extends Component {
     localStorage.setItem("user_id", '');
   }
 
-  //create helper file to hold the handleLike/Dislike functions and whatever else I need for the main file
-
+  //move Upload to navbar, so that we won't have to re-render the entire app every single time
   render() {
+    console.log('rendering App');
     return (
       <div className="height-100 container-fluid no-padding">
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
+        {this.state.upload_clicked ?
+            <Upload uploadClick={this.uploadClick} userData={this.state}/>
+          :
+          ''
+        }
         <div className="row height-100">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
         </div>

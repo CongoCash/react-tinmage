@@ -71,10 +71,20 @@ class Upload extends Component {
           preview.removeAttribute("height");
           preview.removeAttribute("width");
           preview.src = window.URL.createObjectURL(this.state.selectedFile);
+          let max_image_width = document.getElementsByClassName('image-parent')[0].offsetWidth;
           preview.onload = () => {
+            let preview_width = preview.width;
+            let preview_height = preview.height;
+            if (preview_width > max_image_width * 0.9) {
+              console.log('enetered ');
+              preview_width = max_image_width * 0.9;
+              preview_height = preview_height * (max_image_width / preview.width * 0.9);
+            }
+
+
             this.setState({
-              preview_height: preview.height,
-              preview_width: preview.width
+              preview_height: preview_height,
+              preview_width: preview_width
             })
           };
           console.log(preview);
@@ -180,41 +190,44 @@ class Upload extends Component {
   render() {
     const upload_error = this.state.upload_error;
     const redirect_url = "images/" + this.state.image_id;
-    console.log('rendering ' + this.state.preview_height);
-    console.log('rendering ' + this.state.preview_width);
     return (
-      <div className="col text-center height-100 upload-title-padding" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
-        <div className="row">
-          <div className="col-lg-12">
-            <h1>Upload file</h1>
-            <hr/>
-          </div>
-        </div>
-        {!this.state.upload_success ?
-          <div>
-
-            <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
-              selectedFile={this.state.selectedFile} previewHeight={this.state.preview_height}
-              previewWidth={this.state.preview_width}
-            />
-
-            <UploadTitle onChange={this.onChange}/>
-
-            <UploadTag inputTag={this.onChange} onCreateTag={this.onCreateTag} onTagDelete={this.onTagDelete}
-                tags={this.state.tags} tagError={this.state.tag_error_message}/>
-
-            <div className="row">
-              <div className="col-lg-4"></div>
-              <div className="col-lg-4">
-                <button className="btn btn-success btn-lg text-center upload-buttons" onClick={this.onSubmit}>
-                Upload
-                </button>
-              </div>
-              <div className="col-lg-4"></div>
+      <div className="row upload-container">
+      <div className="col-lg-2"></div>
+        <div className="col text-center height-100 upload-title-padding upload-content" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
+          <div className="row">
+            <div className="col-lg-12">
+              <span onClick={this.props.uploadClick.bind(this)} className="close">&times;</span>
+              <h1>Upload file</h1>
+              <hr/>
             </div>
           </div>
-          : <Redirect to={redirect_url} />
-        }
+          {!this.state.upload_success ?
+            <div className="image-parent">
+
+              <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
+                selectedFile={this.state.selectedFile} previewHeight={this.state.preview_height}
+                previewWidth={this.state.preview_width}
+              />
+
+              <UploadTitle onChange={this.onChange}/>
+
+              <UploadTag inputTag={this.onChange} onCreateTag={this.onCreateTag} onTagDelete={this.onTagDelete}
+                  tags={this.state.tags} tagError={this.state.tag_error_message}/>
+
+              <div className="row">
+                <div className="col-lg-4"></div>
+                <div className="col-lg-4">
+                  <button className="btn btn-success btn-lg text-center upload-buttons" onClick={this.onSubmit}>
+                  Upload
+                  </button>
+                </div>
+                <div className="col-lg-4"></div>
+              </div>
+            </div>
+            : <Redirect to={redirect_url} />
+          }
+        </div>
+        <div className="col-lg-2"></div>
       </div>
     );
   }

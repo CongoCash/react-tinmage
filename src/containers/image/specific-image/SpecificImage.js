@@ -51,7 +51,7 @@ class SpecificImage extends Component {
           <React.Fragment>
             {
               image_render ?
-               <img src={this.props.image_url} height={this.state.height} width={this.state.width} className="detail-margin" />
+               <img src={this.props.image_url} height={this.state.height} width={this.state.width} className="detail-margin image-margin" />
                 :
                 ""
             }
