@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import Sidebar from '../sidebar/Sidebar'
 import './Navbar.css'
 import MobileSidebar from "../mobile-sidebar/MobileSidebar";
+import Upload from "../upload/Upload";
 
 class Navbar extends Component {
   constructor(props) {
@@ -91,7 +91,7 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-sm-4">
-                      <h1 className="nav-link-color" onClick={this.uploadClick}>Upload</h1>
+                      <h6 className="nav-link-color" onClick={this.uploadClick}>Upload</h6>
                     </div>
                     <div className="col-sm-4">
                       <Link to ='/profile' className="nav-link-color">{this.props.userData.username}</Link>
@@ -109,6 +109,13 @@ class Navbar extends Component {
         {this.state.category_button_clicked ?
           <div className="row width-100 margin-0">
             <MobileSidebar/>
+          </div>
+          :
+          ""
+        }
+        {this.state.upload_clicked ?
+          <div className="row width-100 margin-0">
+            <Upload uploadClick={this.uploadClick}/>
           </div>
           :
           ""

@@ -8,8 +8,8 @@ require('./Upload.css')
 //need to move drag and drop upload to app.js, so that you can upload anywhere
 
 class Upload extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       selectedFile: '',
@@ -190,6 +190,7 @@ class Upload extends Component {
   render() {
     const upload_error = this.state.upload_error;
     const redirect_url = "images/" + this.state.image_id;
+    console.log(this.props);
     return (
       <div className="row upload-container">
       <div className="col-lg-2"></div>
