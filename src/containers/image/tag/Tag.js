@@ -6,6 +6,7 @@ import './Tag.css'
 class Tag extends Component {
 
   render() {
+    console.log(this.props.tags);
     let tags = this.props.tags.map((tag) => {
       return <Link className="btn btn-success tag tag-text" to={"/category/" + tag}>{tag}</Link>
     });
@@ -13,16 +14,15 @@ class Tag extends Component {
     let tags_available = (this.props.tags.length > 0 && this.props.tags[0] !== "");
 
     return (
-      <div>
+      <React.Fragment>
       {tags_available ?
           <div className="row">
-            <div className="col-md-3"></div>
-            <div className="col-md-6">
-              {tags}
+            <div className="col-lg-12">
+              <h4>Tags: </h4>{tags}
             </div>
           </div> : ''
       }
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-require('./Sidebar.css')
+import MobileSidebar from "../mobile-sidebar/MobileSidebar";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -8,14 +7,11 @@ class Sidebar extends Component {
     this.state = {
       categories: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
         'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow'],
-      category_button_clicked: false
+      category_button_clicked: false,
+      width: window.innerWidth
     };
-    this.capitalLink = this.capitalLink.bind(this);
     this.category_button = this.category_button.bind(this);
-  }
-
-  capitalLink(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   category_button(e) {
@@ -34,13 +30,9 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="sidebar-border">
-        {this.state.categories.map(category =>
-          <Link className="row link-design" to={"/category/" + category}>
-            {this.capitalLink(category)}
-          </Link>
-        )}
-      </div>
+      <React.Fragment>
+        <MobileSidebar categories={this.state.categories}/>
+      </React.Fragment>
     )
   }
 }

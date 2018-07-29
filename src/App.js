@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from '../src/containers/navbar/Navbar.js'
-import Sidebar from '../src/containers/sidebar/Sidebar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
 import { myConfig } from './config'
-import MobileSidebar from "./containers/mobile-sidebar/MobileSidebar";
+import Upload from './containers/upload/Upload'
 
 
 class App extends Component {
@@ -19,12 +18,11 @@ class App extends Component {
       error_message: '',
       base_url: myConfig.api_url,
       user_id: '',
-      width: '',
-      height: ''
+      width: window.innerWidth,
+      height: window.innerHeight,
     };
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentWillMount() {
@@ -38,30 +36,14 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
-  }
-
-  updateDimensions() {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight
-    })
-  }
-
-
   onLogin(username, password) {
     axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
     .then((response) => {
       if (response.data.logged_in == true) {
-        localStorage.setItem("username", response.data.username)
-        localStorage.setItem("session_id", response.data.session_id)
-        localStorage.setItem("user_id", response.data.user_id)
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("session_id", response.data.session_id);
+        localStorage.setItem("user_id", response.data.user_id);
+
         this.setState({
           logged_in: true,
           username: response.data.username,
@@ -96,39 +78,23 @@ class App extends Component {
           error_message: ''
         })
       }
-    })
+    });
     localStorage.setItem("username", '');
     localStorage.setItem("session_id", '');
     localStorage.setItem("user_id", '');
   }
 
+  //move Upload to navbar, so that we won't have to re-render the entire app every single time
   render() {
+    console.log('rendering App');
     return (
       <div className="height-100 container-fluid no-padding">
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        {this.state.width >= 992 ?
-          <div className="row">
-            <div className="col-lg-2 sidebar-design">
-              <Sidebar userData={this.state}/>
-            </div>
-            <div className="col-lg-10">
-              <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-            </div>
-          </div>
-          :
-          <div>
-            <div className="row">
-              <MobileSidebar/>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-              </div>
-            </div>
-          </div>
-        }
+        <div className="row height-100">
+            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
+        </div>
       </div>
     );
   }

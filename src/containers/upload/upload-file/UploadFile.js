@@ -3,7 +3,30 @@ require('./UploadFile.css')
 
 class UploadFile extends Component {
 
+  adjustDim() {
+    let height = this.props.previewHeight;
+    let width = this.props.previewWidth;
+    let multiplier = 0.8;
+    if ((this.props.previewHeight !== '' && this.props.previewHeight >= window.innerHeight * 0.8) ||
+      (this.props.previewWidth !== '' && this.props.previewWidth >= window.innerWidth) * 0.8) {
+      while (height >= window.innerHeight * 0.8 && width >= window.innerWidth) {
+        multiplier -= 0.1;
+        height = height*multiplier;
+        width = width*multiplier;
+        console.log(height);
+        console.log(width);
+      }
+    }
+    return {
+      height: height,
+      width: width
+    }
+  }
+
   render() {
+    let height = this.adjustDim().height;
+    let width = this.adjustDim().width;
+    console.log(this.adjustDim());
     return (
       <div>
         {
@@ -28,9 +51,8 @@ class UploadFile extends Component {
           <div className="col-lg-4"></div>
         </div>
         <div className="row">
-          <div className="col-lg-4"></div>
-          <div className="col-lg-4">
-            <img id="preview"/>
+          <div className="col-lg-12">
+            <img id="preview" height={height} width={width}/>
           </div>
         </div>
 

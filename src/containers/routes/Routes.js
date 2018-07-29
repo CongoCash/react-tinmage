@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect} from 'react-router-dom'
-import Start from '../start/Start.js'
 import Upload from '../upload/Upload.js'
 import Login from '../login/Login.js'
 import Signup from '../signup/Signup.js'
 import Category from '../category/Category.js'
 import Image from '../image/Image.js'
-
+import Main from '../main/Main.js'
 
 class Routes extends Component {
   constructor(props) {
@@ -19,6 +18,11 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
+        <Route exact path='/'
+               render={(props) => (
+                 <Main userData={this.props.userData} {...props} />
+               )}
+        />
         {this.state.categories.map((category) => {
           return <Route path={"/category/:tag"}
             render={(props) => (
@@ -26,10 +30,7 @@ class Routes extends Component {
             )}
           />
         })}
-        <Route exact path='/'
-               render={() => (
-                 <Start userData={this.props.userData} />
-               )}/>
+
         <Route path='/upload'
                render={() => (
                  <Upload userData={this.props.userData} />

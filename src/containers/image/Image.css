@@ -31,3 +31,23 @@
 .button-margin {
     margin-bottom: 50px;
 }
+
+.center {
+    text-align: center;
+}
+
+.image-container {
+    text-align: center;
+}
+
+div[tabindex="-1"]:focus {
+    outline: 0;
+}
+
+.detail-margin {
+    margin-top: 45px;
+}
+
+.left-align {
+    text-align: left;
+}

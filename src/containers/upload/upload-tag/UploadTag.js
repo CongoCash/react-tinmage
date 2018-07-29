@@ -12,7 +12,7 @@ class UploadTag extends Component {
             <h4>{this.props.tagError}</h4>
             <input id="input-tag" className="input-tag" type="text" name="add-tag"
                    onChange={this.props.inputTag.bind(this)} placeholder="Tag"/>
-            <button className="create-tag btn" onClick={this.props.onCreateTag.bind(this)}>Add</button>
+            <button className="create-tag" onClick={this.props.onCreateTag.bind(this)}>Add</button>
           </div>
           <div className="col-lg-4"></div>
         </div>
