@@ -284,7 +284,7 @@ class Main extends Component {
                         <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
                       </div>
                       <div className="col-lg-8">
-                        <TopImage base_url={this.props.userData.base_url} image_data={top_image_data}
+                        <TopImage image_data={top_image_data}
                                   swiped={this.swiped} dragImage={this.dragImage}
                                   initialLocation={this.initialLocation} dragEnd={this.dragEnd}
                                   bottom_image={bottom_image} bottom_image_data={bottom_image_data}

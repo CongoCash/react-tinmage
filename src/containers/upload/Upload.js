@@ -188,9 +188,11 @@ class Upload extends Component {
   };
 
   render() {
+    console.log(this.props);
+    console.log('rendering');
+    console.log(this.props.userData);
     const upload_error = this.state.upload_error;
     const redirect_url = "images/" + this.state.image_id;
-    console.log(this.props);
     return (
       <div className="row upload-container">
       <div className="col-lg-2"></div>

@@ -95,7 +95,7 @@ class Category extends Component {
                 {
                   image.map((inner_image) => {
                     return (
-                      <CategoryImage base_url={this.props.userData.base_url} image={inner_image}/>
+                      <CategoryImage image={inner_image}/>
                     )
                   })
                 }

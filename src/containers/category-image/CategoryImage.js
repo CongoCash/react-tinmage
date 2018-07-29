@@ -82,7 +82,7 @@ class CategoryImage extends Component {
       <React.Fragment>
         <div ref={this.image_container} className="col-lg-2 category-image-position">
           <img onClick={this.openModal} className="category-image"
-               src={this.props.base_url + this.props.image.url} height={this.state.height} width={this.state.width}/>
+               src={this.props.image.url} height={this.state.height} width={this.state.width}/>
         </div>
 
         {open_modal ?

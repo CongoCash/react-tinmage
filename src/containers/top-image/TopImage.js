@@ -66,13 +66,13 @@ class TopImage extends Component {
         <div className="row" style={{height: this.adjustDim().height}}>
           <div className="col-lg-12">
             <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
-                 src={this.props.base_url + this.props.image_data.url}
+                 src={this.props.image_data.url}
                  onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
                  onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
             />
             {this.props.bottom_image ?
               <BottomImage bottom_image_data={this.props.bottom_image_data} height={this.adjustDim().height}
-                           width={this.adjustDim().width} base_url={this.props.base_url}
+                           width={this.adjustDim().width}
               />
               :
               ""

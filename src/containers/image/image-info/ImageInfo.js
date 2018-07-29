@@ -17,7 +17,7 @@ class ImageInfo extends Component {
 
   copyImage() {
     var url = document.createElement('input'),
-      text = this.props.base_url + this.props.imageData.url;
+      text = this.props.imageData.url;
 
     document.body.appendChild(url);
     url.value = text;
@@ -64,7 +64,7 @@ class ImageInfo extends Component {
             </div>
             <div className="row">
               <div className="col-sm-6 center">
-                <a href={this.props.base_url + this.props.imageData.url} download>
+                <a href={this.props.imageData.url} download>
                   <button className="btn copy-margin">Download</button>
                 </a>
               </div>

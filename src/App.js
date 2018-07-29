@@ -92,11 +92,6 @@ class App extends Component {
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        {this.state.upload_clicked ?
-            <Upload uploadClick={this.uploadClick} userData={this.state}/>
-          :
-          ''
-        }
         <div className="row height-100">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
         </div>

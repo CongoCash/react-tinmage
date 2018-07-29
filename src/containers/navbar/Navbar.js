@@ -115,7 +115,7 @@ class Navbar extends Component {
         }
         {this.state.upload_clicked ?
           <div className="row width-100 margin-0">
-            <Upload uploadClick={this.uploadClick}/>
+            <Upload uploadClick={this.uploadClick} userData={this.props.userData}/>
           </div>
           :
           ""
