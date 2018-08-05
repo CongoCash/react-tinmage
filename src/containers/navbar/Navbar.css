@@ -10,7 +10,7 @@
 }
 
 .nav-link-color {
-    color: white;
+    color: white !important;
 }
 
 .category-dropdown {

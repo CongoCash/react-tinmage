@@ -169,6 +169,9 @@ class Upload extends Component {
         formData.append('selectedFile', selectedFile);
         formData.append('user_id', this.props.userData.user_id);
         formData.append('tags', tags_array);
+        formData.append('height', this.state.preview_height);
+        formData.append('width', this.state.preview_width);
+        console.log(this.props.userData.base_url);
 
         axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
           this.setState({
@@ -218,13 +221,13 @@ class Upload extends Component {
                   tags={this.state.tags} tagError={this.state.tag_error_message}/>
 
               <div className="row">
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4">
-                  <button className="btn btn-success btn-lg text-center upload-buttons" onClick={this.onSubmit}>
+                <div className="col-lg-4 col-md-4"></div>
+                <div className="col-lg-4 col-md-4">
+                  <button className="btn btn-success btn-lg upload-buttons" onClick={this.onSubmit}>
                   Upload
                   </button>
                 </div>
-                <div className="col-lg-4"></div>
+                <div className="col-lg-4 col-md-4"></div>
               </div>
             </div>
             : <Redirect to={redirect_url} />

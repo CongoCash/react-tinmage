@@ -50,7 +50,7 @@ class TopImage extends Component {
 
 
   render() {
-    console.log('rendering');
+    console.log(this.props.image_data);
     let image_ratio = this.props.image_data.height/this.props.image_data.width;
     let image_width = window.innerWidth * 0.25;
     if (image_width < 250) {
@@ -63,8 +63,6 @@ class TopImage extends Component {
     };
     return (
       <React.Fragment>
-        <div className="row" style={{height: this.adjustDim().height}}>
-          <div className="col-lg-12">
             <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
                  src={this.props.image_data.url}
                  onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
@@ -77,8 +75,6 @@ class TopImage extends Component {
               :
               ""
             }
-          </div>
-        </div>
       </React.Fragment>
     )
   }

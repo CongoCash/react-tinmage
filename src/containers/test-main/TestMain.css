@@ -1,0 +1,105 @@
+.top-image {
+    z-index: 0;
+    display: block;
+    top: 5px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+}
+
+.bottom-image {
+    z-index: -1;
+    display: block;
+    top: 5px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+}
+
+.title {
+    font-size: 20px;
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+}
+
+.category-tag {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    background-color: silver;
+    border: none;
+    border-radius: 12px;
+    color: black;
+    font-weight: bold;
+}
+
+.align-tag {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.details {
+    font-family: Helvetica, sans-serif;
+    color: #3b557f;
+    margin-top: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+.like-text {
+    color: white;
+    opacity: 0;
+    border: solid 1px green;
+    background: green;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    font-weight: bold;
+}
+
+.dislike-text {
+    color: white;
+    opacity: 0;
+    border: solid 1px red;
+    background: red;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    font-weight: bold;
+}
+
+.left-arrow {
+    text-align: right;
+}
+
+.right-arrow {
+    text-align: left;
+}
+
+.tutorial-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.tutorial-content {
+    background-color: white;
+    text-align: center;
+}
+
+.tutorial-text {
+    color: black;
+}

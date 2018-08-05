@@ -77,7 +77,7 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-4">
-                      <h1 className="nav-link-color" onClick={this.uploadClick}>Upload</h1>
+                      <a className="nav-link-color" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-4">
                       <Link to ='/signup' className="nav-link-color">Signup</Link>

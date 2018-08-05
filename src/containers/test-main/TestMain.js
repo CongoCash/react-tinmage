@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import TopImage from '../top-image/TopImage'
 import ImageInfo from '../image/image-info/ImageInfo.js'
-import './Main.css'
+import './TestMain.css'
 import {Link} from 'react-router-dom'
 
 
-class Main extends Component {
+class TestMain extends Component {
 
   constructor(){
     super()
@@ -74,24 +74,24 @@ class Main extends Component {
     }
     else {
       ImagesModel.getTags('api/images/tags/', props.match.params.tag)
-        .then((res) => {
-          if (res.data.length > 0) {
-            this.setState({
-              images: res.data,
-              image_index: 0,
-              error_message: '',
-              tag: props.match.params.tag
-            })
-          }
-          else {
-            this.setState({
-              images: res.data,
-              image_index: 0,
-              error_message: 'Cannot find any images under this tag',
-              tag: ''
-            })
-          }
-        })
+      .then((res) => {
+        if (res.data.length > 0) {
+          this.setState({
+            images: res.data,
+            image_index: 0,
+            error_message: '',
+            tag: props.match.params.tag
+          })
+        }
+        else {
+          this.setState({
+            images: res.data,
+            image_index: 0,
+            error_message: 'Cannot find any images under this tag',
+            tag: ''
+          })
+        }
+      })
     }
   }
 
@@ -205,9 +205,9 @@ class Main extends Component {
 
     if (this.state.images.length > 0) {
       ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like")
-        .then(function(response) {
-          console.log(response);
-        });
+      .then(function(response) {
+        console.log(response);
+      });
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -225,9 +225,9 @@ class Main extends Component {
   handleDislike(e) {
     if (this.state.images.length > 0) {
       ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike")
-        .then(function(response) {
-          console.log(response);
-        });
+      .then(function(response) {
+        console.log(response);
+      });
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -251,80 +251,80 @@ class Main extends Component {
     console.log(top_image_data);
 
     return (
-      <React.Fragment>
-        {images_available ?
           <React.Fragment>
-            {this.state.tutorial ?
-              <div className="row tutorial-modal">
-                <div className="col-lg-3"></div>
-                <div className=" col-lg-6 tutorial-content">
-                  <span onClick={this.closeTutorial} className="close">&times;</span>
-                  <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
-                  <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
-                  <h4 className="tutorial-text">The more images you swipe, the better your recommended section
-                    will be.</h4>
-                </div>
-              </div>
-              :
-              "hellooo"
-            }
-            <div className="row">
-              <div className="col-lg-12 center">
-                <h2>{top_image_data.title}</h2>
-              </div>
-            </div>
-
-            {top_image ?
-              <div className="row" style={{height: top_image_data.height + "px"}}>
-                <div className="col-lg-2">
-                  <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
-                </div>
-                <div className="col-lg-8">
-                  <TopImage image_data={top_image_data}
-                            swiped={this.swiped} dragImage={this.dragImage}
-                            initialLocation={this.initialLocation} dragEnd={this.dragEnd}
-                            bottom_image={bottom_image} bottom_image_data={bottom_image_data}
-                  />
-                </div>
-                <div className="col-lg-2">
-                  <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
-                </div>
-              </div>
-              : ""
-            }
-
-            <div className="row">
-              <div className="col-lg-12 center">
-                <Link to={"/images/" + this.state.images[this.state.image_index].id}>
-                  <button className="btn details">Detail Page</button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-12 align-tag">
-                {top_image_data.tags.map((tag, index) => {
-                  if (tag !== "") {
-                    return (
-                      <Link to={"/category/" + tag}>
-                        <button className="btn btn-secondary category-tag">
-                          {tag}
-                        </button>
-                      </Link>)
+            {images_available ?
+                <React.Fragment>
+                  {this.state.tutorial ?
+                    <div className="row tutorial-modal">
+                      <div className="col-lg-3"></div>
+                      <div className=" col-lg-6 tutorial-content">
+                        <span onClick={this.closeTutorial} className="close">&times;</span>
+                        <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
+                        <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
+                        <h4 className="tutorial-text">The more images you swipe, the better your recommended section
+                          will be.</h4>
+                      </div>
+                    </div>
+                    :
+                    "hellooo"
                   }
-                })}
+                  <div className="row">
+                    <div className="col-lg-12 center">
+                      <h2>{top_image_data.title}</h2>
+                    </div>
+                  </div>
+
+                  {top_image ?
+                    <div className="row" style={{height: top_image_data.height + "px"}}>
+                      <div className="col-lg-2">
+                        <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
+                      </div>
+                      <div className="col-lg-8">
+                        <TopImage image_data={top_image_data}
+                                  swiped={this.swiped} dragImage={this.dragImage}
+                                  initialLocation={this.initialLocation} dragEnd={this.dragEnd}
+                                  bottom_image={bottom_image} bottom_image_data={bottom_image_data}
+                        />
+                      </div>
+                      <div className="col-lg-2">
+                        <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
+                      </div>
+                    </div>
+                    : ""
+                  }
+
+                  <div className="row">
+                    <div className="col-lg-12 center">
+                      <Link to={"/images/" + this.state.images[this.state.image_index].id}>
+                        <button className="btn details">Detail Page</button>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-lg-12 align-tag">
+                      {top_image_data.tags.map((tag, index) => {
+                        if (tag !== "") {
+                          return (
+                            <Link to={"/category/" + tag}>
+                              <button className="btn btn-secondary category-tag">
+                                {tag}
+                              </button>
+                            </Link>)
+                        }
+                      })}
+                    </div>
+                  </div>
+                </React.Fragment>
+              :
+              <div className="col">
+                <h1>Nothing left here, check out some other categories!</h1>
               </div>
-            </div>
+            }
           </React.Fragment>
-          :
-          <div className="col">
-            <h1>Nothing left here, check out some other categories!</h1>
-          </div>
-        }
-      </React.Fragment>
 
     )
   };
 }
 
-export default Main
+export default TestMain

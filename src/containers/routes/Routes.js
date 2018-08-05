@@ -6,6 +6,7 @@ import Signup from '../signup/Signup.js'
 import Category from '../category/Category.js'
 import Image from '../image/Image.js'
 import Main from '../main/Main.js'
+import TestMain from '../test-main/TestMain.js'
 
 class Routes extends Component {
   constructor(props) {
@@ -21,6 +22,11 @@ class Routes extends Component {
         <Route exact path='/'
                render={(props) => (
                  <Main userData={this.props.userData} {...props} />
+               )}
+        />
+        <Route exact path='/test'
+               render={(props) => (
+                 <TestMain userData={this.props.userData} {...props} />
                )}
         />
         {this.state.categories.map((category) => {
