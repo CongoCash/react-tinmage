@@ -20,9 +20,9 @@ class UploadTag extends Component {
         <div className="row">
           <div className="col-lg-4"></div>
           <div className="col-lg-4">
-            {this.props.tags.map((tag) => {
+            {this.props.tags.map((tag, index) => {
                 return <button className="btn btn-primary tag-button"
-                               onClick={this.props.onTagDelete.bind(this)} value={tag}>{tag}</button>
+                               onClick={this.props.onTagDelete.bind(this)} value={tag}>{tag} key={index}</button>
               }
             )}
           </div>

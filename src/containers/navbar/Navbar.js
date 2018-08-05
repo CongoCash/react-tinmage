@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Navbar.css'
 import MobileSidebar from "../mobile-sidebar/MobileSidebar";
 import Upload from "../upload/Upload";
@@ -77,13 +77,13 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-4">
-                      <a className="nav-link-color" onClick={this.uploadClick}>Upload</a>
+                      <a className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-4">
-                      <Link to ='/signup' className="nav-link-color">Signup</Link>
+                      <Link to ='/signup' className="nav-link-color align-vertical">Signup</Link>
                     </div>
                     <div className="col-4">
-                      <Link to ='/login' className="nav-link-color">Login</Link>
+                      <Link to ='/login' className="nav-link-color align-vertical">Login</Link>
                     </div>
                   </div>
                 </div>
@@ -91,13 +91,13 @@ class Navbar extends Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-sm-4">
-                      <h6 className="nav-link-color" onClick={this.uploadClick}>Upload</h6>
+                      <h6 className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</h6>
                     </div>
                     <div className="col-sm-4">
-                      <Link to ='/profile' className="nav-link-color">{this.props.userData.username}</Link>
+                      <Link to ='/profile' className="nav-link-color align-vertical">{this.props.userData.username}</Link>
                     </div>
                     <div className="col-sm-4">
-                      <Link to ='/logout' onClick={this.onLogout}>Logout</Link>
+                      <Link to ='/logout' className="nav-link-color align-vertical" onClick={this.onLogout}>Logout</Link>
                     </div>
                   </div>
                 </div>

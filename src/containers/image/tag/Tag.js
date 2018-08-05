@@ -7,8 +7,8 @@ class Tag extends Component {
 
   render() {
     console.log(this.props.tags);
-    let tags = this.props.tags.map((tag) => {
-      return <Link className="btn btn-success tag tag-text" to={"/category/" + tag}>{tag}</Link>
+    let tags = this.props.tags.map((tag, index) => {
+      return <Link className="btn btn-success tag tag-text" to={"/category/" + tag} key={index}>{tag}</Link>
     });
 
     let tags_available = (this.props.tags.length > 0 && this.props.tags[0] !== "");

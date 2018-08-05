@@ -30,7 +30,7 @@ class BottomImage extends Component {
   render() {
     return (
       <img className="bottom-image" height={this.props.height} width={this.props.width}
-           src={this.props.bottom_image_data.url}
+           src={this.props.bottom_image_data.url} alt=""
       />
     )
   }

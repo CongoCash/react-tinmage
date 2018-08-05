@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
 import TopImage from '../top-image/TopImage'
-import ImageInfo from '../image/image-info/ImageInfo.js'
 import './TestMain.css'
 import {Link} from 'react-router-dom'
 
@@ -311,6 +310,9 @@ class TestMain extends Component {
                                 {tag}
                               </button>
                             </Link>)
+                        }
+                        else {
+                          return ''
                         }
                       })}
                     </div>

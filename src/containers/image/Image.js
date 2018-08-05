@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './Image.css'
-import Tag from './tag/Tag'
 import ImageInfo from './image-info/ImageInfo'
-import SizeButton from './size-buttons/SizeButton'
 import SpecificImage from './specific-image/SpecificImage'
 
 
@@ -39,7 +37,7 @@ class Image extends Component {
     console.log(e.keyCode);
     if (e.keyCode === 37) {
       if (this.state.image_id > 1) {
-        let image_id = parseInt(this.state.image_id) - 1;
+        let image_id = parseInt(this.state.image_id, 10) - 1;
         axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
           this.setState({
             image_data: response.data[0],
@@ -55,7 +53,7 @@ class Image extends Component {
       }
     }
     else if (e.keyCode === 39) {
-      let image_id = parseInt(this.state.image_id) + 1;
+      let image_id = parseInt(this.state.image_id, 10) + 1;
       console.log(image_id);
       axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
         this.setState({

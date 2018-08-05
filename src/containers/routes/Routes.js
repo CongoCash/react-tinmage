@@ -29,8 +29,8 @@ class Routes extends Component {
                  <TestMain userData={this.props.userData} {...props} />
                )}
         />
-        {this.state.categories.map((category) => {
-          return <Route path={"/category/:tag"}
+        {this.state.categories.map((category, index) => {
+          return <Route path={"/category/:tag"} key={index}
             render={(props) => (
               <Category userData={this.props.userData} {...props} />
             )}

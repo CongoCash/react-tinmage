@@ -76,13 +76,12 @@ class CategoryImage extends Component {
 
   render() {
     let open_modal = this.state.modal_open;
-    let bg = {backgroundColor: "grey"};
 
     return (
       <React.Fragment>
         <div ref={this.image_container} className="col-lg-2 category-image-position">
           <img onClick={this.openModal} className="category-image"
-               src={this.props.image.url} height={this.state.height} width={this.state.width}/>
+               src={this.props.image.url} height={this.state.height} width={this.state.width} alt=""/>
         </div>
 
         {open_modal ?
@@ -101,7 +100,7 @@ class CategoryImage extends Component {
                 </div>
                 <div className="row">
                   <div className="col center">
-                    <img src={this.state.modal_image} style={this.state.image_css} />
+                    <img src={this.state.modal_image} style={this.state.image_css} alt=""/>
                   </div>
                 </div>
                 <div className="row">

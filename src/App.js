@@ -4,8 +4,6 @@ import Navbar from '../src/containers/navbar/Navbar.js'
 import Routes from './containers/routes/Routes.js'
 import axios from 'axios'
 import { myConfig } from './config'
-import Upload from './containers/upload/Upload'
-
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +37,7 @@ class App extends Component {
   onLogin(username, password) {
     axios.post(this.state.base_url + 'api/users/login', {username: username, password: password})
     .then((response) => {
-      if (response.data.logged_in == true) {
+      if (response.data.logged_in === true) {
         localStorage.setItem("username", response.data.username);
         localStorage.setItem("session_id", response.data.session_id);
         localStorage.setItem("user_id", response.data.user_id);
@@ -68,7 +66,7 @@ class App extends Component {
   onLogout() {
     axios.post(this.state.base_url + 'api/users/logout')
     .then((response) => {
-      if (response.data.logged_in == false) {
+      if (response.data.logged_in === false) {
         this.setState({
           username: '',
           password: '',
@@ -92,9 +90,9 @@ class App extends Component {
         <div className="row">
           <Navbar userData={this.state} onLogout={this.onLogout} />
         </div>
-        {/*<div className="row height-100">*/}
+        <div className="row height-100">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
-        {/*</div>*/}
+        </div>
       </div>
     );
   }

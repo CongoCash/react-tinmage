@@ -162,7 +162,7 @@ class Upload extends Component {
 
     push_tags.then(() => {
       const { title, selectedFile, file_ext } = this.state;
-      if (selectedFile && file_ext[selectedFile.name.split('.').pop()] == true) {
+      if (selectedFile && file_ext[selectedFile.name.split('.').pop()] === true) {
         let formData = new FormData();
 
         formData.append('title', title);

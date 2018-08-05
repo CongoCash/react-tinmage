@@ -42,7 +42,7 @@ class UploadFile extends Component {
           <div className="col-lg-4"></div>
           <div className="col-lg-4">
             <form className="width-100">
-              <label className="select-file width-100" for="default-upload">
+              <label className="select-file width-100" htmlFor="default-upload">
                 <div className="btn btn-primary btn-lg upload-buttons">Select File or Drag and Drop</div>
               </label>
               <input id="default-upload" type="file" name="selectedFile" onChange={this.props.onChange.bind(this)}/>
@@ -52,7 +52,7 @@ class UploadFile extends Component {
         </div>
         <div className="row">
           <div className="col-lg-12">
-            <img id="preview" height={height} width={width}/>
+            <img id="preview" height={height} width={width} alt=""/>
           </div>
         </div>
 
