@@ -84,11 +84,10 @@ class App extends Component {
 
   //move Upload to navbar, so that we won't have to re-render the entire app every single time
   render() {
-    console.log('rendering App');
     return (
       <div className="height-100 container-fluid no-padding">
         <div className="row">
-          <Navbar userData={this.state} onLogout={this.onLogout} />
+          <Navbar redirectUpload={this.redirectUpload} userData={this.state} onLogout={this.onLogout} />
         </div>
         <div className="row height-100">
             <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>

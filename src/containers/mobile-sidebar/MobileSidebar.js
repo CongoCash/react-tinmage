@@ -33,8 +33,8 @@ class MobileSidebar extends Component {
     return (
       <div className="width-100 col-md-12">
         <ul className="row sidebar-list width-100">
-          {this.state.categories.map(category =>
-            <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category}>
+          {this.state.categories.map((category, index) =>
+            <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category} key={index}>
               <li onClick={this.category_button} className="category-design">
                 {this.capitalLink(category)}
               </li>

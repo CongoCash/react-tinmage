@@ -6,7 +6,6 @@ import './Tag.css'
 class Tag extends Component {
 
   render() {
-    console.log(this.props.tags);
     let tags = this.props.tags.map((tag, index) => {
       return <Link className="btn btn-success tag tag-text" to={"/category/" + tag} key={index}>{tag}</Link>
     });

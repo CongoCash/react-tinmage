@@ -17,6 +17,7 @@ class Routes extends Component {
   }
 
   render() {
+    console.log('route component');
     return (
       <Switch>
         <Route exact path='/'
@@ -38,8 +39,8 @@ class Routes extends Component {
         })}
 
         <Route path='/upload'
-               render={() => (
-                 <Upload userData={this.props.userData} />
+               render={(props) => (
+                 <Upload userData={this.props.userData} {...props} />
                )}/>
         />
         <Route path="/login"

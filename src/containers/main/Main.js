@@ -61,7 +61,6 @@ class Main extends Component {
 
   getImages(props) {
     if (!props.match.params.tag) {
-      console.log(this.props);
       ImagesModel.getAll().then((res) => {
         this.setState({
           images: res.data,
@@ -159,12 +158,11 @@ class Main extends Component {
       })
     }
     else if (this.state.dragging === true && (Math.abs(dragged_distance) >= e.target.width/2)) {
-
       if (dragged_distance === Math.abs(dragged_distance)) {
-        this.handleLike();
+        this.handleDislike();
       }
       else {
-        this.handleDislike();
+        this.handleLike();
       }
       //if image dragged passed threshold and no more images, currently resets back to image 0, currently not in use
       if (this.state.images.length <= this.state.image_index-1) {
@@ -203,10 +201,7 @@ class Main extends Component {
   handleLike(e) {
 
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like")
-      .then(function(response) {
-        console.log(response);
-      });
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -223,10 +218,7 @@ class Main extends Component {
 
   handleDislike(e) {
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike")
-      .then(function(response) {
-        console.log(response);
-      });
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -247,6 +239,7 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
+    console.log(this.props);
 
     return (
           <React.Fragment>

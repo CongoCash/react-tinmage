@@ -13,8 +13,6 @@ class UploadFile extends Component {
         multiplier -= 0.1;
         height = height*multiplier;
         width = width*multiplier;
-        console.log(height);
-        console.log(width);
       }
     }
     return {
@@ -26,7 +24,6 @@ class UploadFile extends Component {
   render() {
     let height = this.adjustDim().height;
     let width = this.adjustDim().width;
-    console.log(this.adjustDim());
     return (
       <div>
         {

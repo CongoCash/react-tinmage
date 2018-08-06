@@ -23,7 +23,6 @@ class SpecificImage extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      console.log('entered did update');
       this.updateDimensions();
     }
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import UploadFile from './upload-file/UploadFile'
 import UploadTitle from './upload-title/UploadTitle'
 import UploadTag from './upload-tag/UploadTag'
@@ -32,6 +32,14 @@ class Upload extends Component {
     this.onCreateTag = this.onCreateTag.bind(this);
     this.onDropFile = this.onDropFile.bind(this);
     this.dragOverHandler = this.dragOverHandler.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('rendering did mount in upload');
+  }
+
+  componentDidUpdate() {
+    console.log('rendering did update in upload');
   }
 
   onDropFile = (e) => {
@@ -76,7 +84,6 @@ class Upload extends Component {
             let preview_width = preview.width;
             let preview_height = preview.height;
             if (preview_width > max_image_width * 0.9) {
-              console.log('enetered ');
               preview_width = max_image_width * 0.9;
               preview_height = preview_height * (max_image_width / preview.width * 0.9);
             }
@@ -87,7 +94,6 @@ class Upload extends Component {
               preview_width: preview_width
             })
           };
-          console.log(preview);
         })
       }
     }
@@ -145,8 +151,6 @@ class Upload extends Component {
         new_tags.push.apply(new_tags, tags.slice(index+1));
         this.setState({
           tags: new_tags
-        }, () => {
-          return
         })
       }
     })
@@ -156,7 +160,7 @@ class Upload extends Component {
     e.preventDefault();
     let tags_array = [];
     let push_tags = new Promise((resolve, reject) => {
-      tags_array = this.state.tags
+      tags_array = this.state.tags;
       resolve('it worked')
     });
 
@@ -171,14 +175,15 @@ class Upload extends Component {
         formData.append('tags', tags_array);
         formData.append('height', this.state.preview_height);
         formData.append('width', this.state.preview_width);
-        console.log(this.props.userData.base_url);
 
         axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
           this.setState({
             image_id: response.data.id,
             upload_error: false,
             upload_success: true
-          })
+          }, () => {
+            this.props.uploadClick();
+          });
         });
       }
       else {
@@ -191,23 +196,23 @@ class Upload extends Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log('rendering');
-    console.log(this.props.userData);
     const upload_error = this.state.upload_error;
-    const redirect_url = "images/" + this.state.image_id;
+    const redirect_url = "/images/" + this.state.image_id;
+    if (this.state.upload_success) {
+      return <Redirect to={redirect_url}/>
+    }
     return (
+      <React.Fragment>
       <div className="row upload-container">
-      <div className="col-lg-2"></div>
-        <div className="col text-center height-100 upload-title-padding upload-content" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
-          <div className="row">
-            <div className="col-lg-12">
-              <span onClick={this.props.uploadClick.bind(this)} className="close">&times;</span>
-              <h1>Upload file</h1>
-              <hr/>
+        <div className="col-lg-2"></div>
+          <div className="col text-center height-100 upload-title-padding upload-content" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
+            <div className="row">
+              <div className="col-lg-12">
+                <span onClick={this.props.uploadClick.bind(this)} className="close">&times;</span>
+                <h1>Upload file</h1>
+                <hr/>
+              </div>
             </div>
-          </div>
-          {!this.state.upload_success ?
             <div className="image-parent">
 
               <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
@@ -230,11 +235,10 @@ class Upload extends Component {
                 <div className="col-lg-4 col-md-4"></div>
               </div>
             </div>
-            : <Redirect to={redirect_url} />
-          }
-        </div>
-        <div className="col-lg-2"></div>
+          </div>
+          <div className="col-lg-2"></div>
       </div>
+      </React.Fragment>
     );
   }
 }

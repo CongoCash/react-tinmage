@@ -37,25 +37,20 @@ class Navbar extends Component {
   uploadClick(e) {
     console.log('upload clicked');
     if (this.state.upload_clicked) {
-      console.log(this.state.upload_clicked);
       this.setState({
         upload_clicked: false
-      }, ()=> {
-        console.log('upload is now1 ' + this.state.upload_clicked)
       })
     }
     else {
-      console.log(this.state.upload_clicked);
       this.setState({
         upload_clicked: true
-      }, ()=> {
-        console.log('upload is now2 ' + this.state.upload_clicked)
       })
     }
   }
 
   render() {
-    let logged_in = this.props.userData.logged_in
+    let logged_in = this.props.userData.logged_in;
+    console.log('navbar rendered');
     return (
       <React.Fragment>
         <div className="row navbar">

@@ -73,8 +73,6 @@ class Category extends Component {
   }
 
   handlePageChange(pageNumber) {
-    console.log('here');
-    console.log(`active page is ${pageNumber}`);
     this.setState({active_page: pageNumber}, () => {
 
     });
@@ -86,16 +84,16 @@ class Category extends Component {
     let page_images = '';
 
     if (images_available) {
-      all_images = this.state.images.map((image) => {
+      all_images = this.state.images.map((image, index) => {
         return (
-          <div className="row">
+          <div className="row" key={index}>
             <div className="col-lg-1"></div>
             <div className="category-container col-lg-10">
               <div className="row">
                 {
-                  image.map((inner_image) => {
+                  image.map((inner_image, index) => {
                     return (
-                      <CategoryImage image={inner_image}/>
+                      <CategoryImage image={inner_image} key={index}/>
                     )
                   })
                 }
@@ -103,7 +101,6 @@ class Category extends Component {
             </div>
             <div className="col-lg-1"></div>
           </div>
-
         )
       });
       page_images = all_images.slice((this.state.active_page-1)*this.state.page_range,

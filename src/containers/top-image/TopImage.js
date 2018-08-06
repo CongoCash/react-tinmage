@@ -22,8 +22,6 @@ class TopImage extends Component {
         multiplier -= 0.1;
         height = height*multiplier;
         width = width*multiplier;
-        console.log(height);
-        console.log(width);
       }
     }
     return {
@@ -50,7 +48,6 @@ class TopImage extends Component {
 
 
   render() {
-    console.log(this.props.image_data);
 
     return (
       <React.Fragment>

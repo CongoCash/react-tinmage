@@ -25,16 +25,26 @@ class Image extends Component {
     axios.get(this.props.userData.base_url + "api/images/" + this.state.image_id).then((response) => {
       this.setState({
         image_data: response.data[0]
-      }, () => {
-        console.log(this.state.image_data);
       })
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      console.log('entered inside the if statement');
+      console.log(this.props);
+      console.log(this.state.image_id);
+      axios.get(this.props.userData.base_url + "api/images/" + this.props.match.params.id).then((response) => {
+        this.setState({
+          image_data: response.data[0]
+        })
+      })
+    }
   }
 
   //fix error that shows up when grabbing image_id that doesn't exist, either prevent or send them to image_id 1 or last id
   //also images are not resizing themselves, are taking the image ratio of the original image
   nextImage(e) {
-    console.log(e.keyCode);
     if (e.keyCode === 37) {
       if (this.state.image_id > 1) {
         let image_id = parseInt(this.state.image_id, 10) - 1;
@@ -43,7 +53,6 @@ class Image extends Component {
             image_data: response.data[0],
             image_id: image_id
           }, () => {
-            console.log(this.props.history);
             this.props.history.replace(this.state.image_id.toString());
           })
         })
@@ -54,13 +63,11 @@ class Image extends Component {
     }
     else if (e.keyCode === 39) {
       let image_id = parseInt(this.state.image_id, 10) + 1;
-      console.log(image_id);
       axios.get(this.props.userData.base_url + "api/images/" + image_id).then((response) => {
         this.setState({
           image_data: response.data[0],
           image_id: image_id
         }, () => {
-          console.log(this.props.history);
           this.props.history.replace(this.state.image_id.toString());
         })
       })
@@ -76,6 +83,7 @@ class Image extends Component {
     if (render_image) {
       image_url = this.state.image_data.url;
     }
+    console.log(this.state.image_data.url);
     return (
       <div className="col">
       {render_image ?
