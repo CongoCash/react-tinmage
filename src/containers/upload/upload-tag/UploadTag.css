@@ -14,9 +14,12 @@
 }
 
 .input-tag {
-    width: 56%;
+    width: 80%;
 }
 
 .create-tag {
-    width: 19%;
+    width: 20%;
+    background: linear-gradient(to right, seagreen, darkolivegreen);
+    border-radius: 2px;
+    color: white;
 }

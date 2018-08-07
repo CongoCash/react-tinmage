@@ -2,6 +2,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #202f47;
+    margin: 0;
     width: 100%;
 }
 
@@ -11,8 +12,13 @@
 
 .nav-link-color {
     color: white !important;
+    font-size: 12px;
 }
 
 .category-dropdown {
     z-index: 1;
+}
+
+.align-right {
+    text-align: right;
 }

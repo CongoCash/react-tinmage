@@ -52,7 +52,7 @@ class Navbar extends Component {
     let logged_in = this.props.userData.logged_in;
     console.log('navbar rendered');
     return (
-      <React.Fragment>
+      <div className="col">
         <div className="row navbar">
           <div className="col-6">
             <div className="row">
@@ -60,33 +60,32 @@ class Navbar extends Component {
                 <Link to='/' className="nav-link-color logo">Tinmage</Link>
               </div>
               <div className="col-6">
-                <h6 onClick={this.category_button} className="nav-link-color align-vertical">Categories</h6>
+                <a href="#" onClick={this.category_button} className="nav-link-color align-vertical">Categories</a>
               </div>
             </div>
           </div>
           <div className="col-6">
             <div className="row">
               <div className="col-2"></div>
-              <div className="col-2"></div>
               {!logged_in ?
-                <div className="col-8">
+                <div className="col-10">
                   <div className="row">
-                    <div className="col-4">
-                      <a className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
+                    <div className="col-4 align-right">
+                      <a href="#" className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
                     </div>
-                    <div className="col-4">
+                    <div className="col-4 align-right">
                       <Link to ='/signup' className="nav-link-color align-vertical">Signup</Link>
                     </div>
-                    <div className="col-4">
+                    <div className="col-4 align-right">
                       <Link to ='/login' className="nav-link-color align-vertical">Login</Link>
                     </div>
                   </div>
                 </div>
                 :
-                <div className="col-8">
+                <div className="col-10">
                   <div className="row">
                     <div className="col-sm-4">
-                      <h6 className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</h6>
+                      <a href="#" className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-sm-4">
                       <Link to ='/profile' className="nav-link-color align-vertical">{this.props.userData.username}</Link>
@@ -109,13 +108,11 @@ class Navbar extends Component {
           ""
         }
         {this.state.upload_clicked ?
-          <div className="row width-100 margin-0">
             <Upload uploadClick={this.uploadClick} userData={this.props.userData}/>
-          </div>
           :
           ""
         }
-    </React.Fragment>
+    </div>
     )
   }
 }

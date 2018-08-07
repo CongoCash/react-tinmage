@@ -214,7 +214,7 @@ class Upload extends Component {
     return (
       <React.Fragment>
       <div className="row upload-container">
-        <div className="col-lg-2"></div>
+        <div className="col-lg-2 col-md-2 col-sm-1"></div>
           <div className="col text-center height-100 upload-title-padding upload-content" onDrop={this.onDropFile} onDragOver={this.dragOverHandler}>
             <div className="row">
               <div className="col-lg-12">
@@ -224,7 +224,6 @@ class Upload extends Component {
               </div>
             </div>
             <div className="image-parent">
-
               <UploadFile onChange={this.onChange} fileName={this.state.file_name} upload_error={upload_error}
                 selectedFile={this.state.selectedFile} previewHeight={this.state.preview_height}
                 previewWidth={this.state.preview_width}
@@ -236,17 +235,17 @@ class Upload extends Component {
                   tags={this.state.tags} tagError={this.state.tag_error_message}/>
 
               <div className="row">
-                <div className="col-lg-4 col-md-4"></div>
-                <div className="col-lg-4 col-md-4">
+                <div className="col-lg-2"></div>
+                <div className="col">
                   <button className="btn btn-success btn-lg upload-buttons" onClick={this.onSubmit}>
                   Upload
                   </button>
                 </div>
-                <div className="col-lg-4 col-md-4"></div>
+                <div className="col-lg-2"></div>
               </div>
             </div>
           </div>
-          <div className="col-lg-2"></div>
+          <div className="col-lg-2 col-md-2 col-sm-1"></div>
       </div>
       </React.Fragment>
     );
