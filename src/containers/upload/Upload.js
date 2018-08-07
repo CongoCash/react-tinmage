@@ -157,6 +157,7 @@ class Upload extends Component {
   };
 
   onSubmit = (e) => {
+    console.log('intial entering submit');
     e.preventDefault();
     let tags_array = [];
     let push_tags = new Promise((resolve, reject) => {
@@ -176,6 +177,7 @@ class Upload extends Component {
         formData.append('height', this.state.preview_height);
         formData.append('width', this.state.preview_width);
 
+        console.log('entered upload submit');
         axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
           console.log(response);
           this.setState({
