@@ -52,23 +52,23 @@ class Navbar extends Component {
     let logged_in = this.props.userData.logged_in;
     console.log('navbar rendered');
     return (
-      <div className="col">
+      <div className="col-sm">
         <div className="row navbar">
-          <div className="col-6">
+          <div className="col-sm-6 col-6">
             <div className="row">
-              <div className="col-6">
+              <div className="col-6 align-left padding-0">
                 <Link to='/' className="nav-link-color logo">Tinmage</Link>
               </div>
-              <div className="col-6">
+              <div className="col-6 align-left padding-0">
                 <a href="#" onClick={this.category_button} className="nav-link-color align-vertical">Categories</a>
               </div>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-sm-6 col-6">
             <div className="row">
-              <div className="col-2"></div>
+              <div className="col-sm-2"></div>
               {!logged_in ?
-                <div className="col-10">
+                <div className="col-12">
                   <div className="row">
                     <div className="col-4 align-right">
                       <a href="#" className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
@@ -82,15 +82,15 @@ class Navbar extends Component {
                   </div>
                 </div>
                 :
-                <div className="col-10">
+                <div className="col-12">
                   <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-4 align-right">
                       <a href="#" className="nav-link-color align-vertical" onClick={this.uploadClick}>Upload</a>
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-4 align-right">
                       <Link to ='/profile' className="nav-link-color align-vertical">{this.props.userData.username}</Link>
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-4 align-right">
                       <Link to ='/logout' className="nav-link-color align-vertical" onClick={this.onLogout}>Logout</Link>
                     </div>
                   </div>

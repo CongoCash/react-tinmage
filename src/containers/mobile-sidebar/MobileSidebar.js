@@ -4,7 +4,7 @@ require('./MobileSidebar.css')
 
 class MobileSidebar extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       categories: ['new', 'ads', 'animals', 'cars', 'cartoons', 'cool', 'funny', 'games', 'gif', 'jokes', 'movies',
         'music', 'other', 'political', 'sports', 'travel', 'tv', 'untagged', 'wow']
@@ -31,7 +31,7 @@ class MobileSidebar extends Component {
 
   render() {
     return (
-      <div className="width-100 col-md-12">
+      <div className="width-100 col-12 padding-0">
         <ul className="row sidebar-list width-100">
           {this.state.categories.map((category, index) =>
             <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category} key={index}>
