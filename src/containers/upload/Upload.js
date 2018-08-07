@@ -171,7 +171,7 @@ class Upload extends Component {
       console.log(file_ext);
       console.log(selectedFile.name.split('.').pop());
       console.log(file_ext[selectedFile.name.split('.').pop()]);
-      if (selectedFile && file_ext[selectedFile.name.split('.').pop()] === true) {
+      if (selectedFile && file_ext[selectedFile.name.split('.').pop().toLowerCase()] === true) {
         let formData = new FormData();
 
         formData.append('title', title);
