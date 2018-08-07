@@ -177,6 +177,7 @@ class Upload extends Component {
         formData.append('width', this.state.preview_width);
 
         axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
+          console.log(response);
           this.setState({
             image_id: response.data.id,
             upload_error: false,
@@ -184,7 +185,10 @@ class Upload extends Component {
           }, () => {
             this.props.uploadClick();
           });
-        });
+        })
+          .catch((error) => {
+            console.log(error);
+          });
       }
       else {
         this.setState({
