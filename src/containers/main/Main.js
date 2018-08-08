@@ -232,6 +232,7 @@ class Main extends Component {
       }
     }
   }
+  //move like/dislike to same row as title
 
   render() {
     let images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
@@ -265,15 +266,20 @@ class Main extends Component {
                     "hellooo"
                   }
                   <div className="row">
-                    <div className="col-lg-12 center">
+                    <div className="col-lg-2 col-2 center">
+                      <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
+                    </div>
+                    <div className="col-lg-8 col-8 center">
                       <h2>{top_image_data.title}</h2>
+                    </div>
+                    <div className="col-lg-2 col-2 center">
+                      <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
                     </div>
                   </div>
 
                   {top_image ?
                     <div className="row" style={{height: top_image_data.height + "px"}}>
                       <div className="col-lg-2">
-                        <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
                       </div>
                       <div className="col-lg-8">
                         <TopImage image_data={top_image_data}
@@ -283,7 +289,6 @@ class Main extends Component {
                         />
                       </div>
                       <div className="col-lg-2">
-                        <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
                       </div>
                     </div>
                     : ""
