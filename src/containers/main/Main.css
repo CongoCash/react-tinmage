@@ -103,3 +103,20 @@
 .tutorial-text {
     color: black;
 }
+
+@media only screen and (max-width: 576px) {
+    .like-text {
+        font-size: 30px;
+    }
+    .dislike-text {
+        font-size: 30px;
+    }
+    .like-container {
+        padding: 0;
+        right: 10px;
+    }
+    .dislike-container {
+        padding: 0;
+        right: 10px;
+    }
+}

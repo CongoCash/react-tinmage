@@ -35,6 +35,8 @@ class Main extends Component {
     this.dragEnd = this.dragEnd.bind(this);
     this.dragImage = this.dragImage.bind(this);
     this.closeTutorial = this.closeTutorial.bind(this);
+    this.adjustDim = this.adjustDim.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
     this.like = React.createRef();
     this.dislike = React.createRef();
   }
@@ -57,6 +59,21 @@ class Main extends Component {
     const img = new Image();
     img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
     img.onload = () => this.setState({ drag_image: img });
+
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
   }
 
   getImages(props) {
@@ -122,6 +139,8 @@ class Main extends Component {
           opacity: Math.abs(dragged_distance)/(e.target.width/2),
           zIndex: 15
         }
+      }, () => {
+        console.log(this.state.like_css);
       })
     }
 
@@ -130,6 +149,8 @@ class Main extends Component {
         dislike_css: {
           opacity: Math.abs(dragged_distance)/(e.target.width/2)
         }
+      }, () => {
+        console.log(this.state.dislike_css);
       })
     }
 
@@ -232,6 +253,25 @@ class Main extends Component {
       }
     }
   }
+
+  adjustDim() {
+    let height = this.state.images[this.state.image_index].height;
+    let width = this.state.images[this.state.image_index].width;
+    let multiplier = 0.8;
+    if ((height !== '' && height >= window.innerHeight * 0.25) ||
+      (width !== '' && width >= window.innerWidth) * 0.25) {
+      while (height >= window.innerHeight * 0.25 && width >= window.innerWidth) {
+        multiplier -= 0.1;
+        height = height*multiplier;
+        width = width*multiplier;
+      }
+    }
+    return {
+      height: height,
+      width: width
+    }
+  }
+
   //move like/dislike to same row as title
 
   render() {
@@ -266,29 +306,29 @@ class Main extends Component {
                     "hellooo"
                   }
                   <div className="row">
-                    <div className="col-lg-2 col-2 center">
+                    <div className="col-lg-2 col-4 center like-container">
                       <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
                     </div>
-                    <div className="col-lg-8 col-8 center">
+                    <div className="col-lg-8 col-4 center">
                       <h2>{top_image_data.title}</h2>
                     </div>
-                    <div className="col-lg-2 col-2 center">
+                    <div className="col-lg-2 col-4 center dislike-container">
                       <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
                     </div>
                   </div>
 
                   {top_image ?
-                    <div className="row" style={{height: top_image_data.height + "px"}}>
-                      <div className="col-lg-2">
+                    <div className="row" style={{height: this.adjustDim().height + "px"}}>
+                      <div className="col-lg-2 col-1">
                       </div>
-                      <div className="col-lg-8">
+                      <div className="col-lg-8 col-10">
                         <TopImage image_data={top_image_data}
                                   swiped={this.swiped} dragImage={this.dragImage}
                                   initialLocation={this.initialLocation} dragEnd={this.dragEnd}
                                   bottom_image={bottom_image} bottom_image_data={bottom_image_data}
                         />
                       </div>
-                      <div className="col-lg-2">
+                      <div className="col-lg-2 col-1">
                       </div>
                     </div>
                     : ""
