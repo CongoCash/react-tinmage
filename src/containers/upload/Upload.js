@@ -34,14 +34,6 @@ class Upload extends Component {
     this.dragOverHandler = this.dragOverHandler.bind(this);
   }
 
-  componentDidMount() {
-    console.log('rendering did mount in upload');
-  }
-
-  componentDidUpdate() {
-    console.log('rendering did update in upload');
-  }
-
   onDropFile = (e) => {
     e.preventDefault();
     this.setState({
@@ -65,6 +57,7 @@ class Upload extends Component {
     e.preventDefault();
   };
 
+  //need to send actual height/width of photo instead of preview height to backend
   onChange = (e) => {
     if (e.target.name === 'selectedFile') {
       if (e.target.files[0]) {
@@ -157,7 +150,6 @@ class Upload extends Component {
   };
 
   onSubmit = (e) => {
-    console.log('intial entering submit');
     e.preventDefault();
     let tags_array = [];
     let push_tags = new Promise((resolve, reject) => {
@@ -167,10 +159,6 @@ class Upload extends Component {
 
     push_tags.then(() => {
       const { title, selectedFile, file_ext } = this.state;
-      console.log(selectedFile);
-      console.log(file_ext);
-      console.log(selectedFile.name.split('.').pop());
-      console.log(file_ext[selectedFile.name.split('.').pop()]);
       if (selectedFile && file_ext[selectedFile.name.split('.').pop().toLowerCase()] === true) {
         let formData = new FormData();
 
@@ -181,9 +169,7 @@ class Upload extends Component {
         formData.append('height', this.state.preview_height);
         formData.append('width', this.state.preview_width);
 
-        console.log('entered upload submit');
         axios.post(this.props.userData.base_url + 'api/upload', formData).then((response) => {
-          console.log(response);
           this.setState({
             image_id: response.data.id,
             upload_error: false,

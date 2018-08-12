@@ -18,7 +18,7 @@ class Signup extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      username: e.target.value,
     })
   }
 
@@ -68,7 +68,7 @@ class Signup extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label className="control-label">Username</label>
-                <input className="form-control" value={this.state.username}type="text" name="username" onChange={this.onChange} />
+                <input className="form-control" value={this.state.username} maxLength="20" type="text" name="username" onChange={this.onChange}/>
               </div>
               <div className="form-group">
                 <label className="control-label">Password</label>

@@ -10,9 +10,10 @@
     padding-left: 15px;
 }
 
-.nav-link-color {
+.nav-link-style {
     color: white !important;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .category-dropdown {

@@ -139,8 +139,6 @@ class Main extends Component {
           opacity: Math.abs(dragged_distance)/(e.target.width/2),
           zIndex: 15
         }
-      }, () => {
-        console.log(this.state.like_css);
       })
     }
 
@@ -149,8 +147,6 @@ class Main extends Component {
         dislike_css: {
           opacity: Math.abs(dragged_distance)/(e.target.width/2)
         }
-      }, () => {
-        console.log(this.state.dislike_css);
       })
     }
 
@@ -280,7 +276,6 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.props);
 
     return (
           <React.Fragment>
