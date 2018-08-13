@@ -17,9 +17,19 @@ class Signup extends Component {
   }
 
   onChange(e) {
-    this.setState({
-      username: e.target.value,
-    })
+    console.log(e.charCode);
+    //e.target.name is used because it will set state to whatever input that is being typed into at the moment
+    if ((e.charCode && e.charCode === 32) || e.target.value.slice(-1) === " ") {
+      this.setState({
+        error_message: "Cannot use space in your username/password"
+      })
+    }
+    else {
+      this.setState({
+        [e.target.name]: e.target.value,
+        error_message: ""
+      })
+    }
   }
 
   onSubmit(e) {
@@ -68,16 +78,17 @@ class Signup extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label className="control-label">Username</label>
-                <input className="form-control" value={this.state.username} maxLength="20" type="text" name="username" onChange={this.onChange}/>
+                <input className="form-control" value={this.state.username} maxLength="20" type="text" name="username"
+                       onChange={this.onChange} onKeyPress={this.onChange}/>
               </div>
               <div className="form-group">
                 <label className="control-label">Password</label>
-                <input className="form-control" value={this.state.password} type="password" name="password"
+                <input className="form-control" maxLength="256" value={this.state.password} type="password" name="password"
                        onChange={this.onChange} />
               </div>
               <div className="form-group">
                 <label className="control-label">Password Confirmation</label>
-                <input className="form-control" value={this.state.password_confirmation} type="password"
+                <input className="form-control" maxLength="256" value={this.state.password_confirmation} type="password"
                        name="password_confirmation" onChange={this.onChange} />
               </div>
               <div className="form-group">
