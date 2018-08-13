@@ -17,7 +17,6 @@ class Signup extends Component {
   }
 
   onChange(e) {
-    console.log(e.charCode);
     //e.target.name is used because it will set state to whatever input that is being typed into at the moment
     if ((e.charCode && e.charCode === 32) || e.target.value.slice(-1) === " ") {
       this.setState({
