@@ -50,7 +50,6 @@ class Navbar extends Component {
 
   render() {
     let logged_in = this.props.userData.logged_in;
-    console.log('navbar rendered');
     return (
       <div className="col-sm">
         <div className="row navbar">
@@ -88,7 +87,7 @@ class Navbar extends Component {
                       <a  className="nav-link-style align-vertical" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-4 align-right">
-                      <Link to ='/profile' className="nav-link-style align-vertical">{this.props.userData.username}</Link>
+                      <Link to ={'/profile/' + this.props.userData.user_id } className="nav-link-style align-vertical">{this.props.userData.username}</Link>
                     </div>
                     <div className="col-4 align-right">
                       <Link to ='/logout' className="nav-link-style align-vertical" onClick={this.onLogout}>Logout</Link>

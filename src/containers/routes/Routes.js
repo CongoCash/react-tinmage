@@ -7,6 +7,7 @@ import Category from '../category/Category.js'
 import Image from '../image/Image.js'
 import Main from '../main/Main.js'
 import TestMain from '../test-main/TestMain.js'
+import Profile from '../profile/Profile.js'
 
 class Routes extends Component {
   constructor(props) {
@@ -63,6 +64,12 @@ class Routes extends Component {
         <Route path="/images/:id"
                render={(props) => (
                    <Image {...props} userData={this.props.userData} />
+               )}
+        />
+
+        <Route path="/profile/:id"
+               render={(props) => (
+                 <Profile {...props} userData={this.props.userData} />
                )}
         />
       </Switch>
