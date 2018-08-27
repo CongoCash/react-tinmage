@@ -7,7 +7,11 @@ class Tag extends Component {
 
   render() {
     let tags = this.props.tags.map((tag, index) => {
-      return <Link className="btn btn-success tag tag-text" to={"/category/" + tag} key={index}>{tag}</Link>
+      return (
+        <div className="col-6">
+          <Link className="btn btn-success tag tag-text" to={"/category/" + tag} key={index}>{tag}</Link>
+        </div>
+      )
     });
 
     let tags_available = (this.props.tags.length > 0 && this.props.tags[0] !== "");
@@ -17,7 +21,9 @@ class Tag extends Component {
       {tags_available ?
           <div className="row">
             <div className="col-lg-12">
-              <h4>Tags: </h4>{tags}
+              <div className="row">
+                {tags}
+              </div>
             </div>
           </div> : ''
       }

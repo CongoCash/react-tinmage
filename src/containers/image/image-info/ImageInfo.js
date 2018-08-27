@@ -29,6 +29,7 @@ class ImageInfo extends Component {
   //add download button/functionality, copy exact image functionality, and copy embed code functionality, fix main
 
   render() {
+    console.log(this.props.imageData);
     return (
       <React.Fragment>
         {this.props.imageData !== '' ?
@@ -40,8 +41,8 @@ class ImageInfo extends Component {
               </div>
             </div>
             <div className="row">
-              {this.props.imageData.User !== null ?
-                <h6 className="col-sm-12 text-center">Uploaded by {this.props.imageData.User.username} on {this.props.imageData.updatedAt.substring(0,10)}</h6>
+              {this.props.imageData.user !== null ?
+                <h6 className="col-sm-12 text-center">Uploaded by {this.props.imageData.user.username} on {this.props.imageData.updatedAt.substring(0,10)}</h6>
                 :
                 <h6 className="col-sm-12 text-center">Uploaded on {this.props.imageData.updatedAt.substring(0,10)}</h6>
               }
@@ -56,16 +57,16 @@ class ImageInfo extends Component {
             </div>
             <div className="row">
               <div className="col-sm-6 center">
-                <button onClick={this.copyUrl.bind(this)} className="btn copy-margin">Copy URL</button>
+                <button onClick={this.copyUrl.bind(this)} className="btn image-info-buttons">Copy URL</button>
               </div>
-              <div className="col-sm-6 left-align">
-                <button onClick={this.copyImage.bind(this)} className="btn copy-margin">Copy Image URL</button>
+              <div className="col-sm-6 center">
+                <button onClick={this.copyImage.bind(this)} className="btn image-info-buttons">Copy Image URL</button>
               </div>
             </div>
             <div className="row">
               <div className="col-sm-6 center">
                 <a href={this.props.imageData.url} download>
-                  <button className="btn copy-margin">Download</button>
+                  <button className="btn image-info-buttons">Download</button>
                 </a>
               </div>
             </div>

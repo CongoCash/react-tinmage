@@ -53,7 +53,8 @@
 }
 
 .category-container {
-    background-color: #414956;
+    background-color: #161616;
+    border: 1px solid grey;
 }
 
 .category-margin {

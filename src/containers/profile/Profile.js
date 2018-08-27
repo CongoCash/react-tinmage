@@ -28,7 +28,7 @@ class Profile extends Component {
   render() {
     let images = this.state.images.map((image) => {
       console.log(image);
-      return <Link to={"/images/" + image.ImageId}><img width="100%" height="300" src={image.Image.url}/></Link>
+      return <Link to={"/images/" + image.imageId}><img width="100%" height="300" src={image.image.url}/></Link>
     });
     let image_element = [];
     console.log(images.length);
