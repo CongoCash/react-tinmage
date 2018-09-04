@@ -28,10 +28,10 @@ class Profile extends Component {
   render() {
     let images = this.state.images.map((image) => {
       console.log(image);
-      return <Link to={"/images/" + image.imageId}><img width="100%" height="300" src={image.image.url}/></Link>
+      return <Link to={"/images/" + image.image_id}><img width="100%" height="300" src={image.image.url}/></Link>
     });
     let image_element = [];
-    console.log(images.length);
+
     for (let i = 0; i < images.length; i+= 4) {
       image_element.push(
       <div className="row">

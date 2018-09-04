@@ -3,13 +3,13 @@ import {myConfig} from '../config'
 
 class ImagesModel {
 
-  static getAll(){
-    let request = axios.get(myConfig.api_url + "api/images")
+  static getMain(user_id){
+    let request = axios.get(myConfig.api_url + "api/images/main", {params: {user_id: user_id}});
     return request
   }
 
   static getTags(url, param) {
-    let request = axios.get(myConfig.api_url + url + param)
+    let request = axios.get(myConfig.api_url + url + param);
     return request
   }
 

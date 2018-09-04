@@ -78,9 +78,10 @@ class Main extends Component {
 
   getImages(props) {
     if (!props.match.params.tag) {
-      ImagesModel.getAll().then((res) => {
+      ImagesModel.getMain(props.userData.user_id).then((res) => {
+        console.log(res.data[0]);
         this.setState({
-          images: res.data,
+          images: res.data[0],
           image_index: 0,
           error_message: '',
           tag: ''
@@ -276,6 +277,7 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
+    console.log(this.state.images);
 
     return (
           <React.Fragment>
