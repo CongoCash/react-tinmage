@@ -13,8 +13,8 @@ class ImagesModel {
     return request
   }
 
-  static postRating(user_id, image_id, status) {
-    let request = axios.post(myConfig.api_url + "api/images/rating", {user_id: user_id, image_id: image_id, status: status});
+  static postRating(user_id, image_id, tag, status) {
+    let request = axios.post(myConfig.api_url + "api/images/ratings", {user_id: user_id, image_id: image_id, tag: tag, status: status});
     return request
   }
 }

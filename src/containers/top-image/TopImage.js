@@ -48,15 +48,15 @@ class TopImage extends Component {
 
   startTouch = () => {
     console.log('touching');
-  }
+  };
 
   moveTouch = () => {
     console.log('moving');
-  }
+  };
 
   endTouch = () => {
     console.log('ending');
-  }
+  };
 
   render() {
 
@@ -64,9 +64,9 @@ class TopImage extends Component {
       <React.Fragment>
             <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
                  src={this.props.image_data.url} alt=""
-                 // onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
-                 // onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
-                 onTouchStart={this.startTouch} onTouchMove={this.moveTouch} onTouchEnd={this.endTouch}
+                 onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
+                 onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
+                 // onTouchStart={this.startTouch} onTouchMove={this.moveTouch} onTouchEnd={this.endTouch}
             />
             {this.props.bottom_image ?
               <BottomImage bottom_image_data={this.props.bottom_image_data} height={this.adjustDim().height}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ImagesModel from '../../models/Image.js'
+import TagModel from '../../models/Tag'
 import TopImage from '../top-image/TopImage'
 import './Main.css'
 import {Link} from 'react-router-dom'
@@ -8,7 +9,7 @@ import {Link} from 'react-router-dom'
 class Main extends Component {
 
   constructor(){
-    super()
+    super();
     this.state = {
       images: [],
       like: 0,
@@ -28,7 +29,9 @@ class Main extends Component {
       dislike_css: {
         opacity: ''
       },
-      tutorial: false
+      tutorial: false,
+      offset: 0,
+      refresh_images: false
     };
     this.swiped = this.swiped.bind(this);
     this.initialLocation = this.initialLocation.bind(this);
@@ -217,9 +220,9 @@ class Main extends Component {
   }
 
   handleLike(e) {
-
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "like");
+      let tag = this.state.images[this.state.image_index].tags;
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, tag, "like");
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -236,7 +239,8 @@ class Main extends Component {
 
   handleDislike(e) {
     if (this.state.images.length > 0) {
-      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, "dislike");
+      let tag = this.state.images[this.state.image_index].tags;
+      ImagesModel.postRating(this.props.userData.user_id, this.state.images[this.state.image_index].id, tag, "dislike");
 
       if (this.state.image_index < this.state.images.length-1) {
         this.setState({
@@ -277,89 +281,88 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.state.images);
+    console.log(this.props);
 
     return (
+      <React.Fragment>
+        {images_available ?
           <React.Fragment>
-            {images_available ?
-              <React.Fragment>
-                <div className="col">
-                  {this.state.tutorial ?
+            <div className="col">
+              {this.state.tutorial ?
+                <div className="row">
+                  <div className="col tutorial-modal">
                     <div className="row">
-                      <div className="col tutorial-modal">
-                        <div className="row">
-                          <div className="col-lg-3"></div>
-                          <div className=" col-lg-6 tutorial-content">
-                            <span onClick={this.closeTutorial} className="close">&times;</span>
-                            <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
-                            <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
-                            <h4 className="tutorial-text">The more images you swipe, the better your recommended section
-                              will be.</h4>
-                          </div>
-                        </div>
+                      <div className="col-lg-3"></div>
+                      <div className=" col-lg-6 tutorial-content">
+                        <span onClick={this.closeTutorial} className="close">&times;</span>
+                        <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
+                        <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
+                        <h4 className="tutorial-text">The more images you swipe, the better your recommended section
+                          will be.</h4>
                       </div>
-                    </div>
-                    :
-                    "hellooo"
-                  }
-                  <div className="row">
-                    <div className="col-lg-2 col-4 center like-container">
-                      <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
-                    </div>
-                    <div className="col-lg-8 col-4 center">
-                      <h2>{top_image_data.title}</h2>
-                    </div>
-                    <div className="col-lg-2 col-4 center dislike-container">
-                      <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
-                    </div>
-                  </div>
-
-                  {top_image ?
-                    <div className="row" style={{height: this.adjustDim().height + "px"}}>
-                      <div className="col-lg-2 col-1">
-                      </div>
-                      <div className="col-lg-8 col-10">
-                        <TopImage image_data={top_image_data}
-                                  swiped={this.swiped} dragImage={this.dragImage}
-                                  initialLocation={this.initialLocation} dragEnd={this.dragEnd}
-                                  bottom_image={bottom_image} bottom_image_data={bottom_image_data}
-                        />
-                      </div>
-                      <div className="col-lg-2 col-1">
-                      </div>
-                    </div>
-                    : ""
-                  }
-
-                  <div className="row">
-                    <div className="col-lg-12 center">
-                      <Link to={"/images/" + this.state.images[this.state.image_index].id}>
-                        <button className="btn details">Detail Page</button>
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-lg-12 align-tag">
-                      {top_image_data.tags.forEach((tag, index) => {
-                          return (
-                            <Link to={"/category/" + tag}>
-                              <button className="btn btn-secondary category-tag">
-                                {tag}
-                              </button>
-                            </Link>)
-                      })}
                     </div>
                   </div>
                 </div>
-              </React.Fragment>
-              :
-              <div className="col">
-                <h1>Nothing left here, check out some other categories!</h1>
+                :
+                "hellooo"
+              }
+              <div className="row">
+                <div className="col-lg-2 col-4 center like-container">
+                  <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
+                </div>
+                <div className="col-lg-8 col-4 center">
+                  <h2>{top_image_data.title}</h2>
+                </div>
+                <div className="col-lg-2 col-4 center dislike-container">
+                  <h1 ref={this.dislike} className="dislike-text" style={this.state.dislike_css}>Dislike</h1>
+                </div>
               </div>
-            }
-          </React.Fragment>
 
+              {top_image ?
+                <div className="row" style={{height: this.adjustDim().height + "px"}}>
+                  <div className="col-lg-2 col-1">
+                  </div>
+                  <div className="col-lg-8 col-10">
+                    <TopImage image_data={top_image_data}
+                              swiped={this.swiped} dragImage={this.dragImage}
+                              initialLocation={this.initialLocation} dragEnd={this.dragEnd}
+                              bottom_image={bottom_image} bottom_image_data={bottom_image_data}
+                    />
+                  </div>
+                  <div className="col-lg-2 col-1">
+                  </div>
+                </div>
+                : ""
+              }
+
+              <div className="row">
+                <div className="col-lg-12 center">
+                  <Link to={"/images/" + this.state.images[this.state.image_index].id}>
+                    <button className="btn details">Detail Page</button>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-12 align-tag">
+                  {top_image_data.tags.forEach((tag, index) => {
+                      return (
+                        <Link to={"/category/" + tag}>
+                          <button className="btn btn-secondary category-tag">
+                            {tag}
+                          </button>
+                        </Link>)
+                  })}
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+          :
+          <div className="col">
+            <h1>Nothing left here, check out some other categories!</h1>
+          </div>
+        }
+      </React.Fragment>
     )
   };
 }
