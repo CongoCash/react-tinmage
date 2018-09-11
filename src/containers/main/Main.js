@@ -81,7 +81,7 @@ class Main extends Component {
 
   getImages(props) {
     if (!props.match.params.tag) {
-      ImagesModel.getMain(props.userData.user_id).then((res) => {
+      ImagesModel.getMain(props.userData.user_id, this.state.offset).then((res) => {
         console.log(res.data[0]);
         this.setState({
           images: res.data[0],
@@ -89,27 +89,6 @@ class Main extends Component {
           error_message: '',
           tag: ''
         })
-      })
-    }
-    else {
-      ImagesModel.getTags('api/images/tags/', props.match.params.tag)
-      .then((res) => {
-        if (res.data.length > 0) {
-          this.setState({
-            images: res.data,
-            image_index: 0,
-            error_message: '',
-            tag: props.match.params.tag
-          })
-        }
-        else {
-          this.setState({
-            images: res.data,
-            image_index: 0,
-            error_message: 'Cannot find any images under this tag',
-            tag: ''
-          })
-        }
       })
     }
   }
