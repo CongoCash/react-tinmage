@@ -82,14 +82,17 @@ class Main extends Component {
   getImages(props) {
     if (!props.match.params.tag) {
       ImagesModel.getMain(props.userData.user_id, this.state.offset).then((res) => {
-        console.log(res.data[0]);
+        console.log(res);
         this.setState({
-          images: res.data[0],
+          images: res.data,
           image_index: 0,
           error_message: '',
           tag: ''
         })
       })
+        .catch((error) => {
+          console.log(error);
+        })
     }
   }
 
@@ -260,7 +263,7 @@ class Main extends Component {
     let bottom_image = (this.state.image_index+1 < this.state.images.length);
     let top_image_data = this.state.images[this.state.image_index];
     let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.props);
+    console.log(this.state.images);
 
     return (
       <React.Fragment>
@@ -276,14 +279,13 @@ class Main extends Component {
                         <span onClick={this.closeTutorial} className="close">&times;</span>
                         <h4 className="tutorial-text">Swiping left on the image to add it to your favorites.</h4>
                         <h4 className="tutorial-text">Swiping right on the image will dislike it.</h4>
-                        <h4 className="tutorial-text">The more images you swipe, the better your recommended section
-                          will be.</h4>
+                        <h4 className="tutorial-text">This will help us serve you images you will like on the front page.</h4>
                       </div>
                     </div>
                   </div>
                 </div>
                 :
-                "hellooo"
+                ""
               }
               <div className="row">
                 <div className="col-lg-2 col-4 center like-container">

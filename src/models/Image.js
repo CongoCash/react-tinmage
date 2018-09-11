@@ -4,6 +4,8 @@ import {myConfig} from '../config'
 class ImagesModel {
 
   static getMain(user_id, offset){
+    console.log(user_id);
+    console.log(offset);
     let request = axios.get(myConfig.api_url + "api/images/main", {params: {user_id: user_id, offset: offset}});
     return request
   }
