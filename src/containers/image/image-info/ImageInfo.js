@@ -65,7 +65,7 @@ class ImageInfo extends Component {
             </div>
             <div className="row">
               <div className="col-sm-6 center">
-                <a href={this.props.imageData.url} download>
+                <a href={this.props.imageData.url} download="image">
                   <button className="btn image-info-buttons">Download</button>
                 </a>
               </div>

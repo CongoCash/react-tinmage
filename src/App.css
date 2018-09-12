@@ -37,8 +37,8 @@
 }
 
 .align-vertical {
-  display: inline;
-  vertical-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .margin-0 {
@@ -51,7 +51,7 @@
 
 /* The Close Button */
 .close {
-  color: black;
+  color: red;
   float: right;
   font-size: 28px;
   font-weight: bold;

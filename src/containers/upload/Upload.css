@@ -1,6 +1,6 @@
 .upload-buttons {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-size: 75%;
 }
 
@@ -22,6 +22,7 @@
 .upload-content {
     height: fit-content;
     background-color: black;
+    border: 1px solid white;
 }
 
 /*.upper-container {*/

@@ -82,7 +82,7 @@ class Main extends Component {
   getImages(props) {
     if (!props.match.params.tag) {
       ImagesModel.getMain(props.userData.user_id, this.state.offset).then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.setState({
           images: res.data,
           image_index: 0,
@@ -258,12 +258,23 @@ class Main extends Component {
   //move like/dislike to same row as title
 
   render() {
-    let images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
-    let top_image = (this.state.image_index < this.state.images.length);
-    let bottom_image = (this.state.image_index+1 < this.state.images.length);
-    let top_image_data = this.state.images[this.state.image_index];
-    let bottom_image_data = this.state.images[this.state.image_index+1];
-    console.log(this.state.images);
+    let images_available = '';
+    let top_image = '';
+    let bottom_image = '';
+    let top_image_data = '';
+    let bottom_image_data = '';
+    if (this.state.images.length > 0) {
+      console.log(this.state.images[0]);
+      console.log(Array.isArray(this.state.images[0]));
+    }
+    if (this.state.images.length > 0 && !Array.isArray(this.state.images[0])) {
+      images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
+      top_image = (this.state.image_index < this.state.images.length);
+      bottom_image = (this.state.image_index+1 < this.state.images.length);
+      top_image_data = this.state.images[this.state.image_index];
+      bottom_image_data = this.state.images[this.state.image_index+1];
+    }
+    console.log(top_image_data);
 
     return (
       <React.Fragment>

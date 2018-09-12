@@ -7,6 +7,7 @@
     margin-left: auto;
     margin-right: auto;
     position: absolute;
+    border-radius: 10%;
 }
 
 .bottom-image {
@@ -18,6 +19,7 @@
     margin-left: auto;
     margin-right: auto;
     position: absolute;
+    border-radius: 10%;
 }
 
 .title {
@@ -29,10 +31,10 @@
 .category-tag {
     margin-bottom: 5px;
     margin-right: 5px;
-    background-color: silver;
+    background-color: #202f47;
     border: none;
     border-radius: 12px;
-    color: black;
+    color: white;
     font-weight: bold;
 }
 
@@ -44,7 +46,8 @@
 
 .details {
     font-family: Helvetica, sans-serif;
-    color: #3b557f;
+    background-color: #202f47;
+    color: white;
     margin-top: 10px;
 }
 
