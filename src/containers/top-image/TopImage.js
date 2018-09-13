@@ -53,7 +53,7 @@ class TopImage extends Component {
     this.setState({
       touch: true,
       type: "touching",
-    })
+    });
     console.log('touching');
   };
 
@@ -62,7 +62,7 @@ class TopImage extends Component {
     this.setState({
       touch: true,
       type: "moving"
-    })
+    });
     console.log('moving');
   };
 
@@ -71,9 +71,14 @@ class TopImage extends Component {
     this.setState({
       touch: false,
       touch: "none"
-    })
+    });
     console.log('ending');
   };
+
+  startTouch = (e) => {
+    this.props.initialLocation();
+    this.props.dragImage();
+  }
 
   render() {
 
@@ -88,7 +93,7 @@ class TopImage extends Component {
                  src={this.props.image_data.url} alt=""
                  onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
                  onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
-                 onTouchStart={this.startTouch} onTouchMove={this.moveTouch} onTouchEnd={this.endTouch}
+                 onTouchStart={this.startTouch} onTouchMove={this.props.swiped.bind(this)} onTouchEnd={this.props.dragEnd.bind(this)}
             />
             {this.props.bottom_image ?
               <BottomImage bottom_image_data={this.props.bottom_image_data} height={this.adjustDim().height}
