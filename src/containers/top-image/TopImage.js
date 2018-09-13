@@ -8,7 +8,7 @@ class TopImage extends Component {
       width: window.innerWidth,
       height: window.innerHeight,
       touch: false,
-      type: none,
+      type: "none",
     };
     this.updateDimensions = this.updateDimensions.bind(this);
     this.adjustDim = this.adjustDim.bind(this);
