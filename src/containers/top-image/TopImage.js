@@ -8,6 +8,7 @@ class TopImage extends Component {
       width: window.innerWidth,
       height: window.innerHeight,
       touch: false,
+      type: none,
     };
     this.updateDimensions = this.updateDimensions.bind(this);
     this.adjustDim = this.adjustDim.bind(this);
@@ -50,7 +51,8 @@ class TopImage extends Component {
   startTouch = (e) => {
     e.preventDefault();
     this.setState({
-      touch: true
+      touch: true,
+      type: "touching",
     })
     console.log('touching');
   };
@@ -58,7 +60,8 @@ class TopImage extends Component {
   moveTouch = (e) => {
     e.preventDefault();
     this.setState({
-      touch: true
+      touch: true,
+      type: "moving"
     })
     console.log('moving');
   };
@@ -66,7 +69,8 @@ class TopImage extends Component {
   endTouch = (e) => {
     e.preventDefault();
     this.setState({
-      touch: false
+      touch: false,
+      touch: "none"
     })
     console.log('ending');
   };
@@ -76,7 +80,7 @@ class TopImage extends Component {
     return (
       <React.Fragment>
         {this.state.touch ?
-        <p>Touching</p>
+        <p>{this.state.type}</p>
           :
           <p>Not Touching</p>
         }
