@@ -143,6 +143,9 @@ class Main extends Component {
   }
 
   initialLocation(e) {
+    // console.log('initial location');
+    // console.log(e);
+    // console.log(e.touches);
     //sets initial location after clicking on image
     this.setState({
       initial_x: e.clientX,
