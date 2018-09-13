@@ -298,7 +298,7 @@ class Main extends Component {
                 :
                 ""
               }
-              <div className="row">
+              <div className="row margin-50">
                 <div className="col-lg-2 col-4 center like-container">
                   <h1 ref={this.like} className="like-text" style={this.state.like_css}>Like</h1>
                 </div>

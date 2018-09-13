@@ -8,21 +8,33 @@
 .logo {
     padding-left: 15px;
     font-family: Helvetica, sans-serif;
+    margin-top: 2px
 }
 
 .logo-image {
-    height: 60px;
+    height: 50px;
     width: 75px;
 }
 
 .nav-link-style {
-    color: white !important;
+    color: white;
     font-size: 20px;
     cursor: pointer;
+    margin-top: 4px;
+}
+
+.category-navbar {
+    color: white !important;
+}
+
+.upload {
+    font-weight: bolder;
+    color: green !important;
 }
 
 .category-dropdown {
-    z-index: 1;
+    z-index: 3;
+    position: absolute;
 }
 
 .align-right {
@@ -31,4 +43,10 @@
 
 .align-left {
     justify-content: flex-start;
+}
+
+@media only screen and (max-width: 576px) {
+    .nav-link-style {
+        font-size: 15px;
+    }
 }

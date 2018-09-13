@@ -7,6 +7,7 @@ class TopImage extends Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
+      touch: false,
     };
     this.updateDimensions = this.updateDimensions.bind(this);
     this.adjustDim = this.adjustDim.bind(this);
@@ -46,15 +47,27 @@ class TopImage extends Component {
     })
   }
 
-  startTouch = () => {
+  startTouch = (e) => {
+    e.preventDefault();
+    this.setState({
+      touch: true
+    })
     console.log('touching');
   };
 
-  moveTouch = () => {
+  moveTouch = (e) => {
+    e.preventDefault();
+    this.setState({
+      touch: true
+    })
     console.log('moving');
   };
 
-  endTouch = () => {
+  endTouch = (e) => {
+    e.preventDefault();
+    this.setState({
+      touch: false
+    })
     console.log('ending');
   };
 
@@ -62,11 +75,16 @@ class TopImage extends Component {
 
     return (
       <React.Fragment>
+        {this.state.touch ?
+        <p>Touching</p>
+          :
+          <p>Not Touching</p>
+        }
             <img className="top-image" height={this.adjustDim().height} width={this.adjustDim().width} align="middle"
                  src={this.props.image_data.url} alt=""
                  onDrag={this.props.swiped.bind(this)} onDragStart={this.props.dragImage.bind(this)}
                  onMouseDown={this.props.initialLocation.bind(this)} onDragEnd={this.props.dragEnd.bind(this)}
-                 // onTouchStart={this.startTouch} onTouchMove={this.moveTouch} onTouchEnd={this.endTouch}
+                 onTouchStart={this.startTouch} onTouchMove={this.moveTouch} onTouchEnd={this.endTouch}
             />
             {this.props.bottom_image ?
               <BottomImage bottom_image_data={this.props.bottom_image_data} height={this.adjustDim().height}

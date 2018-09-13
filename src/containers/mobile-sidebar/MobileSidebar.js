@@ -31,16 +31,18 @@ class MobileSidebar extends Component {
 
   render() {
     return (
-      <div className="width-100 col-12 padding-0">
-        <ul className="row sidebar-list width-100">
-          {this.state.categories.map((category, index) =>
-            <Link className="col-3 col-sm-2 col-md-1 col-lg-1 mobile-link" to={"/category/" + category} key={index}>
-              <li onClick={this.category_button} className="category-design">
-                {this.capitalLink(category)}
-              </li>
-            </Link>
-          )}
-        </ul>
+      <div className="row width-100 margin-0 category-dropdown" onMouseLeave={this.props.category_inactive}>
+        <div className="width-100 col-sm-10 offset-sm-1 col-12 padding-0">
+          <ul className="row sidebar-list width-100 height-100">
+            {this.state.categories.map((category, index) =>
+              <Link className="col-3 col-sm-2 col-md-1 col-lg-1 category-item" to={"/category/" + category} key={index}>
+                <li onClick={this.category_button} className="category-design">
+                  {this.capitalLink(category)}
+                </li>
+              </Link>
+            )}
+          </ul>
+        </div>
       </div>
     )
   }

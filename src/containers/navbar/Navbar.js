@@ -50,15 +50,15 @@ class Navbar extends Component {
   render() {
     let logged_in = this.props.userData.logged_in;
     return (
-      <div className="col-sm">
+      <div className="col-12">
         <div className="row navbar-default">
           <div className="col-sm-6 col-6">
             <div className="row height-100">
               <div className="col-6 align-left align-vertical padding-0" onMouseEnter={this.category_inactive}>
                 <Link to='/' className="nav-link-style logo"><img className="logo-image" src={logo} /></Link>
               </div>
-              <div className="col-2 align-left align-vertical padding-0" onMouseEnter={this.category_active} >
-                <a className="nav-link-style align-vertical">Categories</a>
+              <div className="col-sm-2 col-6 align-left align-vertical padding-0" onMouseEnter={this.category_active} >
+                <a className="nav-link-style align-vertical category-navbar">Categories</a>
               </div>
               <div className="col-4" onMouseEnter={this.category_inactive}></div>
             </div>
@@ -69,8 +69,8 @@ class Navbar extends Component {
               {!logged_in ?
                 <div className="col-12">
                   <div className="row">
-                    <div className="col-4 align-right">
-                      <a  className="nav-link-style align-vertical" onClick={this.uploadClick}>Upload</a>
+                    <div className="col-4 align-right align-vertical">
+                      <a className="nav-link-style upload" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-4 align-right align-vertical">
                       <Link to ='/signup' className="nav-link-style align-vertical">Signup</Link>
@@ -84,13 +84,13 @@ class Navbar extends Component {
                 <div className="col-12">
                   <div className="row">
                     <div className="col-4 align-right align-vertical">
-                      <a  className="nav-link-style align-vertical" onClick={this.uploadClick}>Upload</a>
+                      <a  className="nav-link-style" onClick={this.uploadClick}>Upload</a>
                     </div>
                     <div className="col-4 align-right align-vertical">
-                      <Link to ={'/profile/' + this.props.userData.user_id } className="nav-link-style align-vertical">{this.props.userData.username}</Link>
+                      <Link to ={'/profile/' + this.props.userData.user_id } className="nav-link-style">{this.props.userData.username}</Link>
                     </div>
                     <div className="col-4 align-right align-vertical">
-                      <Link to ='/logout' className="nav-link-style align-vertical" onClick={this.onLogout}>Logout</Link>
+                      <Link to ='/logout' className="nav-link-style" onClick={this.onLogout}>Logout</Link>
                     </div>
                   </div>
                 </div>
@@ -100,8 +100,8 @@ class Navbar extends Component {
           </div>
         </div>
         {this.state.category_active ?
-          <div className="row width-100 margin-0" onMouseLeave={this.category_inactive}>
-            <MobileSidebar/>
+          <div className="row width-100 margin-0 category-dropdown" onMouseLeave={this.category_inactive}>
+            <MobileSidebar onMouseLeave={this.category_inactive}/>
           </div>
           :
           ""

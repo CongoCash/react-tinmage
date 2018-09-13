@@ -15,19 +15,30 @@
 }
 
 .sidebar-list {
-    background-color: #808080;
+    background-color: #202f47;
     margin: 0;
     width: 100%;
     padding-left: 0;
+    align-items: center;
+    border-width: 1px 0 0 0;
+    border-color: white;
+    border-style: solid;
 }
 
-.mobile-link {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
+.category-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 0;
 }
 
-.mobile-link:hover {
+.category-item:hover {
     background-color: #b51242;
     text-decoration: none;
+}
+
+.category-item:hover .category-design {
+    font-weight: bolder;
+    font-size: 20px;
 }

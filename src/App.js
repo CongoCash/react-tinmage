@@ -90,7 +90,7 @@ class App extends Component {
           <Navbar redirectUpload={this.redirectUpload} userData={this.state} onLogout={this.onLogout} />
         </div>
         <div className="row height-100">
-            <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
+          <Routes userData={this.state} logged_in={this.state.logged_in} onLogin={this.onLogin}/>
         </div>
       </div>
     );

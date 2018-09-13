@@ -81,6 +81,10 @@
     text-align: right;
 }
 
+.margin-50 {
+    margin-top: 50px;
+}
+
 .right-arrow {
     text-align: left;
 }
