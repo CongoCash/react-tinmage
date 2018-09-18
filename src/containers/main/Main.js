@@ -128,7 +128,7 @@ class Main extends Component {
       clientY = e.touches[0].clientY;
     }
 
-    let dragged_distance = e.clientX - this.state.initial_x;
+    let dragged_distance = clientX - this.state.initial_x;
 
     //fade in like and dislike text during swipe
     if (dragged_distance < 0) {
