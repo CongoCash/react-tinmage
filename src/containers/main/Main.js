@@ -82,7 +82,6 @@ class Main extends Component {
   getImages(props) {
     if (!props.match.params.tag) {
       ImagesModel.getMain(props.userData.user_id, this.state.offset).then((res) => {
-        console.log(res.data);
         this.setState({
           images: res.data,
           image_index: 0,
@@ -91,7 +90,6 @@ class Main extends Component {
         })
       })
         .catch((error) => {
-          console.log(error);
         })
     }
   }
@@ -116,6 +114,20 @@ class Main extends Component {
 
     e.persist();
 
+    let clientX = '';
+    let clientY = '';
+
+
+    if (e.clientX || e.clientX === 0) {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
+    else if (e.touches[0].clientX) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+
     let dragged_distance = e.clientX - this.state.initial_x;
 
     //fade in like and dislike text during swipe
@@ -137,25 +149,28 @@ class Main extends Component {
     }
 
     if (e.clientX !== 0) {
-      e.target.style.left = (e.clientX - this.state.initial_x) + "px";
-      e.target.style.top = (e.clientY - this.state.initial_y) + "px";
+      e.target.style.left = (clientX - this.state.initial_x) + "px";
+      e.target.style.top = (clientY - this.state.initial_y) + "px";
     }
   }
 
-  initialLocation(e) {
-    // console.log('initial location');
-    // console.log(e);
-    // console.log(e.touches);
+  initialLocation(clientX, clientY) {
+
     //sets initial location after clicking on image
     this.setState({
-      initial_x: e.clientX,
-      initial_y: e.clientY
+      initial_x: clientX,
+      initial_y: clientY
     })
   }
 
+
+
   dragEnd(e) {
     e.persist();
-    let dragged_distance = e.clientX - this.state.initial_x;
+
+
+    let dragged_distance = parseFloat(e.target.style.left.split("px")[0]);
+
     //image returned to original location because it has not passed drag threshold
     if (this.state.dragging === true && (Math.abs(dragged_distance) < e.target.width/2)) {
       e.target.style = "";
@@ -266,10 +281,7 @@ class Main extends Component {
     let bottom_image = '';
     let top_image_data = '';
     let bottom_image_data = '';
-    if (this.state.images.length > 0) {
-      console.log(this.state.images[0]);
-      console.log(Array.isArray(this.state.images[0]));
-    }
+
     if (this.state.images.length > 0 && !Array.isArray(this.state.images[0])) {
       images_available = (this.state.images.length > 0 && this.state.image_index < this.state.images.length);
       top_image = (this.state.image_index < this.state.images.length);
@@ -277,7 +289,6 @@ class Main extends Component {
       top_image_data = this.state.images[this.state.image_index];
       bottom_image_data = this.state.images[this.state.image_index+1];
     }
-    console.log(top_image_data);
 
     return (
       <React.Fragment>

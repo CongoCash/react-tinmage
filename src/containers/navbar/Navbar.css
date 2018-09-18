@@ -23,6 +23,13 @@
     margin-top: 4px;
 }
 
+.nav-link-style:hover {
+    color: white;
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 25px;
+}
+
 .category-navbar {
     color: white !important;
 }

@@ -34,25 +34,26 @@ class ImageInfo extends Component {
       <React.Fragment>
         {this.props.imageData !== '' ?
         <React.Fragment>
-          <div className="col-lg-4 detail-margin">
+          <div className="col-lg-4 detail-margin mobile-margin">
             <div className="row">
               <div className="col-sm-12 text-center title">
                 <h2>{this.props.imageData.title}</h2>
               </div>
             </div>
-            <div className="row">
+            <div className="row flex-center">
               {this.props.imageData.user !== null ?
                 <h6 className="col-sm-12 text-center">Uploaded by {this.props.imageData.user.username} on {this.props.imageData.updatedAt.substring(0,10)}</h6>
                 :
                 <h6 className="col-sm-12 text-center">Uploaded on {this.props.imageData.updatedAt.substring(0,10)}</h6>
               }
-              <hr className="width-100"/>
+              <h4>Tags</h4>
+              <hr className="width-100 margin-top-0"/>
             </div>
             <Tag tags={this.props.imageData.tags}/>
             <div className="row">
               <div className="col-sm-12">
                 <h4>Tools</h4>
-                <hr/>
+                <hr className="margin-top-0"/>
               </div>
             </div>
             <div className="row">
@@ -63,13 +64,13 @@ class ImageInfo extends Component {
                 <button onClick={this.copyImage.bind(this)} className="btn image-info-buttons">Copy Image URL</button>
               </div>
             </div>
-            <div className="row">
-              <div className="col-sm-6 center">
-                <a href={this.props.imageData.url} download="image">
-                  <button className="btn image-info-buttons">Download</button>
-                </a>
-              </div>
-            </div>
+            {/*<div className="row">*/}
+              {/*<div className="col-sm-6 center">*/}
+                {/*<a href={this.props.imageData.url} download="image">*/}
+                  {/*<button className="btn image-info-buttons">Download</button>*/}
+                {/*</a>*/}
+              {/*</div>*/}
+            {/*</div>*/}
           </div>
         </React.Fragment>
       :

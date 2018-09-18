@@ -8,8 +8,8 @@ class Tag extends Component {
   render() {
     let tags = this.props.tags.map((tag, index) => {
       return (
-        <div className="col-6">
-          <Link className="btn btn-success tag tag-text" to={"/category/" + tag} key={index}>{tag}</Link>
+        <div className="col-4">
+          <Link className="btn tag" to={"/category/" + tag} key={index}>{tag}</Link>
         </div>
       )
     });
@@ -21,7 +21,7 @@ class Tag extends Component {
       {tags_available ?
           <div className="row">
             <div className="col-lg-12">
-              <div className="row">
+              <div className="row flex-center">
                 {tags}
               </div>
             </div>

@@ -57,7 +57,7 @@ class Navbar extends Component {
               <div className="col-6 align-left align-vertical padding-0" onMouseEnter={this.category_inactive}>
                 <Link to='/' className="nav-link-style logo"><img className="logo-image" src={logo} /></Link>
               </div>
-              <div className="col-sm-2 col-6 align-left align-vertical padding-0" onMouseEnter={this.category_active} >
+              <div className="col-6 flex-center align-vertical padding-0" onMouseEnter={this.category_active} >
                 <a className="nav-link-style align-vertical category-navbar">Categories</a>
               </div>
               <div className="col-4" onMouseEnter={this.category_inactive}></div>
